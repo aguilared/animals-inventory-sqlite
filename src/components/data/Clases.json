@@ -1,0 +1,86 @@
+[
+  {
+    "id": 20,
+    "description": "Balneario/Poza",
+    "created_at": "2022-07-09T01:27:49.446Z",
+    "updated_at": "2022-07-09T20:25:52.043Z"
+  },
+  {
+    "id": 10,
+    "description": "Becerra",
+    "created_at": "2022-07-10T22:01:53.868Z",
+    "updated_at": "2022-07-10T22:01:36.126Z"
+  },
+  {
+    "id": 3,
+    "description": "Becerro",
+    "created_at": "2022-07-09T01:27:49.445Z",
+    "updated_at": "2022-07-09T20:25:30.032Z"
+  },
+  {
+    "id": 4,
+    "description": "Caballo",
+    "created_at": "2022-07-09T01:27:49.445Z",
+    "updated_at": "2022-07-09T20:25:30.032Z"
+  },
+  {
+    "id": 6,
+    "description": "Carnera",
+    "created_at": "2023-01-20T17:23:36.690Z",
+    "updated_at": "2023-01-20T17:21:10.864Z"
+  },
+  {
+    "id": 5,
+    "description": "Carnero",
+    "created_at": "2022-07-09T01:27:49.446Z",
+    "updated_at": "2022-07-09T20:25:30.032Z"
+  },
+  {
+    "id": 12,
+    "description": "Cochino",
+    "created_at": "2023-01-20T17:21:10.864Z",
+    "updated_at": "2023-01-20T17:21:10.864Z"
+  },
+  {
+    "id": 22,
+    "description": "Conuco",
+    "created_at": "2023-01-20T17:24:36.081Z",
+    "updated_at": "2023-01-20T17:23:36.690Z"
+  },
+  {
+    "id": 8,
+    "description": "Novilla",
+    "created_at": "2022-07-10T22:01:53.868Z",
+    "updated_at": "2022-07-10T22:01:06.794Z"
+  },
+  {
+    "id": 9,
+    "description": "Novillo",
+    "created_at": "2022-07-10T22:01:53.868Z",
+    "updated_at": "2022-07-10T22:01:19.638Z"
+  },
+  {
+    "id": 7,
+    "description": "Perro",
+    "created_at": "2022-07-09T20:25:30.031Z",
+    "updated_at": "2022-07-09T20:25:09.811Z"
+  },
+  {
+    "id": 2,
+    "description": "Toros",
+    "created_at": "2022-07-09T01:25:29.517Z",
+    "updated_at": "2022-07-09T01:25:29.517Z"
+  },
+  {
+    "id": 1,
+    "description": "Vaca",
+    "created_at": "2022-07-09T01:23:53.682Z",
+    "updated_at": "2022-07-09T20:25:30.032Z"
+  },
+  {
+    "id": 14,
+    "description": "Yegua",
+    "created_at": "2023-01-20T17:22:00.477Z",
+    "updated_at": "2023-01-20T17:21:10.864Z"
+  }
+]
