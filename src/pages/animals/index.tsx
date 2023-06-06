@@ -1,7 +1,7 @@
 import React, { useState, forwardRef, BaseSyntheticEvent } from "react";
 import Select from "react-select";
 import Link from "next/link";
-import { useForm, Controller, SubmitHandler } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import { Modal, ModalBody, ModalHeader, ModalFooter } from "reactstrap";
 import { IconButton } from "@mui/material";
 import StreetviewRoundedIcon from "@mui/icons-material/ThreeDRotation";
@@ -19,7 +19,6 @@ import { useOwners } from "../../hooks/useOwners";
 import { useClases } from "../../hooks/useClases";
 import { useVacas } from "../../hooks/useVacas";
 import AnimalEdit from "../../components/Animals/AnimalEdit";
-//import AnimalCard from "./AnimalCard";
 import toast, { Toaster } from "react-hot-toast";
 
 const notify = () =>

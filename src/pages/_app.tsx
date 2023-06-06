@@ -2,8 +2,8 @@ import "@/styles/globals.css";
 import Head from "next/head";
 import Header from "../components/Header";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-
 import type { AppProps } from "next/app";
+import "bootstrap/dist/css/bootstrap.css";
 
 const queryClient = new QueryClient({
   defaultOptions: {
