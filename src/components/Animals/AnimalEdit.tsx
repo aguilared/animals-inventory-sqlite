@@ -28,7 +28,7 @@ const AnimalEdit = (props: any): JSX.Element => {
   console.log("animalSeleccionada2", animalSeleccionada2);
   console.log("Clases", clases);
   console.log("EventsId", eventsId);
-  console.log("Owners", owners);
+  //console.log("Owners", owners);
 
   const {
     register,
@@ -37,7 +37,7 @@ const AnimalEdit = (props: any): JSX.Element => {
     formState: { errors },
   } = useForm<Inputs>();
 
-  const validate = (selected) => {
+  const validate = (selected: any) => {
     selected === "" || "You must be at least 18 years old";
     console.log("eleccionado", selected);
   };
