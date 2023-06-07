@@ -102,7 +102,6 @@ const AnimalEdit = (props: any): JSX.Element => {
 
             return (
               <Select
-                inputRef={ref}
                 options={clases}
                 defaultValue={currentSelection}
                 name={name}
@@ -142,7 +141,6 @@ const AnimalEdit = (props: any): JSX.Element => {
             };
             return (
               <Select
-                inputRef={ref}
                 options={owners}
                 defaultValue={currentSelection}
                 name={name}
