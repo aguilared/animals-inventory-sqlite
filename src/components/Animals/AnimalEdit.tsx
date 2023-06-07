@@ -246,7 +246,6 @@ const AnimalEdit = (props: any): JSX.Element => {
         />
         <input
           type="hidden"
-          name="id"
           defaultValue={animalSeleccionada2 && animalSeleccionada2.animal_id}
           {...register("id", {
             required: "Required",
