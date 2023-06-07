@@ -1,5 +1,7 @@
+import React from "react";
+
 type AuxProps = {
-  children?: JSX.Element[] | JSX.Element;
+  children?: React.JSX.Element[] | React.JSX.Element;
 };
 // function Container({ children }: Props) {
 const Container = ({ children }: AuxProps): JSX.Element => (
