@@ -63,7 +63,6 @@ const AnimalEdit = (props: any): JSX.Element => {
           })}
           onChange={(e) => handleOnChangeE("name", e.target.value)}
         />
-        {errors.name && errors.name}
       </div>
 
       <div className="md:w-11/12 px-3 mb-6 md:mb-0">
@@ -82,7 +81,6 @@ const AnimalEdit = (props: any): JSX.Element => {
           })}
           onChange={(e) => handleOnChangeE("birthdate", e.target.value)}
         />
-        {errors.birthdate && errors.birthdate}
       </div>
 
       <div className="md:w-11/12 px-3 mb-6 md:mb-0">
@@ -252,7 +250,6 @@ const AnimalEdit = (props: any): JSX.Element => {
           })}
           onChange={(e) => handleOnChangeE("info", e.target.value)}
         />
-        {errors.info && errors.info}
         <input
           type="hidden"
           name="id"
