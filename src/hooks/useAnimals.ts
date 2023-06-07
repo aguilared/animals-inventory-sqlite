@@ -1,5 +1,4 @@
-import { useInfiniteQuery } from "react-query";
-
+import { useInfiniteQuery } from "@tanstack/react-query";
 import fetchClient from "../services/fetchClient1";
 
 type ResultData = {
