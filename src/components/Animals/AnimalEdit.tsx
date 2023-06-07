@@ -96,12 +96,10 @@ const AnimalEdit = (props: any): JSX.Element => {
           rules={{ required: true }}
           render={({ field: { onChange, value, name, ref } }) => {
             const currentSelection = clases.find(
-              (c) => c.value === animalSeleccionada2.clase_id
+              (c: any) => c.value === animalSeleccionada2.clase_id
             );
             console.log("CurrentSelection", currentSelection);
-            const handleSelectChange = (selectedOption: clase_id | null) => {
-              onChange(selectedOption?.value);
-            };
+
             return (
               <Select
                 inputRef={ref}
@@ -136,7 +134,7 @@ const AnimalEdit = (props: any): JSX.Element => {
           rules={{ required: true }}
           render={({ field: { onChange, value, name, ref } }) => {
             const currentSelection = owners.find(
-              (c) => c.value === animalSeleccionada2.owner_id
+              (c: any) => c.value === animalSeleccionada2.owner_id
             );
             console.log("CurrentSelection", currentSelection);
             const handleSelectChange = (selectedOption: owner_id | null) => {
