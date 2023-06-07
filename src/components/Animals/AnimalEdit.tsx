@@ -136,9 +136,7 @@ const AnimalEdit = (props: any): JSX.Element => {
               (c: any) => c.value === animalSeleccionada2.owner_id
             );
             console.log("CurrentSelection", currentSelection);
-            const handleSelectChange = (selectedOption: owner_id | null) => {
-              onChange(selectedOption?.value);
-            };
+
             return (
               <Select
                 options={owners}
