@@ -110,7 +110,7 @@ export default function Home({ initialContacts }: Contactss) {
       <div className="grid md:grid-cols-3">
         <AddScreen
           contacts={initialContacts}
-          AddContactFormProps={async (data, e) => {
+          AddContactFormProps={async (data: any, e: any) => {
             try {
               await saveContact(data);
               setContacts([...contacts, data]);
