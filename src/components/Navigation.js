@@ -1,12 +1,13 @@
 import Link from "next/link";
 
 const links = [
-  { href: "/animals/", label: "Admin" },
+  { href: "/animals/", label: "AdminAnimals" },
   { href: "/bitacora", label: "Ganados" },
   { href: "/bitacora/bitacoras", label: "Caballos" },
   { href: "/animals/animalsCard", label: "ListAnimalCard" },
   { href: "/animals/animalsCardOwners", label: "ListAnimalCardQuery" },
   { href: "/animals/animalsCardPaginated", label: "ListAnimalPage" },
+  { href: "admin", label: "AdminContacts" },
 ].map((link) => {
   link.key = `nav-link-${link.href}-${link.label}`;
   return link;
@@ -61,6 +62,7 @@ const Navigation = () => (
         >
           Home
         </Link>
+
         {links.map(({ key, href, label }) => (
           <Link
             key={key}

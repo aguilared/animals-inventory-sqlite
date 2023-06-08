@@ -17,6 +17,10 @@ export const getServerSideProps = async () => {
   };
 };
 
+interface ContactListProps {
+  contacts: initialContacts[];
+}
+
 const exportJson = async (data: any) => {
   console.log("DATA", data);
   const exportJson3 = await Promise.all(
@@ -70,7 +74,7 @@ const saveContact = async (contact: any) => {
   return await response.json();
 };
 
-const delContact = async (contact) => {
+const delContact = async (contact: any) => {
   if (window.confirm("Do you want to delete this food?")) {
     await fetch("/api/deleteContact", {
       method: "POST",
@@ -85,7 +89,12 @@ const delContact = async (contact) => {
   }
 };
 
+interface ContactListProps {
+  contacts: Contact[];
+}
+
 export default function Home({ initialContacts }) {
+  console.log("Contaactss", initialContacts);
   const [contacts, setContacts] = useState(initialContacts);
 
   return (
