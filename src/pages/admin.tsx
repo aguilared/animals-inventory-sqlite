@@ -92,7 +92,7 @@ type ContactListProps = {
 };
 
 type Contactss = {
-  initialContacts: [ContactListProps];
+  initialContacts: ContactListProps[];
 };
 
 export default function Home({ initialContacts }: Contactss) {
