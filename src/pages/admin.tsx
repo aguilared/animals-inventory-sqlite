@@ -17,10 +17,6 @@ export const getServerSideProps = async () => {
   };
 };
 
-interface ContactListProps {
-  contacts: initialContacts[];
-}
-
 const exportJson = async (data: any) => {
   console.log("DATA", data);
   const exportJson3 = await Promise.all(
