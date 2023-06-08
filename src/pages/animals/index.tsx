@@ -13,7 +13,7 @@ import {
 } from "@tanstack/react-query";
 
 import axios from "axios";
-import * as dayjs from "dayjs";
+import dayjs from "dayjs";
 import Image from "next/image";
 import { useOwners } from "../../hooks/useOwners";
 import { useClases } from "../../hooks/useClases";
