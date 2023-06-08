@@ -96,7 +96,7 @@ type Contactss = {
 };
 
 export default function Home({ initialContacts }: Contactss) {
-  console.log("Contaactss", initialContacts);
+  console.log("Contaactsssss", initialContacts);
   const [contacts, setContacts] = useState(initialContacts);
 
   return (
