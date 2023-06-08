@@ -88,12 +88,18 @@ const delContact = async (contact: any) => {
     // console.log("response", contact)
   }
 };
+type ContactListProps = {
+  id: number;
+  firstname: string;
+  lastname: string;
+  email: string;
+};
 
-interface ContactListProps {
-  contacts: Contact[];
-}
+type Contactss = {
+  initialContacts: [ContactListProps];
+};
 
-export default function Home({ initialContacts }) {
+export default function Home({ initialContacts }: Contactss) {
   console.log("Contaactss", initialContacts);
   const [contacts, setContacts] = useState(initialContacts);
 
