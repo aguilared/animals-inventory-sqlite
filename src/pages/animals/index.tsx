@@ -85,7 +85,7 @@ const Animals = (): JSX.Element => {
       return res.data;
     }
   );
-  console.log("DATAAnimals", data);
+  console.log("DATAAnimalssss", data);
 
   const {
     register,
