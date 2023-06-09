@@ -62,6 +62,15 @@ type Inputs = {
   updated_at: string;
 };
 
+type Typeclase = {
+  value: any;
+  label: string;
+}
+
+type Clasess = {
+  clases: [Typeclase];
+};
+
 const dateAnimal = new Date();
 
 const convertDate = (dateTo: any) => {
@@ -76,9 +85,12 @@ const Animals = (): JSX.Element => {
   const { owners } = useOwners();
   const { clases } = useClases();
   const { vacas } = useVacas();
-  //console.log("OWNERS",owners);
-  //console.log("CLASES",clases);
-  console.log("VACAS", vacas);
+  //const claseSe = clases: Clasess;
+
+  //const clases: selects[]  = useClases();
+  console.log("USE CLASEEE", useClases());
+  console.log("CLASES", clases);
+
 
   const { status, data, error, isLoading, refetch } = useQuery(
     ["Animalss"],
@@ -87,7 +99,7 @@ const Animals = (): JSX.Element => {
       return res.data;
     }
   );
-  console.log("DATAAnimalssss", data);
+  //console.log("DATAAnimalssss", data);
 
   const {
     register,
@@ -480,7 +492,7 @@ const Animals = (): JSX.Element => {
           <ModalBody>
             <form
               className="w-full max-w-lg  bg-gray-400 shadow-md rounded"
-              onSubmit={handleSubmit(onSubmit)}
+              onSubmit={(event) =>  void handleSubmit(onSubmit)(event)}
             >
               <div className="md:w-11/12 px-3 mb-6 md:mb-0">
                 <label
@@ -534,7 +546,7 @@ const Animals = (): JSX.Element => {
                       <Select
                         inputRef={ref}
                         defaultValue={{ label: "Seleccione..", value: 0 }}
-                        options={clases}
+                        options={clasesSe}
                         value={clases.find((c) => c.value === value)}
                         name={name}
                         onChange={(val) => {
