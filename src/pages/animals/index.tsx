@@ -1,7 +1,7 @@
 import React, { useState, forwardRef, BaseSyntheticEvent } from "react";
 import Select from "react-select";
 import Link from "next/link";
-import { useForm, Controller } from "react-hook-form";
+import { useForm, Controller, SubmitHandler } from "react-hook-form";
 import { Modal, ModalBody, ModalHeader, ModalFooter } from "reactstrap";
 import { IconButton } from "@mui/material";
 import StreetviewRoundedIcon from "@mui/icons-material/ThreeDRotation";
@@ -234,7 +234,9 @@ const Animals = (): JSX.Element => {
     setModalEditar(false);
   };
 
-  const onSubmit = async (e: BaseSyntheticEvent) => {
+  const onSubmit33: SubmitHandler<Inputs> = data => console.log(data);
+
+  const onSubmit: SubmitHandler<Inputs> = async data=>{
     console.log("FormData", animalAdd);
     const parsedata = {
       alive: animalAdd.alive,
@@ -315,8 +317,7 @@ const Animals = (): JSX.Element => {
             {"Admin Animals"}
           </div>
           <div className="flex-grow text-left px-3 py-1 m-2">
-            <form onSubmit={handleSubmit(onSubmit)}>
-              <div>
+            <form onSubmit={(event) =>  void handleSubmit(onSubmit)(event)}>              <div>
                 <input
                   className="rounded py-2 px-4"
                   type="text"
@@ -329,7 +330,6 @@ const Animals = (): JSX.Element => {
                   })}
                   onChange={handleSearchOnChange}
                 />
-                {errors.search && errors.search.search}
                 <button
                   type="submit"
                   onClick={() => abrirModalSearchs()}
