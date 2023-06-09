@@ -325,14 +325,9 @@ const Animals = (): JSX.Element => {
                   type="text"
                   placeholder="Search"
                   defaultValue=""
-                  {...register("search", {
-                    required: true,
-                    minLength: 3,
-                    maxLength: 41,
-                  })}
+                 
                   onChange={handleSearchOnChange}
                 />
-                {errors.search && errors.search.search}
                 <button
                   type="submit"
                   onClick={() => abrirModalSearchs()}
