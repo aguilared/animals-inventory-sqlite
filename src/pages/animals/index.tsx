@@ -6,6 +6,8 @@ import { Modal, ModalBody, ModalHeader, ModalFooter } from "reactstrap";
 import { IconButton } from "@mui/material";
 import StreetviewRoundedIcon from "@mui/icons-material/ThreeDRotation";
 import Container from "../../components/Container";
+import Button from "../../components/Button/Button";
+
 import {
   useQuery,
   QueryClient,
@@ -331,6 +333,10 @@ const Animals = (): JSX.Element => {
     </button>
   ));
 
+  function AlertButton({ message, children }) {
+    return <button onClick={() => alert(message)}>{children}</button>;
+  }
+
   return (
     <Container>
       <QueryClientProvider client={queryClient}>
@@ -384,6 +390,13 @@ const Animals = (): JSX.Element => {
           <div className="flex-grow text-right px-3 py-1 m-2">
             <ButtonAddAnimal />
           </div>
+          <div>
+            <AlertButton message="¡Reproduciendo!">
+              Reproducir película
+            </AlertButton>
+            <AlertButton message="¡Subiendo!">Subir imagen</AlertButton>
+            <Button>Anything</Button>
+          </div>{" "}
         </div>
         {isLoading ? (
           <div className="fixed top-0 right-0 h-screen w-screen z-50 flex justify-center items-center">
