@@ -231,14 +231,6 @@ const Animals = (): JSX.Element => {
     reset(); // will reset the entire form :)
     setModalEditar(false);
   };
-  const resetForm1 = () => {
-    reset(); // will reset the entire form :)
-    reset({
-      description: "",
-      updated_at: "",
-    });
-    setModalEditar(false);
-  };
 
   const onSubmit = async (e: BaseSyntheticEvent) => {
     console.log("FormData", animalAdd);
@@ -313,12 +305,11 @@ const Animals = (): JSX.Element => {
     }
   };
 
-  const ButtonAddAnimal = forwardRef(({ onClick, href }, ref) => (
+  const ButtonAddAnimal = forwardRef(({}, ref) => (
     <button
       className="bg-blue-300 hover:bg-blue-500 text-white font-semibold py-2 px-4 rounded inline-flex items-center"
       // onClick={handleClickAddAnimal}
       onClick={() => abrirModalInsertar()}
-      ref={ref}
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
