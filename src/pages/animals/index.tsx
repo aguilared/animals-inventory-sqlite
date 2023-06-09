@@ -116,7 +116,7 @@ const Animals = (): JSX.Element => {
     id: "",
     info: "",
     mother: "",
-    mother__id: 0,
+    mother_id: 0,
     name: "",
     owner_id: 1,
     tipopart: "",
@@ -168,21 +168,21 @@ const Animals = (): JSX.Element => {
     updated_at: "",
   });
 
-  const seleccionarAnimal = (elemento, caso) => {
+  const seleccionarAnimal = (elemento: any, caso: any) => {
     setAnimalSeleccionada(elemento);
     console.log("ELEMENTO Eliminar o Editar", elemento);
     console.log("CASO Eliminar o Editar", caso);
     caso === "Editar" ? setModalEditar(true) : setModalEliminar(true);
   };
   // to viewHist
-  const seleccionarAnimal1 = (elemento, caso) => {
+  const seleccionarAnimal1 = (elemento: any, caso: any) => {
     setAnimalSeleccionada1(elemento);
     console.log("ELEMENTOTO VIEW", elemento);
     console.log("CASO", caso);
     caso === "Mostrar" ? setModalViewHist(true) : setModalViewHist(false);
   };
   // to editar
-  const seleccionarAnimal2 = (elemento, caso) => {
+  const seleccionarAnimal2 = (elemento: any, caso: any) => {
     setAnimalSeleccionada2(elemento);
     console.log("ELEMENTO", elemento);
     setAnimalE({
@@ -208,21 +208,21 @@ const Animals = (): JSX.Element => {
   };
 
   const abrirModalSearchs = () => {
-    console.log("el search animal", animal);
+    console.log("el search animal");
     setModalSearchs(true);
   };
 
-  const handleSearchOnChange = (e) => {
+  const handleSearchOnChange = (e: any) => {
     console.log("value", e.target.value);
     setAnimalAdd(e.target.value);
   };
 
-  const handleOnChange = (animalKey, value) => {
+  const handleOnChange = (animalKey: any, value: any) => {
     console.log("valueOnChangeAdd", value);
     setAnimalAdd({ ...animalAdd, [animalKey]: value });
     console.log("SETanimalAdd", animalAdd);
   };
-  const handleOnChangeE = (animalKey, value) => {
+  const handleOnChangeE = (animalKey: any, value: any) => {
     console.log("valueOnChangeEditar", value);
     setAnimalE({ ...animalE, [animalKey]: value });
     console.log("animalOnchageE", animalE);
@@ -537,7 +537,6 @@ const Animals = (): JSX.Element => {
                   })}
                   onChange={(e) => handleOnChange("name", e.target.value)}
                 />
-                {errors.name && errors.name}
               </div>
 
               <div className="md:w-11/12 px-3 mb-6 md:mb-0">
@@ -556,7 +555,6 @@ const Animals = (): JSX.Element => {
                   })}
                   onChange={(e) => handleOnChange("birthdate", e.target.value)}
                 />
-                {errors.birthdate && errors.birthdate}
               </div>
 
               <div className="md:w-11/12 px-3 mb-6 md:mb-0">
@@ -571,11 +569,6 @@ const Animals = (): JSX.Element => {
                   control={control}
                   rules={{ required: true }}
                   render={({ field: { onChange, value, name, ref } }) => {
-                    const handleSelectChange = (
-                      selectedOption: tipo_event_id | null
-                    ) => {
-                      onChange(selectedOption?.value);
-                    };
                     return (
                       <Select
                         inputRef={ref}
@@ -606,12 +599,6 @@ const Animals = (): JSX.Element => {
                   control={control}
                   rules={{ required: true }}
                   render={({ field: { onChange, value, name, ref } }) => {
-                    //console.log("CurrentSelection", currentSelection);
-                    const handleSelectChange = (
-                      selectedOption: tipo_event_id | null
-                    ) => {
-                      onChange(selectedOption?.value);
-                    };
                     return (
                       <Select
                         inputRef={ref}
@@ -682,7 +669,6 @@ const Animals = (): JSX.Element => {
                   })}
                   onChange={(e) => handleOnChange("mother", e.target.value)}
                 />
-                {errors.mother && errors.mother}
               </div>
 
               <div className="md:w-11/12 px-3 mb-6 md:mb-0">
@@ -701,7 +687,6 @@ const Animals = (): JSX.Element => {
                   })}
                   onChange={(e) => handleOnChange("hierro", e.target.value)}
                 />
-                {errors.hierro && errors.hierro}
               </div>
 
               <div className="md:w-11/12 px-3 mb-6 md:mb-0">
@@ -720,7 +705,6 @@ const Animals = (): JSX.Element => {
                   })}
                   onChange={(e) => handleOnChange("tipopart", e.target.value)}
                 />
-                {errors.tipopart && errors.tipopart}
               </div>
 
               <div className="md:w-11/12 px-3 mb-6 md:mb-0">
@@ -741,7 +725,6 @@ const Animals = (): JSX.Element => {
                   })}
                   onChange={(e) => handleOnChange("info", e.target.value)}
                 />
-                {errors.info && errors.info}
               </div>
             </form>
           </ModalBody>
