@@ -62,15 +62,48 @@ type Inputs = {
   updated_at: string;
 };
 
-type Typeclase = {
-  value: any;
-  label: string;
+interface Vehicle {
+  id: number;
+  make: string;
+  model: string;
+  year: number;
 }
 
-type Clasess = {
-  clases: [Typeclase];
+interface ArrayObjectSelectState {
+  selectedVehicle: Vehicle | null;
+}
+
+let state: ArrayObjectSelectState = {
+  selectedVehicle: null,
 };
 
+const vehicles: Vehicle[] = [
+  {
+    id: 1,
+    make: "Ford",
+    model: "Fiesta",
+    year: 2003,
+  },
+  {
+    id: 7,
+    make: "Audi",
+    model: "A4",
+    year: 2009,
+  },
+];
+
+interface Clase {
+  label: string;
+  value: any;
+}
+
+type Typeclase = {
+  clases: Clase[];
+};
+
+type Clases = {
+  clases: Clase[];
+};
 const dateAnimal = new Date();
 
 const convertDate = (dateTo: any) => {
@@ -83,14 +116,13 @@ const convertDate1 = (date: any) => {
 
 const Animals = (): JSX.Element => {
   const { owners } = useOwners();
-  const { clases } = useClases();
+  const { clases }: Typeclase = useClases();
   const { vacas } = useVacas();
   //const claseSe = clases: Clasess;
-
+  const clasess: Clases = clases;
   //const clases: selects[]  = useClases();
   console.log("USE CLASEEE", useClases());
   console.log("CLASES", clases);
-
 
   const { status, data, error, isLoading, refetch } = useQuery(
     ["Animalss"],
@@ -246,9 +278,9 @@ const Animals = (): JSX.Element => {
     setModalEditar(false);
   };
 
-  const onSubmit: SubmitHandler<Inputs> = data => console.log(data);
+  const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data);
 
-  const onSubmit33: SubmitHandler<Inputs> = async data=>{
+  const onSubmit33: SubmitHandler<Inputs> = async (data) => {
     console.log("FormData", animalAdd);
     const parsedata = {
       alive: animalAdd.alive,
@@ -329,15 +361,13 @@ const Animals = (): JSX.Element => {
             {"Admin Animals"}
           </div>
           <div className="flex-grow text-left px-3 py-1 m-2">
-             <form onSubmit={(event) =>  void handleSubmit(onSubmit)(event)}>
-
+            <form onSubmit={(event) => void handleSubmit(onSubmit)(event)}>
               <div>
                 <input
                   className="rounded py-2 px-4"
                   type="text"
                   placeholder="Search"
                   defaultValue=""
-                 
                   onChange={handleSearchOnChange}
                 />
                 <button
@@ -492,7 +522,7 @@ const Animals = (): JSX.Element => {
           <ModalBody>
             <form
               className="w-full max-w-lg  bg-gray-400 shadow-md rounded"
-              onSubmit={(event) =>  void handleSubmit(onSubmit)(event)}
+              onSubmit={(event) => void handleSubmit(onSubmit)(event)}
             >
               <div className="md:w-11/12 px-3 mb-6 md:mb-0">
                 <label
@@ -546,7 +576,7 @@ const Animals = (): JSX.Element => {
                       <Select
                         inputRef={ref}
                         defaultValue={{ label: "Seleccione..", value: 0 }}
-                        options={clasesSe}
+                        options={vehicles}
                         value={clases.find((c) => c.value === value)}
                         name={name}
                         onChange={(val) => {
