@@ -7,6 +7,9 @@ const links = [
   { href: "/animals/animalsCard", label: "ListAnimalCard" },
   { href: "/animals/animalsCardOwners", label: "ListAnimalCardQuery" },
   { href: "/animals/animalsCardPaginated", label: "ListAnimalPage" },
+  { href: "/select/select", label: "Selects" },
+  { href: "/select/selectUser", label: "SelectUser" },
+
   { href: "admin", label: "AdminContacts" },
 ].map((link) => {
   link.key = `nav-link-${link.href}-${link.label}`;
