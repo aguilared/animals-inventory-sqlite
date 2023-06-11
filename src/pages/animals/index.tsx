@@ -239,7 +239,7 @@ const Animals = (): JSX.Element => {
 
   const onSubmit33: SubmitHandler<Inputs> = (data) => console.log(data);
 
-  const onSubmit: SubmitHandler<Inputs> = async (data) => {
+  const onSubmit: SubmitHandler<Inputs> = async () => {
     console.log("FormData", animalAdd);
     const parsedata = {
       alive: animalAdd.alive,
@@ -682,7 +682,7 @@ const Animals = (): JSX.Element => {
             </form>
           </ModalBody>
           <ModalFooter>
-            <button className="btn btn-danger" onClick={() => onSubmit()}>
+            <button className="btn btn-danger" onClick={(event) => void handleSubmit(onSubmit)(event)}>
               Sí
             </button>
             <button
@@ -709,7 +709,7 @@ const Animals = (): JSX.Element => {
           </ModalBody>
 
           <ModalFooter>
-            <button className="btn btn-danger" onClick={() => onSubmitE()}>
+            <button className="btn btn-danger" onClick={(event) => void handleSubmit(onSubmit)(event)}>
               Sí
             </button>
             <button className="btn btn-secondary" onClick={() => resetForm()}>
