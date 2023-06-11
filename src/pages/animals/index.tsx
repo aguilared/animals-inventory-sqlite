@@ -298,7 +298,7 @@ const Animals = (): JSX.Element => {
     }
   };
 
-  const eliminar = async (e: BaseSyntheticEvent) => {
+  const eliminar = async () => {
     try {
       console.log("Entra a Borrar");
       const result = await fetch(
@@ -745,7 +745,7 @@ const Animals = (): JSX.Element => {
           <ModalFooter>
             <button
               className="btn btn-danger"
-              onClick={() => eliminar(animalSeleccionada.id)}
+              onClick={() => eliminar()}
             >
               Sí
             </button>
