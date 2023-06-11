@@ -1,15 +1,20 @@
 import { useEffect, useState } from "react";
 import getClases from "../services/getClases";
 
+export interface Clase {
+  label: string;
+  value: number;
+}
+
 export function useClases() {
-  const [clases, setClases] = useState({});
+  const [clases, setClases] = useState<Clase[] | []>([]);
   //console.log("useClases", getClases());
   useEffect(
     function () {
       let options = [{ value: 0, label: "Seleccione.." }];
-      getClases().then((typeEvent) => {
-        //console.log("typeEventss", typeEvent);
-        typeEvent.forEach((option) => {
+      getClases().then((clase) => {
+        //console.log("clasess", clase);
+        clase.forEach((option) => {
           let row = {};
           row.value = option.id;
           row.label = " " + option.id + " " + option.description;

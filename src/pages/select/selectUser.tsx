@@ -97,37 +97,32 @@ const SelectUser = () => {
   );
 };
 
-export interface Clase {
-  label: string;
-  value: number;
-}
 
-export interface Typeclase {
-  clases: Clase[];
-}
+
+
 
 const SelectClase = () => {
-  //const { clases } = useClases(); //data from hook
+ const { clases } = useClases(); //data from hook
   //let clasess: Typeclase[] = clases;
 
   //const { clases }: Typeclase[] = useClases();   //?????
   //const clasesd: Clase[] = [clases];
 
   // este funciona OK
-  const clases: Clase[] = [
-    {
-      value: 0,
-      label: "Seleccione..",
-    },
-    {
-      value: 1,
-      label: "Vaca",
-    },
-    {
-      value: 2,
-      label: "Toros",
-    },
-  ];
+  // const clasess: Clase[] = [
+  //   {
+  //     value: 0,
+  //     label: "Seleccione..",
+  //   },
+  //   {
+  //     value: 1,
+  //     label: "Vaca",
+  //   },
+  //   {
+  //     value: 2,
+  //     label: "Toros",
+  //   },
+  // ];
 
   const [clase, setClase] = React.useState(clases[0]);
 
@@ -141,11 +136,11 @@ const SelectClase = () => {
         options={clases}
         // has an error if no mapOptionToLabel is provided!
         // I don't know why the type for clase isn't automatic
-        mapOptionToLabel={(clase: Clase) => clase.label}
-        mapOptionToValue={(clase: Clase) => clase.value}
+        mapOptionToLabel={() => clase?.label}
+        mapOptionToValue={() => clase?.value}
       />
     </div>
-  );
+  );  
 };
 
 export default () => (
