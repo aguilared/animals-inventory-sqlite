@@ -1,8 +1,14 @@
 import { useEffect, useState } from "react";
 import getVacas from "../services/getVacas";
 
+export interface Clase {
+  label: string;
+  value: number;
+}
+
+
 export function useVacas() {
-  const [vacas, setVacas] = useState({});
+  const [vacas, setVacas] = useState<Clase[] | []>([]);
   console.log("useVacas", getVacas());
   useEffect(
     function () {

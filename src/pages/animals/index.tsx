@@ -69,41 +69,6 @@ interface Vehicle {
   year: number;
 }
 
-interface ArrayObjectSelectState {
-  selectedVehicle: Vehicle | null;
-}
-
-let state: ArrayObjectSelectState = {
-  selectedVehicle: null,
-};
-
-const vehicles: Vehicle[] = [
-  {
-    id: 1,
-    make: "Ford",
-    model: "Fiesta",
-    year: 2003,
-  },
-  {
-    id: 7,
-    make: "Audi",
-    model: "A4",
-    year: 2009,
-  },
-];
-
-interface Clase {
-  label: string;
-  value: any;
-}
-
-type Typeclase = {
-  clases: Clase[];
-};
-
-type Clases = {
-  clases: Clase[];
-};
 const dateAnimal = new Date();
 
 const convertDate = (dateTo: any) => {
@@ -116,14 +81,9 @@ const convertDate1 = (date: any) => {
 
 const Animals = (): JSX.Element => {
   const { owners } = useOwners();
-  const { clases }: Typeclase = useClases();
+  const { clases }=  useClases();
   const { vacas } = useVacas();
-  //const claseSe = clases: Clasess;
-  const clasess: Clases = clases;
-  //const clases: selects[]  = useClases();
-  console.log("USE CLASEEE", useClases());
-  console.log("CLASES", clases);
-
+  
   const { status, data, error, isLoading, refetch } = useQuery(
     ["Animalss"],
     async () => {
@@ -131,7 +91,6 @@ const Animals = (): JSX.Element => {
       return res.data;
     }
   );
-  //console.log("DATAAnimalssss", data);
 
   const {
     register,
@@ -576,7 +535,7 @@ const Animals = (): JSX.Element => {
                       <Select
                         inputRef={ref}
                         defaultValue={{ label: "Seleccione..", value: 0 }}
-                        options={vehicles}
+                        options={clases}
                         value={clases.find((c) => c.value === value)}
                         name={name}
                         onChange={(val) => {

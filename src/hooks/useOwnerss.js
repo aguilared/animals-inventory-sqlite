@@ -1,8 +1,12 @@
 import { useEffect, useState } from "react";
 import getOwners from "../services/getOwners";
+export interface Clase {
+  label: string;
+  value: number;
+}
 
 export function useOwners() {
-  const [owners, setOwners] = useState({});
+  const [owners, setOwners] = <Clase[] | []>([]);;
   console.log("useOwners", getOwners());
   useEffect(
     function () {
