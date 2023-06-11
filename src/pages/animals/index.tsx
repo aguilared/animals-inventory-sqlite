@@ -81,9 +81,9 @@ const convertDate1 = (date: any) => {
 
 const Animals = (): JSX.Element => {
   const { owners } = useOwners();
-  const { clases }=  useClases();
+  const { clases } = useClases();
   const { vacas } = useVacas();
-  
+
   const { status, data, error, isLoading, refetch } = useQuery(
     ["Animalss"],
     async () => {
@@ -533,14 +533,13 @@ const Animals = (): JSX.Element => {
                   render={({ field: { onChange, value, name, ref } }) => {
                     return (
                       <Select
-                        inputRef={ref}
                         defaultValue={{ label: "Seleccione..", value: 0 }}
                         options={clases}
                         value={clases.find((c) => c.value === value)}
                         name={name}
                         onChange={(val) => {
-                          onChange(val.value);
-                          handleOnChange("clase_id", val.value);
+                          onChange(val?.value);
+                          handleOnChange("clase_id", val?.value);
                         }}
                       />
                     );
