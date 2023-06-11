@@ -77,6 +77,7 @@ const SelectUser = () => {
       name: "Bill",
     },
   ];
+ console.log("SelecUUser", SelectUser) 
 
   const [user, setUser] = React.useState(users[0]);
 
@@ -103,7 +104,8 @@ const SelectUser = () => {
 
 const SelectClase = () => {
  const { clases } = useClases(); //data from hook
-  //let clasess: Typeclase[] = clases;
+ console.log("SelecClases", clases) 
+ //let clasess: Typeclase[] = clases;
 
   //const { clases }: Typeclase[] = useClases();   //?????
   //const clasesd: Clase[] = [clases];
