@@ -10,7 +10,7 @@ const links = [
   { href: "/select/select", label: "Selects" },
   { href: "/select/selectUser", label: "SelectUser" },
 
-  { href: "admin", label: "AdminContacts" },
+  { href: "/export/admin", label: "ExportToSqlite" },
 ].map((link) => {
   link.key = `nav-link-${link.href}-${link.label}`;
   return link;
