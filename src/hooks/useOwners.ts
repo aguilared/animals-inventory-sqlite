@@ -14,7 +14,7 @@ export function useOwners() {
       let options = [{ value: 0, label: "Seleccione.." }];
       getOwners().then((owner) => {
         //console.log("ownerss", owner);
-        owner.forEach((option) => {
+        owner.forEach((option:any) => {
           let row = {};
           row.value = option.id;
           row.label =
