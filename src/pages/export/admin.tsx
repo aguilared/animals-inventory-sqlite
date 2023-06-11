@@ -1,10 +1,10 @@
 import { PrismaClient } from "@prisma/client";
 import Head from "next/head";
 import { useState } from "react";
-import AddScreen from "../components/AddScreen";
-import DisplayScreen from "../components/DisplayScreen";
-import data from "../components/data/Clases.json";
-import dataAnimals from "../components/data/Animal.json";
+import AddScreen from "../../components/AddScreen";
+import DisplayScreen from "../../components/DisplayScreen";
+import data from "../../components/data/Clases.json";
+import dataAnimals from "../../components/data/Animal.json";
 
 const prisma = new PrismaClient();
 
