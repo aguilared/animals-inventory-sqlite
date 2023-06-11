@@ -237,9 +237,9 @@ const Animals = (): JSX.Element => {
     setModalEditar(false);
   };
 
-  const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data);
+  const onSubmit33: SubmitHandler<Inputs> = (data) => console.log(data);
 
-  const onSubmit33: SubmitHandler<Inputs> = async (data) => {
+  const onSubmit: SubmitHandler<Inputs> = async (data) => {
     console.log("FormData", animalAdd);
     const parsedata = {
       alive: animalAdd.alive,
@@ -562,14 +562,13 @@ const Animals = (): JSX.Element => {
                   render={({ field: { onChange, value, name, ref } }) => {
                     return (
                       <Select
-                        inputRef={ref}
                         defaultValue={{ label: "Seleccione..", value: 0 }}
                         options={owners}
                         value={owners.find((c) => c.value === value)}
                         name={name}
                         onChange={(val) => {
-                          onChange(val.value);
-                          handleOnChange("owner_id", val.value);
+                          onChange(val?.value);
+                          handleOnChange("owner_id", val?.value);
                         }}
                       />
                     );
@@ -590,22 +589,15 @@ const Animals = (): JSX.Element => {
                   control={control}
                   rules={{ required: true }}
                   render={({ field: { onChange, value, name, ref } }) => {
-                    //console.log("CurrentSelection", currentSelection);
-                    const handleSelectChange = (
-                      selectedOption: tipo_event_id | null
-                    ) => {
-                      onChange(selectedOption?.value);
-                    };
-                    return (
+                   return (
                       <Select
-                        inputRef={ref}
                         defaultValue={{ label: "Seleccione..", value: 0 }}
                         options={vacas}
                         value={vacas.find((c) => c.value === value)}
                         name={name}
                         onChange={(val) => {
-                          onChange(val.value);
-                          handleOnChange("mother_id", val.value);
+                          onChange(val?.value);
+                          handleOnChange("mother_id", val?.value);
                         }}
                       />
                     );
