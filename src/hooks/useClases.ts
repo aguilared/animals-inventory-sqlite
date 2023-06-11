@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 import getClases from "../services/getClases";
 
-export interface Clase {
+export interface IClase {
   label: string;
   value: number;
 }
 
 export function useClases() {
-  const [clases, setClases] = useState<Clase[] | []>([]);
+  const [clases, setClases] = useState<IClase[] | []>([]);
   console.log("getClases", getClases());
   useEffect(
     function () {
@@ -15,7 +15,7 @@ export function useClases() {
       getClases().then((clase) => {
         //console.log("clasess", clase);
         clase.forEach((option: any) => {
-          let row = <Clase>{};
+          let row = <IClase>{};
           row.value = option.id;
           row.label = " " + option.id + " " + option.description;
           options.push(row);
