@@ -14,7 +14,7 @@ export function useClases() {
       let options = [{ value: 0, label: "Seleccione.." }];
       getClases().then((clase) => {
         //console.log("clasess", clase);
-        clase.forEach((option) => {
+        clase.forEach((option:any) => {
           let row = {};
           row.value = option.id;
           row.label = " " + option.id + " " + option.description;

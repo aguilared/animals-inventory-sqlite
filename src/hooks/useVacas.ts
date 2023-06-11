@@ -14,7 +14,7 @@ export function useVacas() {
       let options = [{ value: 0, label: "Seleccione.." }];
       getVacas().then((vaca) => {
         //console.log("VACA", vaca);
-        vaca.forEach((option) => {
+        vaca.forEach((option:any) => {
           let row = {};
           row.value = option.id;
           row.label = " " + option.id + " " + option.name;
