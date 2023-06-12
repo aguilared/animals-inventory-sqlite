@@ -8,7 +8,8 @@
     "start": "next start",
     "prettier": "prettier",
     "lint": "next lint",
-    "install:clean": "rm -rf node_modules/ && rm -rf package-lock.json && rm -rf yarn.lock && rm -rf .next/ && yarn install && yarn run dev"
+    "install:clean": "rm -rf node_modules/ && rm -rf package-lock.json && rm -rf yarn.lock && rm -rf .next/ && yarn install && yarn run dev",
+    "postinstall": "prisma generate"
   },
   "dependencies": {
     "@emotion/react": "^11.10.8",

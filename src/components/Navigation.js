@@ -2,14 +2,6 @@ import Link from "next/link";
 
 const links = [
   { href: "/animals/", label: "AdminAnimals" },
-  { href: "/bitacora", label: "Ganados" },
-  { href: "/bitacora/bitacoras", label: "Caballos" },
-  { href: "/animals/animalsCard", label: "ListAnimalCard" },
-  { href: "/animals/animalsCardOwners", label: "ListAnimalCardQuery" },
-  { href: "/animals/animalsCardPaginated", label: "ListAnimalPage" },
-  { href: "/select/select", label: "Selects" },
-  { href: "/select/selectUser", label: "SelectUser" },
-
   { href: "/export/admin", label: "ExportToSqlite" },
 ].map((link) => {
   link.key = `nav-link-${link.href}-${link.label}`;
