@@ -1,4 +1,4 @@
-import React, { useState, forwardRef, BaseSyntheticEvent } from "react";
+import React, { useState, BaseSyntheticEvent } from "react";
 import Select from "react-select";
 import Link from "next/link";
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
@@ -79,18 +79,15 @@ const convertDate1 = (date: any) => {
   return dayjs(date).format("YYYY/MM/DD hh:mm");
 };
 
-const Animals = (): JSX.Element => {
+const Animals = (): React.JSX.Element => {
   const { owners } = useOwners();
   const { clases } = useClases();
   const { vacas } = useVacas();
 
-  const { status, data, error, isLoading, refetch } = useQuery(
-    ["Animalss"],
-    async () => {
-      const res = await axios.get(`${DATABASEURL}animals`);
-      return res.data;
-    }
-  );
+  const { data, isLoading, refetch } = useQuery(["Animalss"], async () => {
+    const res = await axios.get(`${DATABASEURL}animals`);
+    return res.data;
+  });
 
   const {
     register,
@@ -133,7 +130,6 @@ const Animals = (): JSX.Element => {
   const [modalInsertar, setModalInsertar] = useState(false);
   const [modalEliminar, setModalEliminar] = useState(false);
   const [modalEditar, setModalEditar] = useState(false);
-  const toggleSearchs = () => setModalSearchs(!modalSearchs);
   const toggleViewHist = () => setModalViewHist(!modalViewHist);
   const toggle = () => setModalInsertar(!modalInsertar);
   const toggleEliminar = () => setModalEliminar(!modalEliminar);
@@ -237,8 +233,6 @@ const Animals = (): JSX.Element => {
     setModalEditar(false);
   };
 
-  const onSubmit33: SubmitHandler<Inputs> = (data) => console.log(data);
-
   const onSubmit: SubmitHandler<Inputs> = async () => {
     console.log("FormData", animalAdd);
     const parsedata = {
@@ -259,7 +253,7 @@ const Animals = (): JSX.Element => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(parsedata),
       });
-      refetch();
+      void refetch();
       setModalInsertar(false);
     } catch (error) {
       console.log(error);
@@ -282,16 +276,13 @@ const Animals = (): JSX.Element => {
       tipopart: animalE.tipopart,
     };
     try {
-      //await editAnimal(data);
-      const result = await fetch("/api/animals/update", {
+      await fetch("/api/animals/update", {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(parsedata),
       });
       notify();
-      //toast.success("Animal updated successfully");
-
-      refetch();
+      void refetch();
       setModalEditar(false);
     } catch (error) {
       console.log(error);
@@ -300,12 +291,8 @@ const Animals = (): JSX.Element => {
 
   const eliminar = async () => {
     try {
-      console.log("Entra a Borrar");
-      const result = await fetch(
-        "/api/animals/delete/" + animalSeleccionada.id
-      );
-      // await removeAnimal(animalSeleccionada.id);
-      refetch();
+      await fetch("/api/animals/delete/" + animalSeleccionada.id);
+      void refetch();
       setModalEliminar(false);
     } catch (error) {
       console.log(error);
@@ -589,7 +576,7 @@ const Animals = (): JSX.Element => {
                   control={control}
                   rules={{ required: true }}
                   render={({ field: { onChange, value, name, ref } }) => {
-                   return (
+                    return (
                       <Select
                         defaultValue={{ label: "Seleccione..", value: 0 }}
                         options={vacas}
@@ -682,7 +669,10 @@ const Animals = (): JSX.Element => {
             </form>
           </ModalBody>
           <ModalFooter>
-            <button className="btn btn-danger" onClick={(event) => void handleSubmit(onSubmit)(event)}>
+            <button
+              className="btn btn-danger"
+              onClick={(event) => void handleSubmit(onSubmit)(event)}
+            >
               Sí
             </button>
             <button
@@ -709,7 +699,10 @@ const Animals = (): JSX.Element => {
           </ModalBody>
 
           <ModalFooter>
-            <button className="btn btn-danger" onClick={(event) => void handleSubmit(onSubmit)(event)}>
+            <button
+              className="btn btn-danger"
+              onClick={(event) => void handleSubmit(onSubmit)(event)}
+            >
               Sí
             </button>
             <button className="btn btn-secondary" onClick={() => resetForm()}>
@@ -743,10 +736,7 @@ const Animals = (): JSX.Element => {
             {animalSeleccionada && animalSeleccionada.id}
           </ModalBody>
           <ModalFooter>
-            <button
-              className="btn btn-danger"
-              onClick={() => eliminar()}
-            >
+            <button className="btn btn-danger" onClick={() => eliminar()}>
               Sí
             </button>
             <button
