@@ -7,7 +7,6 @@ export default async function getClases() {
     console.log("CLASES", resp);
     return resp.data;
   } catch (error) {
-    console.log("ERRORP", error);
     return error;
   }
 }
