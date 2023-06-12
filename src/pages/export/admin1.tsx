@@ -122,7 +122,22 @@ export default function Home({ initialContacts }: Contactss) {
         />
 
         <DisplayScreen contacts={initialContacts} delContact={delContact} />
-      
+        <div className="md:col-span-1">
+          <button
+            className="bg-red-500 text-white p-2 rounded-md hover:scale-125 hover:opacity-80"
+            onClick={() => exportJson(data)}
+          >
+            Del
+          </button>
+        </div>
+        <div className="md:col-span-1">
+          <button
+            className="bg-green-500 text-white p-2 rounded-md hover:scale-125 hover:opacity-80"
+            onClick={() => exportJsonAnimals(dataAnimals)}
+          >
+            Export Animals
+          </button>
+        </div>
       </div>
     </div>
   );
