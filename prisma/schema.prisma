@@ -1,58 +1,112 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
-model Contact {
-  id String @id @default(cuid())
-  firstname String
-  lastname String
-  email String
+model User {
+  id        Int        @id @default(autoincrement())
+  name      String?
+  email     String?    @unique
+  createdAt DateTime   @default(now()) @map("created_at")
+  updatedAt DateTime   @updatedAt @map("updated_at")
+  password  String?
+  nivel     Int
+  Post      Post[]
+  bitacora  Bitacora[]
+  animal    Animal[]
+  @@map("users")
 }
 
-model User {
-  id            Int       @unique
-  name          String?
-  email         String?   @unique
-  createdAt     DateTime  @default(now()) @map(name: "created_at")
-  updatedAt     DateTime  @updatedAt @map(name: "updated_at")
-  password      String?
-  nivel         Int?
-  animal        Animal[]
-  @@map(name: "users")
+model Bitacora {
+  id            Int          @id @default(autoincrement())
+  bitacora_date String?
+  author_id     Int?
+  created_at    DateTime     @default(now()) @map("created_at")
+  updated_at    DateTime     @updatedAt @map("updated_at")
+  bita_events   BitaEvents[]
+  author        User?        @relation(fields: [author_id], references: [id])
+
+  @@map("bitacoras")
 }
 
 model Animal {
-  id             Int       @unique
-  name           String?
-  birthdate      String?
+  id         Int      @id @default(autoincrement())
+  birthdate  String?
   owner          User?     @relation(fields: [owner_id], references: [id]) //fk
   owner_id       Int? 
   clase          Clase?    @relation(fields: [clase_id], references: [id]) //fk
   clase_id       Int?
-  tipopart       String?
-  hierro         String? 
-  mother         String?
-  mother_id      Int? 
-  info           String?
-  alive          String?
-  created_at     DateTime  @default(now()) @map(name: "created_at")
-  updated_at     DateTime  @updatedAt @map(name: "updated_at")
-  @@map(name: "animals")
+  created_at DateTime @default(now()) @map("created_at")
+  updated_at DateTime @updatedAt @map("updated_at")
+  name       String?
+  info       String?
+  mother     String?
+  hierro     String?
+  tipopart   String?
+  alive      String?
+  mother_id  Int?
+
+  @@map("animals")
 }
 
 model Clase {
-  id           Int       @unique
-  description  String?
-  created_at   DateTime  @default(now()) @map(name: "created_at")
-  updated_at   DateTime  @updatedAt @map(name: "updated_at")
+  id          Int      @id @default(autoincrement())
+  description String?
+  created_at  DateTime @default(now()) @map("created_at")
+  updated_at  DateTime @updatedAt @map("updated_at")
   animals      Animal[]  // A clases can have many animals
-  @@map(name: "clases")
+  @@map("clases")
+}
+
+model BitaEvents {
+  id            Int        @id @default(autoincrement())
+  bitacora_id   Int?
+  event_date    DateTime?
+  tipo_event_id Int?
+  events_id     Int?
+  description   String?
+  created_at    DateTime   @default(now()) @map("created_at")
+  updated_at    DateTime   @updatedAt @map("updated_at")
+  image         Boolean
+  bitacora      Bitacora?  @relation(fields: [bitacora_id], references: [id])
+  event         Event?     @relation(fields: [events_id], references: [id])
+  tipoEvent     TipoEvent? @relation(fields: [tipo_event_id], references: [id])
+
+  @@map("bita_events")
+}
+
+model TipoEvent {
+  id          Int          @id @default(autoincrement())
+  description String?
+  created_at  DateTime     @default(now()) @map("created_at")
+  updated_at  DateTime     @updatedAt @map("updated_at")
+  bita_events BitaEvents[]
+  events      Event[]
+
+  @@map("tipo_events")
+}
+
+model Event {
+  id            Int          @id @default(autoincrement())
+  description   String?
+  tipo_event_id Int?
+  created_at    DateTime     @default(now()) @map("created_at")
+  updated_at    DateTime     @updatedAt @map("updated_at")
+  bita_events   BitaEvents[]
+  tipoEvent     TipoEvent?   @relation(fields: [tipo_event_id], references: [id])
+
+  @@map("events")
+}
+
+model Post {
+  id        Int     @id @default(autoincrement())
+  title     String
+  content   String?
+  published Boolean @default(false)
+  authorId  Int?
+  users     User?   @relation(fields: [authorId], references: [id])
 }
