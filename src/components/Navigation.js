@@ -2,7 +2,6 @@ import Link from "next/link";
 
 const links = [
   { href: "/animals/", label: "AdminAnimals" },
-  { href: "/export/admin", label: "ExportToSqlite" },
 ].map((link) => {
   link.key = `nav-link-${link.href}-${link.label}`;
   return link;
