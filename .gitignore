@@ -9,7 +9,7 @@
 /coverage
 
 # next.js
-/.next/
+.next/
 /out/
 
 # production
@@ -25,11 +25,22 @@ yarn-debug.log*
 yarn-error.log*
 
 # local env files
-.env*.local
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
 
 # vercel
 .vercel
+.next/trace
+.next/cache/*
+.next/cache/webpack/server-development/0.pack
+.next/build-manifest.json
+.next/trace
+.next/cache/webpack/client-development/0.pack
 
-# typescript
-*.tsbuildinfo
-next-env.d.ts
+# images
+/public/static/images/
+
+

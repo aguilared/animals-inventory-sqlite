@@ -225,9 +225,10 @@ const Animals = (): React.JSX.Element => {
                   ID= {animal.id} &nbsp;
                   {animal.clase.id}&nbsp; {animal.clase.description}:&nbsp;
                   <b> {animal.name}</b>, &nbsp; Dueno=
-                  {animal.owner.name}, &nbsp; Nacimiento=
-                  {convertDate(animal.birthdate)} &nbsp; Info= {animal.info}{" "}
-                  &nbsp;
+                  {animal.owner.name}. &nbsp; <br />
+                  Nacimiento=
+                  {convertDate(animal.birthdate)}. &nbsp; <br />
+                  Info= {animal.info} &nbsp;
                 </div>
 
                 <div className="inline-block text-gray-700 text-left px-1 py-0 m-0">
