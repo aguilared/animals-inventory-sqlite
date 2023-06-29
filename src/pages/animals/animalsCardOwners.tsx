@@ -133,7 +133,6 @@ const AnimalsCardQuery: NextPage = () => {
               render={({ field: { onChange, value, name, ref } }) => {
                 return (
                   <Select
-                    inputRef={ref}
                     defaultValue={{ label: "Seleccione..", value: 0 }}
                     options={owners}
                     name={name}
