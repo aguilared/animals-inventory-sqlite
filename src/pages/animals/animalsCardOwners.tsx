@@ -137,8 +137,9 @@ const AnimalsCardQuery: NextPage = () => {
                     options={owners}
                     name={name}
                     onChange={(val) => {
-                      onChange(val?.value);
-                      setOwnerId(val?.value);
+                      console.log("Valuee Selected", val);
+                      onChange(val.value);
+                      setOwnerId(val.value);
                       handleOnChange("owner_id", val.value);
                       handleSearchOnChange("owner_id", val.value);
                     }}
