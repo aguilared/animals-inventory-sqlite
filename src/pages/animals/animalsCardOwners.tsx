@@ -81,17 +81,17 @@ const AnimalsCardQuery: NextPage = () => {
     }
   }, [data, status]);
 
-  const handleOnChange = (ownerKey: any, value: any) => {
+  const handleOnChange = (ownerKey, value) => {
     console.log("valueOnChangeAdd", value);
     setBitacoraSearch(value);
 
     const newData = data.filter(
-      (bitacora: any) => bitacora.owner_id === Number(value)
+      (bitacora) => bitacora.owner_id === Number(value)
     );
     return setDatafilter(newData);
   };
 
-  const handleSearchOnChange = (ownerKey: any, value: any) => {
+  const handleSearchOnChange = (ownerKey, value) => {
     console.log("Value", value);
     console.log("OwnerKey", ownerKey);
     console.log("BitacoraSearch", bitacoraSearch);
@@ -109,7 +109,7 @@ const AnimalsCardQuery: NextPage = () => {
     }
     //filtrando la data al hacer un search
     const newData = data.filter(
-      (bitacora: any) => bitacora.owner_id === Number(value)
+      (bitacora) => bitacora.owner_id === Number(value)
     );
     return setDatafilter(newData);
   };
@@ -131,20 +131,19 @@ const AnimalsCardQuery: NextPage = () => {
               control={control}
               rules={{ required: true }}
               render={({ field: { onChange, value, name, ref } }) => {
-                //console.log("CurrentSelection", currentSelection);
-
                 return (
                   <Select
                     inputRef={ref}
                     defaultValue={{ label: "Seleccione..", value: 0 }}
                     options={owners}
                     name={name}
-                    onChange={(val) => void {
+                    onChange={(val) => {
                       onChange(val?.value);
                       setOwnerId(val?.value);
+                      handleOnChange("owner_id", val.value);
                       handleSearchOnChange("owner_id", val.value);
                     }}
-                    onBlur={() => searchs()}   
+                    onBlur={() => searchs()}
                   />
                 );
               }}
