@@ -81,17 +81,17 @@ const AnimalsCardQuery: NextPage = () => {
     }
   }, [data, status]);
 
-  const handleOnChange = (ownerKey, value) => {
+  const handleOnChange = (ownerKey: any, value: any) => {
     console.log("valueOnChangeAdd", value);
     setBitacoraSearch(value);
 
     const newData = data.filter(
-      (bitacora) => bitacora.owner_id === Number(value)
+      (bitacora: any) => bitacora.owner_id === Number(value)
     );
     return setDatafilter(newData);
   };
 
-  const handleSearchOnChange = (ownerKey, value) => {
+  const handleSearchOnChange = (ownerKey: any, value: any) => {
     console.log("Value", value);
     console.log("OwnerKey", ownerKey);
     console.log("BitacoraSearch", bitacoraSearch);
@@ -109,7 +109,7 @@ const AnimalsCardQuery: NextPage = () => {
     }
     //filtrando la data al hacer un search
     const newData = data.filter(
-      (bitacora) => bitacora.owner_id === Number(value)
+      (bitacora: any) => bitacora.owner_id === Number(value)
     );
     return setDatafilter(newData);
   };
@@ -132,9 +132,7 @@ const AnimalsCardQuery: NextPage = () => {
               rules={{ required: true }}
               render={({ field: { onChange, value, name, ref } }) => {
                 //console.log("CurrentSelection", currentSelection);
-                const handleSelectChange = (
-                  selectedOption: tipo_event_id | null
-                ) => {
+                const handleSelectChange = (selectedOption: ownerId | null) => {
                   onChange(selectedOption?.value);
                 };
                 return (
