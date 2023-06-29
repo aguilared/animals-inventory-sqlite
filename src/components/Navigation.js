@@ -1,6 +1,9 @@
 import Link from "next/link";
 
-const links = [{ href: "/animals/", label: "Animals" }].map((link) => {
+const links = [
+  { href: "/animals/", label: "Animals" },
+  { href: "/animals/animalsCardOwners", label: "Owner Select" },
+].map((link) => {
   link.key = `nav-link-${link.href}-${link.label}`;
   return link;
 });
