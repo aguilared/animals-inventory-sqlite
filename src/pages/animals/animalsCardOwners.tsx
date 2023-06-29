@@ -51,7 +51,7 @@ const convertDate1 = (date: any) => {
 
 const AnimalsCardQuery: NextPage = () => {
   const { owners } = useOwners();
-  const [ownerId, setOwnerId] = useState("");
+  const [ownerId, setOwnerId] = useState();
   const [bitacoraSearch, setBitacoraSearch] = useState();
   const [datafilter, setDatafilter] = useState([]);
 
@@ -65,7 +65,7 @@ const AnimalsCardQuery: NextPage = () => {
 
   const { status, data, error, isLoading, refetch } = useQuery(
     ["animals"],
-    async (filter = "owner_id") => {
+    async (filter: any = ownerId) => {
       const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}animals/`);
       console.log("DATA1", res);
       return res.data;
@@ -143,9 +143,9 @@ const AnimalsCardQuery: NextPage = () => {
                     defaultValue={{ label: "Seleccione..", value: 0 }}
                     options={owners}
                     name={name}
-                    onChange={(val) => {
-                      onChange(val.value);
-                      setOwnerId(val.value);
+                    onChange={(val: number) => {
+                      onChange(val?.value);
+                      setOwnerId(val?.value);
                       handleOnChange("owner_id", val.value);
                       handleSearchOnChange("owner_id", val.value);
                     }}
