@@ -132,9 +132,7 @@ const AnimalsCardQuery: NextPage = () => {
               rules={{ required: true }}
               render={({ field: { onChange, value, name, ref } }) => {
                 //console.log("CurrentSelection", currentSelection);
-                const handleSelectChange = (selectedOption: ownerId | null) => {
-                  onChange(selectedOption?.value);
-                };
+
                 return (
                   <Select
                     inputRef={ref}
@@ -144,7 +142,6 @@ const AnimalsCardQuery: NextPage = () => {
                     onChange={(val: number) => {
                       onChange(val?.value);
                       setOwnerId(val?.value);
-                      handleOnChange("owner_id", val.value);
                       handleSearchOnChange("owner_id", val.value);
                     }}
                     onBlur={() => searchs()}
