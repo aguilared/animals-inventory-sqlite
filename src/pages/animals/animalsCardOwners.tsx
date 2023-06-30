@@ -136,12 +136,12 @@ const AnimalsCardQuery: NextPage = () => {
                     defaultValue={{ label: "Seleccione..", value: 0 }}
                     options={owners}
                     name={name}
-                    onChange={(val) => {
+                    onChange={(val?) => {
                       console.log("Valuee Selected", val);
-                      onChange(val.value);
-                      setOwnerId(val.value);
-                      handleOnChange("owner_id", val.value);
-                      handleSearchOnChange("owner_id", val.value);
+                      onChange(val!.value);
+                      setOwnerId(val!.value);
+                      handleOnChange("owner_id", val!.value);
+                      handleSearchOnChange("owner_id", val!.value);
                     }}
                     onBlur={() => searchs()}
                   />
