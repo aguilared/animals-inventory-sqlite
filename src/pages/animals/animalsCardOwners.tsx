@@ -201,8 +201,7 @@ const AnimalsCardQuery: NextPage = () => {
                     </div>
                   </CardMedia>
                   <CardContent>
-                    <Typography variant="h6" align="left" component="div">
-                      Animal ID: {animal.id},{" "}
+                    <Typography align="left" component="div">
                       <a
                         href={`/animals/animalId/${encodeURIComponent(
                           animal.id
@@ -215,40 +214,20 @@ const AnimalsCardQuery: NextPage = () => {
                       </a>
                     </Typography>
 
-                    <Typography
-                      gutterBottom
-                      variant="h6"
-                      align="left"
-                      component="h2"
-                    >
+                    <Typography gutterBottom align="left">
                       Nombre: {animal.name}, Dueno: {animal.owner.name}
                     </Typography>
 
-                    <Typography
-                      gutterBottom
-                      variant="h6"
-                      align="left"
-                      component="h2"
-                    >
+                    <Typography gutterBottom align="left">
                       Nacimiento: {convertDate(animal.birthdate)}, Tipo animal:{" "}
                       {animal.clase.description}
                     </Typography>
 
-                    <Typography
-                      gutterBottom
-                      variant="h6"
-                      align="left"
-                      component="h2"
-                    >
+                    <Typography align="left">
                       Madre: {animal.mother}, Hierro: {animal.hierro}
                     </Typography>
 
-                    <Typography
-                      gutterBottom
-                      variant="h6"
-                      align="left"
-                      component="h2"
-                    >
+                    <Typography align="left">
                       Date update: {convertDate(animal.updated_at)}
                     </Typography>
                     <Typography paragraph>Info: {animal.info}</Typography>
