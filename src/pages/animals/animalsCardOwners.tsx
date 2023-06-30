@@ -117,10 +117,8 @@ const AnimalsCardQuery: NextPage = () => {
   return (
     <Container>
       <QueryClientProvider client={queryClient}>
-        <div className="container mx-auto px-20">
-          <h1 className="text-gray-600 text-5xl font-bold">
-            Query List Animals{" "}
-          </h1>
+        <div className="container mx-auto px-20 text-gray-600 text-2xl font-bold">
+          Query List Animals{" "}
         </div>
 
         <div className="flex mb-4">
