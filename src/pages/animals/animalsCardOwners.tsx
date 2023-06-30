@@ -51,7 +51,7 @@ const convertDate1 = (date: any) => {
 
 const AnimalsCardQuery: NextPage = () => {
   const { owners } = useOwners();
-  const [ownerId, setOwnerId] = useState();
+  const [ownerId, setOwnerId] = useState(0);
   const [bitacoraSearch, setBitacoraSearch] = useState();
   const [datafilter, setDatafilter] = useState([]);
 
