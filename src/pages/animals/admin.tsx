@@ -5,6 +5,7 @@ import StreetviewRoundedIcon from "@mui/icons-material/ThreeDRotation";
 import Container from "../../components/Container";
 import { Controller, useForm } from "react-hook-form";
 import Select from "react-select";
+import useUser from "../../hooks/useUser";
 
 import {
   useQuery,
@@ -20,6 +21,7 @@ import { useClases } from "../../hooks/useClases";
 import { useVacas } from "../../hooks/useVacas";
 import AnimalEdit from "../../components/Animals/AnimalEdit";
 import toast, { Toaster } from "react-hot-toast";
+import { useRouter } from "next/router";
 
 const notify = () =>
   toast.custom((t) => (
@@ -116,6 +118,16 @@ const style = {
 };
 
 const Animals = (): React.JSX.Element => {
+  const router = useRouter();
+
+  const { isUser } = useUser();
+  if (!isUser) {
+    toast.error("Please Sign In, You Are Being Redirected");
+    setTimeout(function () {
+      router.push("/login/");
+    }, 5000);
+  }
+
   const { data, isLoading, refetch } = useQuery(["Animalss"], async () => {
     const res = await axios.get(`${DATABASEURL}animals`);
     return res.data;
