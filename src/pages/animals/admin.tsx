@@ -237,7 +237,7 @@ const Animals = (): React.JSX.Element => {
     }
   };
 
-  const handleOnChange = (animalKey, value) => {
+  const handleOnChange = (animalKey: any, value: any) => {
     console.log("valueOnChangeAdd", value);
     setAnimalAdd({ ...animalAdd, [animalKey]: value });
     console.log("SETanimalAdd", animalAdd);
@@ -270,7 +270,7 @@ const Animals = (): React.JSX.Element => {
                     rel="noreferrer"
                   >
                     <Image
-                      onClick={() => seleccionarAnimal1(animal, "Mostrar")}
+                      onClick={() => seleccionarAnimal(animal, "Mostrar")}
                       src={"/static/images/" + `${animal.id}` + ".jpg"}
                       alt="my Image"
                       width="212"
