@@ -202,7 +202,7 @@ const Animals = (): React.JSX.Element => {
     setAnimalSeleccionada(elemento);
     console.log("ELEMENTO Eliminar o Editar", elemento);
     console.log("CASO Eliminar o Editar", caso);
-    caso === "Editar" ? setModalEditar(true) : setOpenDelete(true);
+    caso === "Editar" ? setOpenDelete(false) : setOpenDelete(true);
   };
 
   const eliminar = async () => {
