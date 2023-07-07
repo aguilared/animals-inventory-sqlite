@@ -7,6 +7,7 @@ import axios from "axios";
 const links = [
   { href: "/animals/", label: "List" },
   { href: "/animals/animalsCardOwners", label: "Select" },
+  { href: "/animals/admin", label: "Admin" },
 ].map((link) => {
   link.key = `nav-link-${link.href}-${link.label}`;
   return link;
