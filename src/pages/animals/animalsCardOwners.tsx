@@ -17,6 +17,18 @@ import Select from "react-select";
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
 import { useOwners } from "../../hooks/useOwners";
 import Image from "next/image";
+import toast, { Toaster } from "react-hot-toast";
+
+const notify = () =>
+  toast.custom((t) => (
+    <div
+      className={`bg-white px-6 py-4 shadow-md rounded-full ${
+        t.visible ? "animate-enter" : "animate-leave"
+      }`}
+    >
+      Toast successfully 👋
+    </div>
+  ));
 
 type Inputs = {
   alive: string;
@@ -169,6 +181,10 @@ const AnimalsCardQuery: NextPage = () => {
               </svg>
             </button>
           </div>
+          <div className="flex-grow text-right px-3 py-1 m-2">
+            <button onClick={notify}>Toast</button>
+            <Toaster />
+          </div>{" "}
         </div>
 
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
