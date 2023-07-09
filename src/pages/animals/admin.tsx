@@ -150,13 +150,17 @@ const Animals = (): React.JSX.Element => {
     tipopart: "Normal",
   });
 
-  const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const [modalCreate, setModalCreate] = React.useState(false);
+  const modalCreateOpen = () => setModalCreate(true);
+  const modalCreateClose = () => setModalCreate(false);
 
-  const [openDelete, setOpenDelete] = React.useState(false);
-  const handleOpenDelete = () => setOpenDelete(true);
-  const handleCloseDelete = () => setOpenDelete(false);
+  const [modalEdit, setModalEdit] = React.useState(false);
+  const modalEditOpen = () => setModalEdit(true);
+  const modalEditClose = () => setModalEdit(false);
+
+  const [modalDelete, setModalDelete] = React.useState(false);
+  const modalDeleteOpen = () => setModalDelete(true);
+  const modalDeleteClose = () => setModalDelete(false);
 
   const {
     control,
@@ -187,9 +191,10 @@ const Animals = (): React.JSX.Element => {
         body: JSON.stringify(parsedata),
       });
       refetch();
+      notify();
       toast.success("Animal created successfully");
 
-      setOpen(false);
+      setModalCreate(false);
     } catch (error) {
       toast.success("Animal not created successfully");
       console.log(error);
@@ -214,7 +219,7 @@ const Animals = (): React.JSX.Element => {
     setAnimalSeleccionada(elemento);
     console.log("ELEMENTO Eliminar o Editar", elemento);
     console.log("CASO Eliminar o Editar", caso);
-    caso === "Editar" ? setOpenDelete(false) : setOpenDelete(true);
+    caso === "Editar" ? setModalDelete(false) : setModalDelete(true);
   };
 
   const eliminar = async () => {
@@ -224,6 +229,7 @@ const Animals = (): React.JSX.Element => {
         "/api/animals/delete/" + animalSeleccionada.id
       );
       // await removeAnimal(animalSeleccionada.id);
+      notify();
       refetch();
       toast.custom((t) => (
         <div
@@ -234,7 +240,8 @@ const Animals = (): React.JSX.Element => {
           Deleted successfully 👋
         </div>
       ));
-      setOpenDelete(false);
+
+      setModalDelete(false);
     } catch (error) {
       toast.custom((t) => (
         <div
@@ -262,7 +269,15 @@ const Animals = (): React.JSX.Element => {
           <div className="flex-grow text-left text-gray-100 px-3 py-1 m-2 ">
             {" Admin Bitacoras"}
           </div>
-          <Button onClick={handleOpen}>Open modal</Button>
+          <div className="flex-grow text-right px-3 py-1 m-2 text-gray-100">
+            <Button
+              color="success"
+              variant="contained"
+              onClick={modalCreateOpen}
+            >
+              Add
+            </Button>
+          </div>
         </div>
         {isLoading ? (
           <div className="fixed top-0 right-0 h-screen w-screen z-50 flex justify-center items-center">
@@ -282,7 +297,6 @@ const Animals = (): React.JSX.Element => {
                     rel="noreferrer"
                   >
                     <Image
-                      onClick={() => seleccionarAnimal(animal, "Mostrar")}
                       src={"/static/images/" + `${animal.id}` + ".jpg"}
                       alt="my Image"
                       width="212"
@@ -315,6 +329,28 @@ const Animals = (): React.JSX.Element => {
                       strokeWidth="2"
                       strokeLinecap="round"
                       strokeLinejoin="round"
+                      className="feather feather-edit"
+                    >
+                      <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
+                      <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
+                    </svg>
+                  </button>
+                </div>
+                <div className="inline-block text-gray-700 text-right px-1 py-1 m-0">
+                  <button
+                    onClick={() => seleccionarAnimal(animal, "Eliminar")}
+                    className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-1 px-0 mr-1 rounded-full inline-flex items-center"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
                       className="feather feather-trash-2"
                     >
                       <polyline points="3 6 5 6 21 6" />
@@ -330,8 +366,8 @@ const Animals = (): React.JSX.Element => {
         <Modal
           sx={{ overflowY: "scroll" }}
           disableScrollLock={false}
-          open={open}
-          onClose={handleClose}
+          open={modalCreate}
+          onClose={modalCreateClose}
           aria-labelledby="modal-modal-title"
           aria-describedby="modal-modal-description"
         >
@@ -590,8 +626,8 @@ const Animals = (): React.JSX.Element => {
         <Modal
           sx={{ overflowY: "scroll" }}
           disableScrollLock={false}
-          open={openDelete}
-          onClose={handleCloseDelete}
+          open={modalDelete}
+          onClose={modalDeleteClose}
           aria-labelledby="modal-modal-title"
           aria-describedby="modal-modal-description"
         >
@@ -606,7 +642,7 @@ const Animals = (): React.JSX.Element => {
               </button>
               <button
                 className="btn btn-secondary"
-                onClick={() => setOpenDelete(false)}
+                onClick={() => setModalDelete(false)}
               >
                 No
               </button>
