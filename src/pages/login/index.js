@@ -3,9 +3,17 @@ import { useState, useCallback } from "react";
 import { useRouter } from "next/router";
 import useUser from "../../hooks/useUser";
 import { IoMdClose } from "react-icons/io";
+import toast, { Toaster } from "react-hot-toast";
 
 function Home() {
   const { isUser, loadUser } = useUser(); //to Global
+
+  if (isUser) {
+    toast.error(" You Are Being Redirected");
+    setTimeout(function () {
+      router.push("/");
+    }, 5000);
+  }
 
   const [credentials, setCredentials] = useState({
     email: "",
@@ -23,7 +31,7 @@ function Home() {
         console.log("no hay Users va a cargar a global", res);
         loadUser(credentials); //load idto global
       }
-      router.push("/animals/animalsCardOwners");
+      router.push("/animals/admin");
     }
     if (res.status === 401) {
       router.push("/");
