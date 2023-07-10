@@ -1,7 +1,5 @@
-import React, { BaseSyntheticEvent, useState } from "react";
-import Link from "next/link";
-import { Box, Button, IconButton, Modal, Typography } from "@mui/material";
-import StreetviewRoundedIcon from "@mui/icons-material/ThreeDRotation";
+import React, { useState } from "react";
+import { Box, Button, Modal, Typography } from "@mui/material";
 import Container from "../../components/Container";
 import { Controller, useForm } from "react-hook-form";
 import Select from "react-select";
@@ -150,6 +148,21 @@ const Animals = (): React.JSX.Element => {
     tipopart: "Normal",
   });
 
+  const [animalE, setAnimalE] = useState({
+    alive: "",
+    birthdate: convertDate1(dateAnimal),
+    clase_id: 1,
+    hierro: "",
+    id: "",
+    info: "",
+    mother: "",
+    mother_id: 0,
+    name: "",
+    owner_id: 1,
+    tipopart: "",
+    updated_at: "2022-01-03 11:07",
+  });
+
   const [modalCreate, setModalCreate] = React.useState(false);
   const modalCreateOpen = () => setModalCreate(true);
   const modalCreateClose = () => setModalCreate(false);
@@ -170,8 +183,14 @@ const Animals = (): React.JSX.Element => {
     formState: { errors },
   } = useForm<Inputs>();
 
+  const handleOnChange = (animalKey: any, value: any) => {
+    console.log("valueOnChangeAdd", value);
+    setAnimalAdd({ ...animalAdd, [animalKey]: value });
+    console.log("SETanimalAdd", animalAdd);
+  };
+
   const onSubmit = async () => {
-    console.log("FormData", animalAdd);
+    //console.log("FormData", animalAdd);
     const parsedata = {
       alive: animalAdd.alive,
       birthdate: animalAdd.birthdate,
@@ -201,6 +220,44 @@ const Animals = (): React.JSX.Element => {
     }
   };
 
+  const handleOnChangeE = (animalKey: any, value: any) => {
+    console.log("valueOnChangeEditar", value);
+    setAnimalE({ ...animalE, [animalKey]: value });
+    console.log("animalOnchageE", animalE);
+  };
+
+  const onSubmitE = async () => {
+    console.log("FormDataEdit", animalE);
+    const parsedata = {
+      alive: animalE.alive,
+      birthdate: animalE.birthdate,
+      clase_id: Number(animalE.clase_id),
+      hierro: animalE.hierro,
+      id: Number(animalE.id),
+      info: animalE.info,
+      mother: animalE.mother,
+      mother_id: animalE.mother_id,
+      name: animalE.name,
+      owner_id: Number(animalE.owner_id),
+      tipopart: animalE.tipopart,
+    };
+    try {
+      //await editAnimal(data);
+      const result = await fetch("/api/animals/update", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(parsedata),
+      });
+      notify();
+      //toast.success("Animal updated successfully");
+
+      refetch();
+      setModalEditar(false);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const [animalSeleccionada, setAnimalSeleccionada] = useState({
     id: "",
     alive: "",
@@ -209,6 +266,7 @@ const Animals = (): React.JSX.Element => {
     hierro: "",
     info: "",
     mother_id: "",
+    mother: "",
     name: "",
     owner_id: "",
     tipopart: "",
@@ -219,7 +277,7 @@ const Animals = (): React.JSX.Element => {
     setAnimalSeleccionada(elemento);
     console.log("ELEMENTO Eliminar o Editar", elemento);
     console.log("CASO Eliminar o Editar", caso);
-    caso === "Editar" ? setModalDelete(false) : setModalDelete(true);
+    caso === "Edit" ? setModalEdit(true) : setModalDelete(true);
   };
 
   const eliminar = async () => {
@@ -254,12 +312,6 @@ const Animals = (): React.JSX.Element => {
       ));
       console.log(error);
     }
-  };
-
-  const handleOnChange = (animalKey: any, value: any) => {
-    console.log("valueOnChangeAdd", value);
-    setAnimalAdd({ ...animalAdd, [animalKey]: value });
-    console.log("SETanimalAdd", animalAdd);
   };
 
   return (
@@ -311,12 +363,13 @@ const Animals = (): React.JSX.Element => {
                   <b> {animal.name}</b>, &nbsp; Dueno=
                   {animal.owner.name}. &nbsp; <br />
                   Nacimiento=
-                  {convertDate(animal.birthdate)}. &nbsp; <br />
+                  {convertDate(animal.birthdate)}. &nbsp; Madre={animal.mother}.
+                  &nbsp; <br />
                   Info= {animal.info} &nbsp;
                 </div>
                 <div className="inline-block text-gray-700 text-right px-1 py-1 m-0">
                   <button
-                    onClick={() => seleccionarAnimal(animal, "Eliminar")}
+                    onClick={() => seleccionarAnimal(animal, "Edit")}
                     className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-1 px-0 mr-1 rounded-full inline-flex items-center"
                   >
                     <svg
@@ -338,7 +391,7 @@ const Animals = (): React.JSX.Element => {
                 </div>
                 <div className="inline-block text-gray-700 text-right px-1 py-1 m-0">
                   <button
-                    onClick={() => seleccionarAnimal(animal, "Eliminar")}
+                    onClick={() => seleccionarAnimal(animal, "Edit")}
                     className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-1 px-0 mr-1 rounded-full inline-flex items-center"
                   >
                     <svg
@@ -363,6 +416,7 @@ const Animals = (): React.JSX.Element => {
               </div>
             ))
           : null}
+
         <Modal
           sx={{ overflowY: "scroll" }}
           disableScrollLock={false}
@@ -442,11 +496,14 @@ const Animals = (): React.JSX.Element => {
                     control={control}
                     rules={{ required: true }}
                     render={({ field: { onChange, value, name, ref } }) => {
+                      const currentSelection = owners.find(
+                        (c) => c.value === animalAdd.owner_id
+                      );
+                      console.log("CurrentSelection", currentSelection);
                       return (
                         <Select
-                          defaultValue={{ label: "Seleccione..", value: 0 }}
+                          defaultValue={currentSelection}
                           options={owners}
-                          value={owners.find((c) => c.value === value)}
                           name={name}
                           onChange={(val) => {
                             onChange(val!.value);
@@ -456,7 +513,11 @@ const Animals = (): React.JSX.Element => {
                       );
                     }}
                   />
-                  {errors.owner_id && <p>This field is required</p>}{" "}
+                  {errors.owner_id && (
+                    <span className="text-xs text-red-700">
+                      {errors.owner_id.message}
+                    </span>
+                  )}
                 </div>
 
                 <div className="md:w-11/12 px-3 mb-6 md:mb-0">
@@ -485,7 +546,11 @@ const Animals = (): React.JSX.Element => {
                       );
                     }}
                   />
-                  {errors.clase_id && <p>This field is required</p>}{" "}
+                  {errors.clase_id && (
+                    <span className="text-xs text-red-700">
+                      {errors.clase_id.message}
+                    </span>
+                  )}
                 </div>
 
                 <div className="md:w-11/12 px-3 mb-6 md:mb-0">
@@ -514,7 +579,11 @@ const Animals = (): React.JSX.Element => {
                       );
                     }}
                   />
-                  {errors.mother_id && <p>This field is required</p>}{" "}
+                  {errors.mother_id && (
+                    <span className="text-xs text-red-700">
+                      {errors.mother_id.message}
+                    </span>
+                  )}
                 </div>
 
                 <div className="md:w-11/12 px-3 mb-6 md:mb-0">
@@ -618,6 +687,281 @@ const Animals = (): React.JSX.Element => {
               <div className="md:w-11/12 px-3 mb-6 md:mb-0">
                 <Button onClick={handleSubmit(onSubmit)} variant={"outlined"}>
                   Submit
+                </Button>
+              </div>
+            </Typography>
+          </Box>
+        </Modal>
+        <Modal
+          sx={{ overflowY: "scroll" }}
+          disableScrollLock={false}
+          open={modalEdit}
+          onClose={modalEditClose}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <Box sx={{ ...style1, width: 400 }}>
+            <Typography id="modal-modal-title" variant="h6" component="h2">
+              Edit Animal {animalSeleccionada.id} {animalSeleccionada.name}
+            </Typography>
+            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+              <form className="w-full max-w-lg  bg-gray-400 shadow-md rounded">
+                <div className="md:w-11/12 px-3 mb-6 md:mb-0">
+                  <label
+                    className="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2"
+                    htmlFor="Name"
+                  >
+                    Nombre
+                  </label>
+                  <input
+                    className="appearance-none block w-full border border-grey-lighter rounded py-3 px-2"
+                    type="text"
+                    placeholder="Name"
+                    defaultValue={animalSeleccionada.name}
+                    {...register("name", {
+                      required: "Required",
+                      minLength: 3,
+                      maxLength: 41,
+                    })}
+                    onChange={(e) => handleOnChangeE("name", e.target.value)}
+                  />
+                  {errors.name && (
+                    <span className="text-xs text-red-700">
+                      {errors.name.message}
+                    </span>
+                  )}
+                </div>
+                <div className="md:w-11/12 px-3 mb-6 md:mb-0">
+                  <label
+                    className="block uppercase tracking-wide text-xs font-bold mb-2"
+                    htmlFor="birthdate"
+                  >
+                    Nacimiento
+                  </label>
+                  <input
+                    className="appearance-none block w-full border border-grey-lighter rounded py-3 px-2"
+                    type="text"
+                    placeholder="Date Event"
+                    defaultValue={animalSeleccionada.birthdate}
+                    {...register("birthdate", {
+                      required: "Required",
+                      minLength: 3,
+                      maxLength: 41,
+                    })}
+                    onChange={(e) =>
+                      handleOnChangeE("birthdate", e.target.value)
+                    }
+                  />
+                  {errors.birthdate && (
+                    <span className="text-xs text-red-700">
+                      {errors.birthdate.message}
+                    </span>
+                  )}
+                </div>
+
+                <div className="md:w-11/12 px-3 mb-6 md:mb-0">
+                  <label
+                    className="block uppercase tracking-wide text-xs font-bold mb-2"
+                    htmlFor="owner_id"
+                  >
+                    Dueno
+                  </label>
+                  <Controller
+                    name="owner_id"
+                    control={control}
+                    rules={{ required: true }}
+                    render={({ field: { onChange, value, name, ref } }) => {
+                      return (
+                        <Select
+                          defaultValue={{ label: "Seleccione..", value: 0 }}
+                          options={owners}
+                          value={owners.find((c) => c.value === value)}
+                          name={name}
+                          onChange={(val) => {
+                            onChange(val!.value);
+                            handleOnChangeE("owner_id", val!.value);
+                          }}
+                        />
+                      );
+                    }}
+                  />
+                  {errors.owner_id && (
+                    <span className="text-xs text-red-700">
+                      {errors.owner_id.message}
+                    </span>
+                  )}
+                </div>
+
+                <div className="md:w-11/12 px-3 mb-6 md:mb-0">
+                  <label
+                    className="block uppercase tracking-wide text-xs font-bold mb-2"
+                    htmlFor="clase_id"
+                  >
+                    Clase Animal
+                  </label>
+                  <Controller
+                    name="clase_id"
+                    control={control}
+                    rules={{ required: true }}
+                    render={({ field: { onChange, value, name, ref } }) => {
+                      return (
+                        <Select
+                          defaultValue={{ label: "Seleccione..", value: 0 }}
+                          options={clases}
+                          value={clases.find((c) => c.value === value)}
+                          name={name}
+                          onChange={(val) => {
+                            onChange(val!.value);
+                            handleOnChangeE("clase_id", val!.value);
+                          }}
+                        />
+                      );
+                    }}
+                  />
+                  {errors.clase_id && (
+                    <span className="text-xs text-red-700">
+                      {errors.clase_id.message}
+                    </span>
+                  )}
+                </div>
+
+                <div className="md:w-11/12 px-3 mb-6 md:mb-0">
+                  <label
+                    className="block uppercase tracking-wide text-xs font-bold mb-2"
+                    htmlFor="mother_id"
+                  >
+                    Madre
+                  </label>
+                  <Controller
+                    name="mother_id"
+                    control={control}
+                    rules={{ required: true }}
+                    render={({ field: { onChange, value, name, ref } }) => {
+                      return (
+                        <Select
+                          defaultValue={{ label: "Seleccione..", value: 0 }}
+                          options={vacas}
+                          value={vacas.find((c) => c.value === value)}
+                          name={name}
+                          onChange={(val) => {
+                            onChange(val!.value);
+                            handleOnChangeE("mother_id", val!.value);
+                          }}
+                        />
+                      );
+                    }}
+                  />
+                  {errors.mother_id && (
+                    <span className="text-xs text-red-700">
+                      {errors.mother_id.message}
+                    </span>
+                  )}
+                </div>
+
+                <div className="md:w-11/12 px-3 mb-6 md:mb-0">
+                  <label
+                    className="block uppercase tracking-wide text-xs font-bold mb-2"
+                    htmlFor="mother"
+                  >
+                    Nombre Madre
+                  </label>
+                  <input
+                    className="appearance-none block w-full border border-grey-lighter rounded py-3 px-2"
+                    type="text"
+                    placeholder="Madre"
+                    defaultValue={animalSeleccionada.mother}
+                    {...register("mother", {
+                      required: "Required",
+                      minLength: 3,
+                      maxLength: 41,
+                    })}
+                    onChange={(e) => handleOnChangeE("mother", e.target.value)}
+                  />
+                  {errors.mother && (
+                    <span className="text-xs text-red-700">
+                      {errors.mother.message}
+                    </span>
+                  )}
+                </div>
+                <div className="md:w-11/12 px-3 py-3mb-6 md:mb-0">
+                  <label
+                    className="block uppercase tracking-wide text-xs font-bold mb-2 py-1"
+                    htmlFor="hierro"
+                  >
+                    Hierro
+                  </label>
+                  <input
+                    className="appearance-none block w-full bg-grey-lighter border border-grey-lighter rounded py-2 px-2 p-1 h-4"
+                    placeholder="hierro"
+                    defaultValue={animalSeleccionada.hierro}
+                    {...register("hierro", {
+                      required: true,
+                    })}
+                    onChange={(e) => handleOnChangeE("hierro", e.target.value)}
+                  />
+                  {errors.hierro && (
+                    <span className="text-xs text-red-700">
+                      {errors.hierro.message}
+                    </span>
+                  )}
+                </div>
+
+                <div className="md:w-11/12 px-3 mb-6 md:mb-0">
+                  <label
+                    className="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2"
+                    htmlFor="tipopart"
+                  >
+                    Tipo parto
+                  </label>
+                  <input
+                    className="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4"
+                    placeholder="tipopart"
+                    defaultValue={animalSeleccionada.tipopart
+                    }
+                    {...register("tipopart", {
+                      required: true,
+                    })}
+                    onChange={(e) =>
+                      handleOnChangeE("tipopart", e.target.value)
+                    }
+                  />
+                  {errors.tipopart && (
+                    <span className="text-xs text-red-700">
+                      {errors.tipopart.message}
+                    </span>
+                  )}
+                </div>
+                <div className="md:w-11/12 px-3 mb-6 md:mb-0">
+                  <label
+                    className="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2"
+                    htmlFor="info"
+                  >
+                    Infos
+                  </label>
+                  <textarea
+                    cols={100}
+                    rows={6}
+                    className="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4"
+                    placeholder="info"
+                    defaultValue={animalSeleccionada.info}
+                    {...register("info", {
+                      required: true,
+                    })}
+                    onChange={(e) => handleOnChangeE("info", e.target.value)}
+                  />
+                  {errors.info && (
+                    <span className="text-xs text-red-700">
+                      {errors.info.message}
+                    </span>
+                  )}
+                </div>
+
+                <br></br>
+              </form>{" "}
+              <br></br>
+              <div className="md:w-11/12 px-3 mb-6 md:mb-0">
+                <Button onClick={handleSubmit(onSubmitE)} variant={"outlined"}>
+                  Save
                 </Button>
               </div>
             </Typography>
