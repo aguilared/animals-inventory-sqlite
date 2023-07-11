@@ -9,6 +9,7 @@ type Inputs = {
   hierro: string;
   id: number;
   info: string;
+  mother_id: number;
   mother: string;
   name: string;
   owner_id: number;
@@ -17,18 +18,11 @@ type Inputs = {
 };
 
 const AnimalEdit = (props: any): JSX.Element => {
-  const {
-    animalSeleccionada2,
-    onSubmitE,
-    handleOnChangeE,
-    clases,
-    owners,
-    eventsId,
-  } = props;
+  const { animalSeleccionada2, onSubmitE, handleOnChangeE, clases, owners } =
+    props;
   console.log("animalSeleccionada2", animalSeleccionada2);
   console.log("Clases", clases);
-  console.log("EventsId", eventsId);
-  //console.log("Owners", owners);
+  console.log("Owners", owners);
 
   const {
     register,
@@ -37,13 +31,9 @@ const AnimalEdit = (props: any): JSX.Element => {
     formState: { errors },
   } = useForm<Inputs>();
 
-  const validate = (selected: any) => {
-    selected === "" || "You must be at least 18 years old";
-    console.log("eleccionado", selected);
-  };
-
   return (
     <form
+      name="edit"
       className="w-full max-w-lg  bg-gray-400 shadow-md rounded"
       onSubmit={handleSubmit(onSubmitE)}
     >
