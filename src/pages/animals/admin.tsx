@@ -252,7 +252,7 @@ const Animals = (): React.JSX.Element => {
       //toast.success("Animal updated successfully");
 
       refetch();
-      setModalEditar(false);
+      setModalEdit(false);
     } catch (error) {
       console.log(error);
     }
@@ -916,8 +916,7 @@ const Animals = (): React.JSX.Element => {
                   <input
                     className="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4"
                     placeholder="tipopart"
-                    defaultValue={animalSeleccionada.tipopart
-                    }
+                    defaultValue={animalSeleccionada.tipopart}
                     {...register("tipopart", {
                       required: true,
                     })}
