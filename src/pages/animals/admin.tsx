@@ -249,7 +249,7 @@ const Animals = (): React.JSX.Element => {
         body: JSON.stringify(parsedata),
       });
       notify();
-      //toast.success("Animal updated successfully");
+      toast.success("Animal updated successfully");
 
       refetch();
       setModalEdit(false);
