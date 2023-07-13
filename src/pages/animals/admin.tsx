@@ -241,40 +241,6 @@ const Animals = (): React.JSX.Element => {
     }
   };
 
-  const eliminar = async () => {
-    try {
-      console.log("Entra a Borrar");
-      const result = await fetch(
-        "/api/animals/delete/" + animalSeleccionada.id
-      );
-      // await removeAnimal(animalSeleccionada.id);
-      notify();
-      refetch();
-      toast.custom((t) => (
-        <div
-          className={`bg-white px-6 py-4 shadow-md rounded-full ${
-            t.visible ? "animate-enter" : "animate-leave"
-          }`}
-        >
-          Deleted successfully 👋
-        </div>
-      ));
-
-      setModalDelete(false);
-    } catch (error) {
-      toast.custom((t) => (
-        <div
-          className={`bg-white px-6 py-4 shadow-md rounded-full ${
-            t.visible ? "animate-enter" : "animate-leave"
-          }`}
-        >
-          Not Deleted successfully 👋
-        </div>
-      ));
-      console.log(error);
-    }
-  };
-
   const handleOnChangeE = (animalKey: any, value: any) => {
     console.log("valueOnChangeEditar", value);
     setAnimalE({ ...animalE, [animalKey]: value });
@@ -308,6 +274,40 @@ const Animals = (): React.JSX.Element => {
       refetch();
       setModalEdit(false);
     } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const eliminar = async () => {
+    try {
+      console.log("Entra a Borrar");
+      const result = await fetch(
+        "/api/animals/delete/" + animalSeleccionada.id
+      );
+      // await removeAnimal(animalSeleccionada.id);
+      notify();
+      refetch();
+      toast.custom((t) => (
+        <div
+          className={`bg-white px-6 py-4 shadow-md rounded-full ${
+            t.visible ? "animate-enter" : "animate-leave"
+          }`}
+        >
+          Deleted successfully 👋
+        </div>
+      ));
+
+      setModalDelete(false);
+    } catch (error) {
+      toast.custom((t) => (
+        <div
+          className={`bg-white px-6 py-4 shadow-md rounded-full ${
+            t.visible ? "animate-enter" : "animate-leave"
+          }`}
+        >
+          Not Deleted successfully 👋
+        </div>
+      ));
       console.log(error);
     }
   };
