@@ -31,9 +31,13 @@ function Home() {
         console.log("no hay Users va a cargar a global", res);
         loadUser(credentials); //load idto global
       }
+      console.log("Routeando a animals admin");
+
       router.push("/animals/admin");
     }
     if (res.status === 401) {
+      console.log("Res Status 401 a /");
+
       router.push("/");
     }
   };
@@ -42,7 +46,7 @@ function Home() {
     console.log("isUser", isUser);
   }, [isUser]);
 
-  const title = "Login";
+  const title = "Login1";
 
   return (
     <div

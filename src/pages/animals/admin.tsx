@@ -183,6 +183,33 @@ const Animals = (): React.JSX.Element => {
     formState: { errors },
   } = useForm<Inputs>();
 
+  const handleOnChange = (animalKey: any, value: any) => {
+    console.log("valueOnChangeAdd", value);
+    setAnimalAdd({ ...animalAdd, [animalKey]: value });
+    console.log("SETanimalAdd", animalAdd);
+  };
+
+  const [animalSeleccionada, setAnimalSeleccionada] = useState({
+    id: "",
+    alive: "",
+    birthdate: "",
+    clase_id: "",
+    hierro: "",
+    info: "",
+    mother_id: "",
+    name: "",
+    owner_id: "",
+    tipopart: "",
+    updated_at: "",
+  });
+
+  const seleccionarAnimal = (elemento: any, caso: any) => {
+    setAnimalSeleccionada(elemento);
+    console.log("ELEMENTO Eliminar o Editar", elemento);
+    console.log("CASO Eliminar o Editar", caso);
+    caso === "Edit" ? setModalEdit(true) : setModalDelete(true);
+  };
+
   const onSubmit = async () => {
     console.log("FormData", animalAdd);
     const parsedata = {
@@ -212,27 +239,6 @@ const Animals = (): React.JSX.Element => {
       toast.success("Animal not created successfully");
       console.log(error);
     }
-  };
-
-  const [animalSeleccionada, setAnimalSeleccionada] = useState({
-    id: "",
-    alive: "",
-    birthdate: "",
-    clase_id: "",
-    hierro: "",
-    info: "",
-    mother_id: "",
-    name: "",
-    owner_id: "",
-    tipopart: "",
-    updated_at: "",
-  });
-
-  const seleccionarAnimal = (elemento: any, caso: any) => {
-    setAnimalSeleccionada(elemento);
-    console.log("ELEMENTO Eliminar o Editar", elemento);
-    console.log("CASO Eliminar o Editar", caso);
-    caso === "Edit" ? setModalEdit(true) : setModalDelete(true);
   };
 
   const eliminar = async () => {
@@ -269,12 +275,6 @@ const Animals = (): React.JSX.Element => {
     }
   };
 
-  const handleOnChange = (animalKey: any, value: any) => {
-    console.log("valueOnChangeAdd", value);
-    setAnimalAdd({ ...animalAdd, [animalKey]: value });
-    console.log("SETanimalAdd", animalAdd);
-  };
-
   const handleOnChangeE = (animalKey: any, value: any) => {
     console.log("valueOnChangeEditar", value);
     setAnimalE({ ...animalE, [animalKey]: value });
@@ -283,7 +283,7 @@ const Animals = (): React.JSX.Element => {
 
   const onSubmitE = async () => {
     console.log("FormDataEdit", animalE);
-    /* const parsedata = {
+    const parsedata = {
       alive: animalE.alive,
       birthdate: animalE.birthdate,
       clase_id: Number(animalE.clase_id),
@@ -297,7 +297,6 @@ const Animals = (): React.JSX.Element => {
       tipopart: animalE.tipopart,
     };
     try {
-      //await editAnimal(data);
       const result = await fetch("/api/animals/update", {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
@@ -310,7 +309,7 @@ const Animals = (): React.JSX.Element => {
       setModalEdit(false);
     } catch (error) {
       console.log(error);
-    }*/
+    }
   };
 
   return (
@@ -701,15 +700,13 @@ const Animals = (): React.JSX.Element => {
             <Typography id="modal-modal-title" variant="h6" component="h2">
               Edit Animall {animalSeleccionada.id} {animalSeleccionada.name}
             </Typography>
-            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-              <AnimalEdit
-                animalSeleccionada2={animalSeleccionada}
-                onSubmitE={onSubmitE}
-                handleOnChangeE={handleOnChangeE}
-                owners={owners}
-                clases={clases}
-              />
-            </Typography>
+            <AnimalEdit
+              animalSeleccionada2={animalSeleccionada}
+              onSubmitE={onSubmitE}
+              handleOnChangeE={handleOnChangeE}
+              owners={owners}
+              clases={clases}
+            />
           </Box>
         </Modal>
         <Modal
