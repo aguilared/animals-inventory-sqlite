@@ -6,13 +6,11 @@ import Container from "../../components/Container";
 import { Controller, useForm } from "react-hook-form";
 import Select from "react-select";
 import useUser from "../../hooks/useUser";
-
 import {
   useQuery,
   QueryClient,
   QueryClientProvider,
 } from "@tanstack/react-query";
-
 import axios from "axios";
 import dayjs from "dayjs";
 import Image from "next/image";
@@ -512,7 +510,11 @@ const Animals = (): React.JSX.Element => {
                       );
                     }}
                   />
-                  {errors.owner_id && <p>This field is required</p>}{" "}
+                  {errors.owner_id && (
+                    <span className="text-xs text-red-700">
+                      {errors.owner_id.message}
+                    </span>
+                  )}
                 </div>
 
                 <div className="md:w-11/12 px-3 mb-6 md:mb-0">
@@ -541,7 +543,11 @@ const Animals = (): React.JSX.Element => {
                       );
                     }}
                   />
-                  {errors.clase_id && <p>This field is required</p>}{" "}
+                  {errors.clase_id && (
+                    <span className="text-xs text-red-700">
+                      {errors.clase_id.message}
+                    </span>
+                  )}
                 </div>
 
                 <div className="md:w-11/12 px-3 mb-6 md:mb-0">
@@ -570,7 +576,11 @@ const Animals = (): React.JSX.Element => {
                       );
                     }}
                   />
-                  {errors.mother_id && <p>This field is required</p>}{" "}
+                  {errors.mother_id && (
+                    <span className="text-xs text-red-700">
+                      {errors.mother_id.message}
+                    </span>
+                  )}
                 </div>
 
                 <div className="md:w-11/12 px-3 mb-6 md:mb-0">
@@ -699,12 +709,6 @@ const Animals = (): React.JSX.Element => {
                 owners={owners}
                 clases={clases}
               />
-              <br></br>
-              <div className="md:w-11/12 px-3 mb-6 md:mb-0">
-                <Button onClick={handleSubmit(onSubmitE)} variant={"outlined"}>
-                  Save
-                </Button>
-              </div>
             </Typography>
           </Box>
         </Modal>
