@@ -148,21 +148,6 @@ const Animals = (): React.JSX.Element => {
     tipopart: "Normal",
   });
 
-  const [animalE, setAnimalE] = useState({
-    alive: "",
-    birthdate: convertDate1(dateAnimal),
-    clase_id: 1,
-    hierro: "",
-    id: "",
-    info: "",
-    mother: "",
-    mother_id: 0,
-    name: "",
-    owner_id: 1,
-    tipopart: "",
-    updated_at: "2022-01-03 11:07",
-  });
-
   const [modalCreate, setModalCreate] = React.useState(false);
   const modalCreateOpen = () => setModalCreate(true);
   const modalCreateClose = () => setModalCreate(false);
@@ -203,13 +188,6 @@ const Animals = (): React.JSX.Element => {
     updated_at: "",
   });
 
-  const seleccionarAnimal = (elemento: any, caso: any) => {
-    setAnimalSeleccionada(elemento);
-    console.log("ELEMENTO Eliminar o Editar", elemento);
-    console.log("CASO Eliminar o Editar", caso);
-    caso === "Edit" ? setModalEdit(true) : setModalDelete(true);
-  };
-
   const onSubmit = async () => {
     console.log("FormData", animalAdd);
     const parsedata = {
@@ -239,6 +217,47 @@ const Animals = (): React.JSX.Element => {
       toast.success("Animal not created successfully");
       console.log(error);
     }
+  };
+
+  const [animalE, setAnimalE] = useState({
+    alive: "",
+    birthdate: convertDate1(dateAnimal),
+    clase_id: 1,
+    hierro: "",
+    id: "",
+    info: "",
+    mother: "",
+    mother_id: 0,
+    name: "",
+    owner_id: 1,
+    tipopart: "",
+    updated_at: "2022-01-03 11:07",
+  });
+
+  const seleccionarAnimal = (elemento: any, caso: any) => {
+    setAnimalSeleccionada(elemento);
+    console.log("ELEMENTO Eliminar o Editar", elemento);
+    console.log("CASO Eliminar o Editar", caso);
+    caso === "Edit" ? setModalEdit(true) : setModalDelete(true);
+  };
+
+  const seleccionarAnimalE = (elemento: any, caso: any) => {
+    setAnimalSeleccionada(elemento);
+    setAnimalE({
+      ...animalE,
+      id: elemento.id,
+      birthdate: elemento.birthdate,
+      clase_id: elemento.clase_id,
+      hierro: elemento.hierro,
+      info: elemento.info,
+      mother: elemento.mother,
+      mother_id: elemento.mother_id,
+      name: elemento.name,
+      owner_id: elemento.owner_id,
+      tipopart: elemento.tipopart,
+      updated_at: elemento.updated_at,
+    });
+    caso === "Edit" ? setModalEdit(true) : setModalEdit(false);
   };
 
   const handleOnChangeE = (animalKey: any, value: any) => {
@@ -366,7 +385,7 @@ const Animals = (): React.JSX.Element => {
                 </div>
                 <div className="inline-block text-gray-700 text-right px-1 py-1 m-0">
                   <button
-                    onClick={() => seleccionarAnimal(animal, "Edit")}
+                    onClick={() => seleccionarAnimalE(animal, "Edit")}
                     className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-1 px-0 mr-1 rounded-full inline-flex items-center"
                   >
                     <svg
