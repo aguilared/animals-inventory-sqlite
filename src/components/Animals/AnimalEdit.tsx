@@ -35,6 +35,7 @@ const AnimalEdit = (props: any): JSX.Element => {
     <>
       <form
         name="edit"
+        onSubmit={onSubmitE}
         className="w-full max-w-lg  bg-gray-400 shadow-md rounded"
       >
         <div className="md:w-11/12 px-3 mb-6 md:mb-0">
@@ -249,7 +250,7 @@ const AnimalEdit = (props: any): JSX.Element => {
 
         <br></br>
         <div className="md:w-11/12 px-3 mb-6 md:mb-0">
-          <button onClick={handleSubmit(onSubmitE)}>Submit</button>
+          <button>Submit</button>
         </div>
       </form>{" "}
     </>
