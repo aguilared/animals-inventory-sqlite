@@ -1,3 +1,4 @@
+"use client";
 import React, { BaseSyntheticEvent, useState } from "react";
 import Link from "next/link";
 import { Box, Button, IconButton, Modal, Typography } from "@mui/material";
@@ -19,7 +20,8 @@ import { useClases } from "../../hooks/useClases";
 import { useVacas } from "../../hooks/useVacas";
 import AnimalEdit from "../../components/Animals/AnimalEdit";
 import toast, { Toaster } from "react-hot-toast";
-import { useRouter } from "next/router";
+//import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 const notify = () =>
   toast.custom((t) => (

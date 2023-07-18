@@ -11,7 +11,7 @@ function Home() {
   if (isUser) {
     toast.error(" You Are Being Redirected");
     setTimeout(function () {
-      router.push("/");
+      router.push("/animals/admin");
     }, 5000);
   }
 
@@ -46,7 +46,7 @@ function Home() {
     console.log("isUser", isUser);
   }, [isUser]);
 
-  const title = "Login1";
+  const title = "Login";
 
   return (
     <div

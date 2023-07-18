@@ -4,17 +4,12 @@ import prisma from "../../../lib/prisma";
 
 export default async function LoginHandler(req, res) {
   const { email, password } = req.body;
-  //console.log("REQ+Body", req.body);
-  //console.log("EMAIL", email);
-  //console.log("PASSWORD", password);
-
   const result = await prisma.user.findMany({
     where: {
       email: email,
       password: password,
     },
   });
-
   console.log("EXISTE", result);
 
   if (result.length > 0) {
@@ -30,7 +25,7 @@ export default async function LoginHandler(req, res) {
       },
       "secret"
     );
-    //console.log("TOKEN", token);
+    console.log("TOKEN", token);
   
     const serialized = serialize("myTokenName", token, {
       httpOnly: true,
@@ -39,7 +34,7 @@ export default async function LoginHandler(req, res) {
       maxAge: 1000 * 60 * 60 * 24 * 30,
       path: "/",
     });
-    //console.log("SERIALIZED", serialized);
+    console.log("SERIALIZED", serialized);
 
     res.setHeader("Set-Cookie", serialized);
     return res.status(200).json({
