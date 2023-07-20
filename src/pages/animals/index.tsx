@@ -16,7 +16,8 @@ import Image from "next/image";
 import { useOwners } from "../../hooks/useOwners";
 import { useClases } from "../../hooks/useClases";
 import { useVacas } from "../../hooks/useVacas";
-import AnimalEdit from "../../components/Animals/AnimalEdit";
+import useAnimals from "../../hooks/useAnimals";
+
 import toast, { Toaster } from "react-hot-toast";
 
 const notify = () =>
@@ -76,9 +77,8 @@ const convertDate1 = (date: any) => {
 };
 
 const Animals = (): React.JSX.Element => {
-  const { owners } = useOwners();
-  const { clases } = useClases();
-  const { vacas } = useVacas();
+  const animalspage = useAnimals(5);
+  console.log("ANIMALS", animalspage);
 
   const { data, isLoading, refetch } = useQuery(["Animalss"], async () => {
     const res = await axios.get(`${DATABASEURL}animals`);

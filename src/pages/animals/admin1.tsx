@@ -434,7 +434,6 @@ const Animals = (): React.JSX.Element => {
               </div>
             ))
           : null}
-
         <Modal
           sx={{ overflowY: "scroll" }}
           disableScrollLock={false}
@@ -728,7 +727,6 @@ const Animals = (): React.JSX.Element => {
               handleOnChangeE={handleOnChangeE}
               owners={owners}
               clases={clases}
-              onClose={modalEditClose}
             />
           </Box>
         </Modal>
@@ -751,7 +749,7 @@ const Animals = (): React.JSX.Element => {
               </button>
               <button
                 className="btn btn-secondary"
-                onClick={() => modalDeleteClose()}
+                onClick={() => setModalDelete(false)}
               >
                 No
               </button>
