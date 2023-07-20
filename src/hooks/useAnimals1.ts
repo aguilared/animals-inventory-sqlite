@@ -12,29 +12,25 @@ export type Animal = {
   url: string;
 };
 
-const DATABASEURL = process.env.NEXT_PUBLIC_API_URL;
-
 async function fetchAnimals({
   pageParam = 0,
 }: {
   pageParam?: number;
 }): Promise<ResultData> {
-  const url = `${DATABASEURL}animals/animals_paginated?offset=${pageParam}&limit=3`;
+  const url = `http://localhost:3000/api/animals/animals_paginated?offset=${pageParam}&limit=3`;
   console.log("URL", url);
 
   const request = await fetchClient.get<ResultData>(url);
 
   return request.data;
 }
-
-export default function useAnimals(page: number) {
+function useAnimals() {
   return useInfiniteQuery(
-    ["animalspage"],
+    ["animals"],
     async ({ pageParam }) => {
-      const animalspage = await fetchAnimals({ pageParam });
-      console.log("AnimalsPage", animalspage);
+      const data = await fetchAnimals({ pageParam });
 
-      return animalspage;
+      return data;
     },
     {
       getNextPageParam: (lastPage) => lastPage?.next,
@@ -42,3 +38,5 @@ export default function useAnimals(page: number) {
     }
   );
 }
+
+export default useAnimals;

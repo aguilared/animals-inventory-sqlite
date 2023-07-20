@@ -18,8 +18,14 @@ type Inputs = {
 };
 
 const AnimalEdit = (props: any): JSX.Element => {
-  const { animalSeleccionada2, onSubmitE, handleOnChangeE, clases, owners } =
-    props;
+  const {
+    animalSeleccionada2,
+    onSubmitE,
+    handleOnChangeE,
+    clases,
+    owners,
+    onClose,
+  } = props;
   //console.log("animalSeleccionada2", animalSeleccionada2);
   //console.log("Clases", clases);
   //console.log("Owners", owners);
@@ -251,6 +257,9 @@ const AnimalEdit = (props: any): JSX.Element => {
         <br></br>
         <div className="md:w-11/12 px-3 mb-6 md:mb-0">
           <button>Submit</button>
+          <button className="btn btn-secondary" onClick={() => onClose()}>
+            Cancelar
+          </button>
         </div>
       </form>{" "}
     </>

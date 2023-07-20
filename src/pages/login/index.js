@@ -1,3 +1,4 @@
+"use client";
 import axios from "axios";
 import { useState, useCallback } from "react";
 import { useRouter } from "next/router";
@@ -44,7 +45,8 @@ function Home() {
 
   const handleClose = useCallback(() => {
     console.log("isUser", isUser);
-  }, [isUser]);
+    router.push("/");
+  }, [isUser, router]);
 
   const title = "Login";
 
