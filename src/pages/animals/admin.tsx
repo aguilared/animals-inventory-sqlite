@@ -124,7 +124,7 @@ const Animals = (): React.JSX.Element => {
   if (!isUser) {
     toast.error("Please Sign In, You Are Being Redirected");
     setTimeout(function () {
-      router.push("/login/");
+      router.push("/login");
     }, 5000);
   }
 
