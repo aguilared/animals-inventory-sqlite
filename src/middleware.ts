@@ -5,23 +5,23 @@ export async function middleware(request: NextRequest) {
   //console.log("REQESTPATH", request.nextUrl.pathname);
   const jwt = request.cookies.get("myTokenName");
   //console.log("JWT", jwt);
-  //if (!jwt) return NextResponse.redirect(new URL("/login", request.url));
+  if (!jwt) return NextResponse.redirect(new URL("/login", request.url));
   if (jwt === undefined) {
     return NextResponse.redirect(new URL("/login", request.url));
   }
   //ya hay token y a a verificar
-  /*try {
+  try {
     const { payload } = await jwtVerify(
-      jwt,
+      jwt.value,
       new TextEncoder().encode("secret")
     );
     console.log({ payload });
     return NextResponse.next();
   } catch (error) {
-    console.log("ERROR");*/
-  return NextResponse.next();
-  //return NextResponse.redirect(new URL("/login", request.url));
-  //}
+    console.log("ERROR");
+    //return NextResponse.next();
+    return NextResponse.redirect(new URL("/login", request.url));
+  }
 }
 
 export const config = {
