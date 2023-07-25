@@ -1,5 +1,5 @@
 "use client";
-import React, { BaseSyntheticEvent, useState } from "react";
+import React, { BaseSyntheticEvent, useEffect, useState } from "react";
 import Link from "next/link";
 import { Box, Button, IconButton, Modal, Typography } from "@mui/material";
 import StreetviewRoundedIcon from "@mui/icons-material/ThreeDRotation";
@@ -121,11 +121,9 @@ const Animals = (): React.JSX.Element => {
   const router = useRouter();
 
   const { isUser } = useUser();
+
   if (!isUser) {
-    toast.error("Please Sign In, You Are Being Redirected");
-    setTimeout(function () {
-      router.push("/login");
-    }, 5000);
+    router.push("/");
   }
 
   const { data, isLoading, refetch } = useQuery(["Animalss"], async () => {

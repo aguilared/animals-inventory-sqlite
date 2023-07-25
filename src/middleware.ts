@@ -5,7 +5,7 @@ export async function middleware(request: NextRequest) {
   //console.log("REQESTPATH", request.nextUrl.pathname);
   const jwt = request.cookies.get("myTokenName");
   //console.log("JWT", jwt);
-  if (!jwt) return NextResponse.redirect(new URL("/login", request.url));
+  //if (!jwt) return NextResponse.redirect(new URL("/login", request.url));
   if (jwt === undefined) {
     return NextResponse.redirect(new URL("/login", request.url));
   }
