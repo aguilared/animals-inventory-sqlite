@@ -22,7 +22,7 @@ const Navigation = () => {
     try {
       await axios.get("/api/auth/logout");
       clearUser();
-      router.push("/");
+      router.push("/animals");
     } catch (error) {
       console.error(error.message);
     }

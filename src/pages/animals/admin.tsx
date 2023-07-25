@@ -1,8 +1,6 @@
 "use client";
-import React, { BaseSyntheticEvent, useEffect, useState } from "react";
-import Link from "next/link";
-import { Box, Button, IconButton, Modal, Typography } from "@mui/material";
-import StreetviewRoundedIcon from "@mui/icons-material/ThreeDRotation";
+import React, { useState } from "react";
+import { Box, Button, Modal, Typography } from "@mui/material";
 import Container from "../../components/Container";
 import { Controller, useForm } from "react-hook-form";
 import Select from "react-select";
@@ -20,7 +18,6 @@ import { useClases } from "../../hooks/useClases";
 import { useVacas } from "../../hooks/useVacas";
 import AnimalEdit from "../../components/Animals/AnimalEdit";
 import toast, { Toaster } from "react-hot-toast";
-//import { useRouter } from "next/router";
 import { useRouter } from "next/navigation";
 
 const notify = () =>
