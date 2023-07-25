@@ -119,9 +119,15 @@ const Animals = (): React.JSX.Element => {
 
   const { isUser } = useUser();
 
-  if (!isUser) {
-    router.push("/");
-  }
+  //if (!isUser) {
+  //router.push("/");
+  //}
+
+  useEffect(() => {
+    if (!isUser) {
+      router.push("/login");
+    }
+  }, [isUser, router]);
 
   const { data, isLoading, refetch } = useQuery(["Animalss"], async () => {
     const res = await axios.get(`${DATABASEURL}animals`);
