@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Box, Button, Modal, Typography } from "@mui/material";
 import Container from "../../components/Container";
 import { Controller, useForm } from "react-hook-form";
@@ -125,7 +125,7 @@ const Animals = (): React.JSX.Element => {
 
   useEffect(() => {
     if (!isUser) {
-      router.push("/login");
+      router.push("/");
     }
   }, [isUser, router]);
 
