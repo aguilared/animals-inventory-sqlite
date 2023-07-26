@@ -119,10 +119,6 @@ const Animals = (): React.JSX.Element => {
 
   const { isUser } = useUser();
 
-  //if (!isUser) {
-  //router.push("/");
-  //}
-
   useEffect(() => {
     if (!isUser) {
       router.push("/");
@@ -137,19 +133,6 @@ const Animals = (): React.JSX.Element => {
   const { owners } = useOwners();
   const { clases } = useClases();
   const { vacas } = useVacas();
-
-  const [animalAdd, setAnimalAdd] = useState({
-    alive: "Si",
-    birthdate: convertDate1(dateAnimal),
-    clase_id: 1,
-    hierro: "Si",
-    info: "Hierro ... y .. Color ..., Cachos. ...",
-    mother: "",
-    mother_id: 0,
-    name: "",
-    owner_id: 1,
-    tipopart: "Normal",
-  });
 
   const [modalCreate, setModalCreate] = React.useState(false);
   const modalCreateOpen = () => setModalCreate(true);
@@ -171,11 +154,18 @@ const Animals = (): React.JSX.Element => {
     formState: { errors },
   } = useForm<Inputs>();
 
-  const handleOnChange = (animalKey: any, value: any) => {
-    console.log("valueOnChangeAdd", value);
-    setAnimalAdd({ ...animalAdd, [animalKey]: value });
-    console.log("SETanimalAdd", animalAdd);
-  };
+  const [animalAdd, setAnimalAdd] = useState({
+    alive: "Si",
+    birthdate: convertDate1(dateAnimal),
+    clase_id: 1,
+    hierro: "Si",
+    info: "Hierro ... y .. Color ..., Cachos. ...",
+    mother: "",
+    mother_id: 0,
+    name: "",
+    owner_id: 1,
+    tipopart: "Normal",
+  });
 
   const [animalSeleccionada, setAnimalSeleccionada] = useState({
     id: "",
@@ -191,8 +181,16 @@ const Animals = (): React.JSX.Element => {
     updated_at: "",
   });
 
+  const seleccionarAnimal = (elemento: any, caso: any) => {
+    setAnimalSeleccionada(elemento);
+    caso === "Edit" ? setModalEdit(true) : setModalDelete(true);
+  };
+
+  const handleOnChange = (animalKey: any, value: any) => {
+    setAnimalAdd({ ...animalAdd, [animalKey]: value });
+  };
+
   const onSubmit = async () => {
-    console.log("FormData", animalAdd);
     const parsedata = {
       alive: animalAdd.alive,
       birthdate: animalAdd.birthdate,
@@ -237,13 +235,6 @@ const Animals = (): React.JSX.Element => {
     updated_at: "2022-01-03 11:07",
   });
 
-  const seleccionarAnimal = (elemento: any, caso: any) => {
-    setAnimalSeleccionada(elemento);
-    console.log("ELEMENTO Eliminar o Editar", elemento);
-    console.log("CASO Eliminar o Editar", caso);
-    caso === "Edit" ? setModalEdit(true) : setModalDelete(true);
-  };
-
   const seleccionarAnimalE = (elemento: any, caso: any) => {
     setAnimalSeleccionada(elemento);
     setAnimalE({
@@ -264,13 +255,10 @@ const Animals = (): React.JSX.Element => {
   };
 
   const handleOnChangeE = (animalKey: any, value: any) => {
-    console.log("valueOnChangeEditar", value);
     setAnimalE({ ...animalE, [animalKey]: value });
-    console.log("animalOnchageE", animalE);
   };
 
   const onSubmitE = async () => {
-    console.log("FormDataEdit", animalE);
     const parsedata = {
       alive: animalE.alive,
       birthdate: animalE.birthdate,
@@ -302,11 +290,9 @@ const Animals = (): React.JSX.Element => {
 
   const eliminar = async () => {
     try {
-      console.log("Entra a Borrar");
       const result = await fetch(
         "/api/animals/delete/" + animalSeleccionada.id
       );
-      // await removeAnimal(animalSeleccionada.id);
       notify();
       refetch();
       toast.custom((t) => (
