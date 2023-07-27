@@ -707,9 +707,6 @@ const Animals = (): React.JSX.Element => {
               >
                 No
               </button>
-              <button className="btn btn-secondary" onClick={() => notify()}>
-                Notyft
-              </button>
             </Typography>
           </Box>
         </Modal>
