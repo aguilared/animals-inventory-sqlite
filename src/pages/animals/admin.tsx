@@ -20,17 +20,6 @@ import AnimalEdit from "../../components/Animals/AnimalEdit";
 import toast, { Toaster } from "react-hot-toast";
 import { useRouter } from "next/navigation";
 
-const notify = () =>
-  toast.custom((t) => (
-    <div
-      className={`bg-white px-6 py-4 shadow-md rounded-full ${
-        t.visible ? "animate-enter" : "animate-leave"
-      }`}
-    >
-      Animal updated successfully 👋
-    </div>
-  ));
-
 const DATABASEURL = process.env.NEXT_PUBLIC_API_URL;
 
 const queryClient = new QueryClient({
@@ -69,7 +58,7 @@ const convertDate1 = (date: any) => {
   return dayjs(date).format("YYYY/MM/DD hh:mm");
 };
 
-const style1 = {
+const style = {
   position: "absolute",
   top: "50%",
   left: "50%",
@@ -85,29 +74,6 @@ const style1 = {
   px: 4,
   pb: 3,
   py: 4,
-  "@media(max-height: 890px)": {
-    top: "0",
-    transform: "translate(-50%, 0%)",
-  },
-};
-const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  // other styles...
-  width: "52%",
-  maxWidth: "600px",
-  minWidth: "270px",
-  boxShadow: 24,
-  py: 4,
-  borderRadius: 3,
-  zIndex: 100,
-  // media query @ the max height you want (my case is the
-  // height of the viewport before the cutoff phenomenon) -
-  // set the top to '0' and translate the previous 'y'
-  // positioning coordinate so the top of the modal is @ the
-  // top of the viewport
   "@media(max-height: 890px)": {
     top: "0",
     transform: "translate(-50%, 0%)",
@@ -150,7 +116,6 @@ const Animals = (): React.JSX.Element => {
     control,
     register,
     handleSubmit,
-    reset,
     formState: { errors },
   } = useForm<Inputs>();
 
@@ -181,11 +146,6 @@ const Animals = (): React.JSX.Element => {
     updated_at: "",
   });
 
-  const seleccionarAnimal = (elemento: any, caso: any) => {
-    setAnimalSeleccionada(elemento);
-    caso === "Edit" ? setModalEdit(true) : setModalDelete(true);
-  };
-
   const handleOnChange = (animalKey: any, value: any) => {
     setAnimalAdd({ ...animalAdd, [animalKey]: value });
   };
@@ -210,7 +170,7 @@ const Animals = (): React.JSX.Element => {
         body: JSON.stringify(parsedata),
       });
       refetch();
-      notify();
+      //notify();
       toast.success("Animal created successfully");
 
       setModalCreate(false);
@@ -251,7 +211,7 @@ const Animals = (): React.JSX.Element => {
       tipopart: elemento.tipopart,
       updated_at: elemento.updated_at,
     });
-    caso === "Edit" ? setModalEdit(true) : setModalEdit(false);
+    caso === "Edit" ? modalEditOpen() : setModalEdit(false);
   };
 
   const handleOnChangeE = (animalKey: any, value: any) => {
@@ -278,7 +238,7 @@ const Animals = (): React.JSX.Element => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(parsedata),
       });
-      notify();
+      //notify();
       toast.success("Animal updated successfully");
 
       refetch();
@@ -288,12 +248,17 @@ const Animals = (): React.JSX.Element => {
     }
   };
 
+  const seleccionarAnimalD = (elemento: any, caso: any) => {
+    setAnimalSeleccionada(elemento);
+    caso === "Delete" ? modalDeleteOpen() : setModalDelete(false);
+  };
+
   const eliminar = async () => {
     try {
       const result = await fetch(
         "/api/animals/delete/" + animalSeleccionada.id
       );
-      notify();
+      //notify();
       refetch();
       toast.custom((t) => (
         <div
@@ -396,7 +361,7 @@ const Animals = (): React.JSX.Element => {
                 </div>
                 <div className="inline-block text-gray-700 text-right px-1 py-1 m-0">
                   <button
-                    onClick={() => seleccionarAnimal(animal, "Eliminar")}
+                    onClick={() => seleccionarAnimalD(animal, "Delete")}
                     className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-1 px-0 mr-1 rounded-full inline-flex items-center"
                   >
                     <svg
@@ -430,7 +395,7 @@ const Animals = (): React.JSX.Element => {
           aria-labelledby="modal-modal-title"
           aria-describedby="modal-modal-description"
         >
-          <Box sx={{ ...style1, width: 400 }}>
+          <Box sx={{ ...style, width: 400 }}>
             <Typography id="modal-modal-title" variant="h6" component="h2">
               Add Animal
             </Typography>
@@ -705,7 +670,7 @@ const Animals = (): React.JSX.Element => {
           aria-labelledby="modal-modal-title"
           aria-describedby="modal-modal-description"
         >
-          <Box sx={{ ...style1, width: 400 }}>
+          <Box sx={{ ...style, width: 400 }}>
             <Typography id="modal-modal-title" variant="h6" component="h2">
               Edit Animall {animalSeleccionada.id} {animalSeleccionada.name}
             </Typography>
@@ -727,10 +692,10 @@ const Animals = (): React.JSX.Element => {
           aria-labelledby="modal-modal-title"
           aria-describedby="modal-modal-description"
         >
-          <Box sx={{ ...style1, width: 400 }}>
+          <Box sx={{ ...style, width: 400 }}>
             <Typography id="modal-modal-title" variant="h6" component="h2">
               Estás Seguro que deseas eliminar el Animal ID:{" "}
-              {animalSeleccionada && animalSeleccionada.id}
+              {animalSeleccionada.id}
             </Typography>
             <Typography>
               <button className="btn btn-danger" onClick={() => eliminar()}>
@@ -741,6 +706,9 @@ const Animals = (): React.JSX.Element => {
                 onClick={() => modalDeleteClose()}
               >
                 No
+              </button>
+              <button className="btn btn-secondary" onClick={() => notify()}>
+                Notyft
               </button>
             </Typography>
           </Box>
