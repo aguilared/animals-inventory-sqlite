@@ -6,7 +6,7 @@ import useUser from "../../hooks/useUser";
 import { IoMdClose } from "react-icons/io";
 import toast, { Toaster } from "react-hot-toast";
 
-function Home() {
+function Loging() {
   const { isUser, loadUser } = useUser(); //to Global
 
   if (isUser) {
@@ -187,4 +187,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default Loging;

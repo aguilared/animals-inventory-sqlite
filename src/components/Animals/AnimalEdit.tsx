@@ -1,5 +1,5 @@
 import React from "react";
-import { useForm, Controller, SubmitHandler } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import Select from "react-select";
 
 type Inputs = {
@@ -17,7 +17,7 @@ type Inputs = {
   updated_at: string;
 };
 
-const AnimalEdit = (props: any): JSX.Element => {
+const AnimalEdit = (props: any): React.JSX.Element => {
   const {
     animalSeleccionada2,
     onSubmitE,
@@ -26,13 +26,9 @@ const AnimalEdit = (props: any): JSX.Element => {
     owners,
     onClose,
   } = props;
-  //console.log("animalSeleccionada2", animalSeleccionada2);
-  //console.log("Clases", clases);
-  //console.log("Owners", owners);
 
   const {
     register,
-    handleSubmit,
     control,
     formState: { errors },
   } = useForm<Inputs>();
@@ -54,7 +50,7 @@ const AnimalEdit = (props: any): JSX.Element => {
           <input
             className="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4"
             placeholder="Name"
-            defaultValue={animalSeleccionada2 && animalSeleccionada2.name}
+            defaultValue={animalSeleccionada2.name}
             {...register("name", {
               required: "Required",
             })}
@@ -72,7 +68,7 @@ const AnimalEdit = (props: any): JSX.Element => {
           <input
             className="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4"
             placeholder="birthdate"
-            defaultValue={animalSeleccionada2 && animalSeleccionada2.birthdate}
+            defaultValue={animalSeleccionada2.birthdate}
             {...register("birthdate", {
               required: "Required",
             })}
@@ -164,7 +160,7 @@ const AnimalEdit = (props: any): JSX.Element => {
           <input
             className="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4"
             placeholder="mother"
-            defaultValue={animalSeleccionada2 && animalSeleccionada2.mother}
+            defaultValue={animalSeleccionada2.mother}
             {...register("mother", {
               required: "Required",
             })}
@@ -188,7 +184,7 @@ const AnimalEdit = (props: any): JSX.Element => {
           <input
             className="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4"
             placeholder="hierro"
-            defaultValue={animalSeleccionada2 && animalSeleccionada2.hierro}
+            defaultValue={animalSeleccionada2.hierro}
             {...register("hierro", {
               required: "Required",
             })}
@@ -212,7 +208,7 @@ const AnimalEdit = (props: any): JSX.Element => {
           <input
             className="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4"
             placeholder="tipopart"
-            defaultValue={animalSeleccionada2 && animalSeleccionada2.tipopart}
+            defaultValue={animalSeleccionada2.tipopart}
             {...register("tipopart", {
               required: "Required",
             })}
@@ -237,7 +233,7 @@ const AnimalEdit = (props: any): JSX.Element => {
             rows={6}
             className="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4"
             placeholder="info"
-            defaultValue={animalSeleccionada2 && animalSeleccionada2.info}
+            defaultValue={animalSeleccionada2.info}
             {...register("info", {
               required: "Required",
             })}
@@ -245,7 +241,7 @@ const AnimalEdit = (props: any): JSX.Element => {
           />
           <input
             type="hidden"
-            defaultValue={animalSeleccionada2 && animalSeleccionada2.animal_id}
+            defaultValue={animalSeleccionada2.animal_id}
             {...register("id", {
               required: "Required",
               minLength: 3,
