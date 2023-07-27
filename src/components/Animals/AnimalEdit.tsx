@@ -251,7 +251,7 @@ const AnimalEdit = (props: any): React.JSX.Element => {
         </div>
 
         <br></br>
-        <div className="md:w-11/12 px-3 mb-6 md:mb-0">
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
           <button>Submit</button>
           <button className="btn btn-secondary" onClick={() => onClose()}>
             Cancelar
