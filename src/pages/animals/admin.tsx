@@ -654,10 +654,19 @@ const Animals = (): React.JSX.Element => {
                 <br></br>
               </form>{" "}
               <br></br>
-              <div className="md:w-11/12 px-3 mb-6 md:mb-0">
-                <Button onClick={handleSubmit(onSubmit)} variant={"outlined"}>
-                  Submit
-                </Button>
+              <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+                <button
+                  className="bg-gray-500 hover:bg-gray-400 text-white font-bold py-2 px-4 border-b-4 border-gray-700 hover:border-gray-500 rounded"
+                  onClick={() => modalCreateClose()}
+                >
+                  Cancel
+                </button>
+                <button
+                  className="bg-green-500 hover:bg-green-400 text-white font-bold py-2 px-4 border-b-4 border-green-700 hover:border-green-500 rounded"
+                  onClick={handleSubmit(onSubmit)}
+                >
+                  Guardar
+                </button>
               </div>
             </Typography>
           </Box>
@@ -677,6 +686,7 @@ const Animals = (): React.JSX.Element => {
             <AnimalEdit
               animalSeleccionada2={animalSeleccionada}
               onSubmitE={onSubmitE}
+              handleSubmit={handleSubmit}
               handleOnChangeE={handleOnChangeE}
               owners={owners}
               clases={clases}
@@ -698,15 +708,20 @@ const Animals = (): React.JSX.Element => {
               {animalSeleccionada.id}
             </Typography>
             <Typography>
-              <button className="btn btn-danger" onClick={() => eliminar()}>
-                Sí
-              </button>
-              <button
-                className="btn btn-secondary"
-                onClick={() => modalDeleteClose()}
-              >
-                No
-              </button>
+              <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+                <button
+                  className="bg-gray-500 hover:bg-gray-400 text-white font-bold py-2 px-4 border-b-4 border-gray-700 hover:border-gray-500 rounded"
+                  onClick={() => modalDeleteClose()}
+                >
+                  Cancel
+                </button>
+                <button
+                  className="bg-red-500 hover:bg-red-400 text-white font-bold py-2 px-4 border-b-4 border-red-700 hover:border-red-500 rounded"
+                  onClick={() => eliminar()}
+                >
+                  Delete
+                </button>
+              </div>
             </Typography>
           </Box>
         </Modal>
