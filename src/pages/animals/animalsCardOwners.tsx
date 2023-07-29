@@ -181,10 +181,6 @@ const AnimalsCardQuery: NextPage = () => {
               </svg>
             </button>
           </div>
-          <div className="flex-grow text-right px-3 py-1 m-2">
-            <button onClick={notify}>Toast</button>
-            <Toaster />
-          </div>{" "}
         </div>
 
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2">

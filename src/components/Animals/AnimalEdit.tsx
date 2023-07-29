@@ -252,9 +252,14 @@ const AnimalEdit = (props: any): React.JSX.Element => {
 
         <br></br>
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-          <button>Submit</button>
-          <button className="btn btn-secondary" onClick={() => onClose()}>
-            Cancelar
+          <button
+            className="bg-gray-500 hover:bg-gray-400 text-white font-bold py-2 px-4 border-b-4 border-gray-700 hover:border-gray-500 rounded"
+            onClick={() => onClose()}
+          >
+            Cancel
+          </button>
+          <button className="bg-green-500 hover:bg-green-400 text-white font-bold py-2 px-4 border-b-4 border-green-700 hover:border-green-500 rounded">
+            Guardar
           </button>
         </div>
       </form>{" "}
