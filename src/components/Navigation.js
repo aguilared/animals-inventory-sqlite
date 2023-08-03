@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import useUser from "../hooks/useUser";
 import axios from "axios";
+import toast, { Toaster } from "react-hot-toast";
 
 const links = [
   { href: "/animals/", label: "List" },
@@ -17,12 +18,14 @@ const links = [
 const Navigation = () => {
   const router = useRouter();
   const { isUser, loadUser, clearUser } = useUser(); //to Global
+
   const logout = async () => {
     console.error("HaciendoLogout");
     try {
       await axios.get("/api/auth/logout");
       clearUser();
-      router.push("/animals");
+      router.push("/");
+      toast.success(" You Are DesLoogeded");
     } catch (error) {
       console.error(error.message);
     }
@@ -52,6 +55,7 @@ const Navigation = () => {
           >
             Home
           </Link>
+          
 
           {links.map(({ key, href, label }) => (
             <Link
