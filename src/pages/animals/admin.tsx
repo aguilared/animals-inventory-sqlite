@@ -19,6 +19,7 @@ import { useVacas } from "../../hooks/useVacas";
 import AnimalEdit from "../../components/Animals/AnimalEdit";
 import toast, { Toaster } from "react-hot-toast";
 import { useRouter } from "next/navigation";
+import { IoMdClose } from "react-icons/io";
 
 const DATABASEURL = process.env.NEXT_PUBLIC_API_URL;
 
@@ -151,6 +152,7 @@ const Animals = (): React.JSX.Element => {
   };
 
   const onSubmit = async () => {
+    console.log("ACREATE", animalAdd);
     const parsedata = {
       alive: animalAdd.alive,
       birthdate: animalAdd.birthdate,
@@ -397,7 +399,19 @@ const Animals = (): React.JSX.Element => {
         >
           <Box sx={{ ...style, width: 400 }}>
             <Typography id="modal-modal-title" variant="h6" component="h2">
-              Add Animal
+              Add Animal{" "}
+              <button
+                className="
+                    p-1
+                    border-0 
+                    hover:opacity-70
+                    transition
+                    absolute
+                    right-9"
+                onClick={() => modalCreateClose()}
+              >
+                <IoMdClose size={18} />
+              </button>
             </Typography>
             <Typography id="modal-modal-description" sx={{ mt: 2 }}>
               <form
@@ -682,16 +696,30 @@ const Animals = (): React.JSX.Element => {
           <Box sx={{ ...style, width: 400 }}>
             <Typography id="modal-modal-title" variant="h6" component="h2">
               Edit Animall {animalSeleccionada.id} {animalSeleccionada.name}
+              <button
+                className="
+                    p-1
+                    border-0 
+                    hover:opacity-70
+                    transition
+                    absolute
+                    right-9"
+                onClick={() => modalEditClose()}
+              >
+                <IoMdClose size={18} />
+              </button>
             </Typography>
-            <AnimalEdit
-              animalSeleccionada2={animalSeleccionada}
-              onSubmitE={onSubmitE}
-              handleSubmit={handleSubmit}
-              handleOnChangeE={handleOnChangeE}
-              owners={owners}
-              clases={clases}
-              onClose={modalEditClose}
-            />
+            <Typography>
+              <AnimalEdit
+                animalSeleccionada2={animalSeleccionada}
+                onSubmitE={onSubmitE}
+                handleSubmit={handleSubmit}
+                handleOnChangeE={handleOnChangeE}
+                owners={owners}
+                clases={clases}
+                onClose={modalEditClose}
+              />
+            </Typography>
           </Box>
         </Modal>
         <Modal
