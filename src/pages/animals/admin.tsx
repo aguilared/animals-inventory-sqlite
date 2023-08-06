@@ -235,12 +235,10 @@ const Animals = (): React.JSX.Element => {
       tipopart: animalE.tipopart,
     };
     try {
-      const result = await fetch("/api/animals/update", {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(parsedata),
-      });
-      //notify();
+      console.log("parseData", parsedata);
+      const res = await axios.put("/api/animals/update", parsedata);
+
+      console.log("RES?ULT", res);
       toast.success("Animal updated successfully");
 
       refetch();
@@ -709,17 +707,15 @@ const Animals = (): React.JSX.Element => {
                 <IoMdClose size={18} />
               </button>
             </Typography>
-            <Typography>
-              <AnimalEdit
-                animalSeleccionada2={animalSeleccionada}
-                onSubmitE={onSubmitE}
-                handleSubmit={handleSubmit}
-                handleOnChangeE={handleOnChangeE}
-                owners={owners}
-                clases={clases}
-                onClose={modalEditClose}
-              />
-            </Typography>
+            <AnimalEdit
+              animalSeleccionada2={animalSeleccionada}
+              onSubmitE={onSubmitE}
+              handleSubmit={handleSubmit}
+              handleOnChangeE={handleOnChangeE}
+              owners={owners}
+              clases={clases}
+              onClose={modalEditClose}
+            />
           </Box>
         </Modal>
         <Modal

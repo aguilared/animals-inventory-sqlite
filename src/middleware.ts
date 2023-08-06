@@ -10,7 +10,7 @@ export async function middleware(request: NextRequest) {
   console.log("JWT", jwt);
   if (!jwt) return NextResponse.redirect(new URL("/login", request.url));
   if (jwt === undefined) {
-    return NextResponse.redirect(new URL("/animals", request.url));
+    return NextResponse.redirect(new URL("/login", request.url));
   }
 
   /*if (
