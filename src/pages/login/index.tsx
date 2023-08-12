@@ -1,51 +1,51 @@
-import axios from 'axios'
-import { useState, useCallback } from 'react'
-import { useRouter } from 'next/router'
-import useUser from '../../hooks/useUser'
-import { IoMdClose } from 'react-icons/io'
-import toast, { Toaster } from 'react-hot-toast'
-import Container from '../../components/Container'
+import axios from "axios";
+import { useState, useCallback } from "react";
+import { useRouter } from "next/router";
+import useUser from "../../hooks/useUser";
+import { IoMdClose } from "react-icons/io";
+import toast, { Toaster } from "react-hot-toast";
+import Container from "../../components/Container";
 
 function Login() {
-  const { isUser, loadUser } = useUser() //to Global
-  console.log('Users ?', isUser)
+  const router = useRouter();
+  const { isUser, loadUser } = useUser(); //to Global
+  console.log("Users ?", isUser);
   if (isUser) {
-    //toast.success(" You Are Loogeded");
+    toast.success(" You Are already Loogeded");
     setTimeout(function () {
-      router.push('/animals/admin')
-    }, 5000)
+      //router.push("/animals/admin");
+    }, 5000);
   }
 
   const [credentials, setCredentials] = useState({
-    email: '',
-    password: '',
-  })
-
-  const router = useRouter()
+    email: "",
+    password: "",
+  });
 
   const handleSubmit = async (e: any) => {
-    e.preventDefault()
+    e.preventDefault();
 
     try {
-      const res = await axios.post('/api/auth/login1', credentials)
+      const res = await axios.post("/api/auth/login1", credentials);
       if (!isUser) {
-        console.log('no hay Users va a cargar a global', credentials)
-        loadUser(credentials) //load idto global
+        console.log("no hay Users va a cargar a global", credentials);
+        loadUser(credentials); //load idto global
       }
-      router.push('/animals/admin')
-      toast.success(' You Are Loogeded')
+      //router.push("/");
+      handleClose();
+      toast.success(" You Are Loogeded");
     } catch (error) {
-      toast.error(' ERROR ENLOGGEO')
-      router.push('/')
+      toast.error(" ERROR ENLOGGEO");
+      router.push("/");
     }
-  }
+  };
 
   const handleClose = useCallback(() => {
-    console.log('isUser', isUser)
-    router.push('/')
-  }, [isUser, router])
+    console.log("isUser", isUser);
+    router.push("/animals/admin");
+  }, [isUser, router]);
 
-  const title = 'Login'
+  const title = "Login";
 
   return (
     <Container>
@@ -182,7 +182,7 @@ function Login() {
         </div>
       </div>
     </Container>
-  )
+  );
 }
 
-export default Login
+export default Login;

@@ -9,6 +9,7 @@ import {
   useQuery,
   QueryClient,
   QueryClientProvider,
+  useMutation,
 } from "@tanstack/react-query";
 import axios from "axios";
 import dayjs from "dayjs";
@@ -88,9 +89,10 @@ const Animals = (): React.JSX.Element => {
 
   useEffect(() => {
     if (!isUser) {
-      router.push("/");
+      console.log("no hay Users ?? ", isUser);
+      //router.push("/");
     }
-  }, [isUser, router]);
+  }, [isUser]);
 
   const { data, isLoading, refetch } = useQuery(["Animalss"], async () => {
     const res = await axios.get(`${DATABASEURL}animals`);
@@ -165,6 +167,7 @@ const Animals = (): React.JSX.Element => {
       owner_id: Number(animalAdd.owner_id),
       tipopart: animalAdd.tipopart,
     };
+
     try {
       await fetch("/api/animals/create", {
         method: "POST",
@@ -220,8 +223,8 @@ const Animals = (): React.JSX.Element => {
     setAnimalE({ ...animalE, [animalKey]: value });
   };
 
-  const onSubmitE = async () => {
-    const parsedata = {
+  const OnSubmitE = async () => {
+    const parsedataE = {
       alive: animalE.alive,
       birthdate: animalE.birthdate,
       clase_id: Number(animalE.clase_id),
@@ -234,19 +237,18 @@ const Animals = (): React.JSX.Element => {
       owner_id: Number(animalE.owner_id),
       tipopart: animalE.tipopart,
     };
-    try {
-      console.log("parseData", parsedata);
-      const res = await axios.put("/api/animals/update", parsedata);
-
-      console.log("RES?ULT", res);
-      toast.success("Animal updated successfully");
-
-      refetch();
-      setModalEdit(false);
-    } catch (error) {
-      console.log(error);
-    }
+    updatePostMutation.mutate(parsedataE);
   };
+
+  const updatePostMutation = useMutation({
+    mutationFn: (parsedataE: any) => {
+      return axios.put("/api/animals/update", parsedataE);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["animal"] });
+      //router.push("/animal/admin");
+    },
+  });
 
   const seleccionarAnimalD = (elemento: any, caso: any) => {
     setAnimalSeleccionada(elemento);
@@ -258,7 +260,6 @@ const Animals = (): React.JSX.Element => {
       const result = await fetch(
         "/api/animals/delete/" + animalSeleccionada.id
       );
-      //notify();
       refetch();
       toast.custom((t) => (
         <div
@@ -709,7 +710,7 @@ const Animals = (): React.JSX.Element => {
             </Typography>
             <AnimalEdit
               animalSeleccionada2={animalSeleccionada}
-              onSubmitE={onSubmitE}
+              onSubmitE={OnSubmitE}
               handleSubmit={handleSubmit}
               handleOnChangeE={handleOnChangeE}
               owners={owners}

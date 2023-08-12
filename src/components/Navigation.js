@@ -20,7 +20,7 @@ const Navigation = () => {
   const { isUser, loadUser, clearUser } = useUser(); //to Global
 
   const logout = async () => {
-    console.error("HaciendoLogout");
+    console.error("HaciendoLogout y isUser", isUser);
     try {
       await axios.get("/api/auth/logout");
       clearUser();
