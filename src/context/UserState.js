@@ -8,8 +8,13 @@ export const UserProvider = ({ children }) => {
   const [user, setUser] = useState(0);
 
   useEffect(() => {
+     const id = setInterval(() => {
     setUser(window.sessionStorage.getItem("User"));
-  }, []);
+     }, 500);
+     return () => clearInterval(id);
+  }, [setUser]);
+
+  
 
   return (
     <UserContext.Provider
