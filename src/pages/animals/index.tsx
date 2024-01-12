@@ -16,7 +16,8 @@ import Image from "next/image";
 import { useOwners } from "../../hooks/useOwners";
 import { useClases } from "../../hooks/useClases";
 import { useVacas } from "../../hooks/useVacas";
-import AnimalEdit from "../../components/Animals/AnimalEdit";
+import useAnimals from "../../hooks/useAnimals";
+
 import toast, { Toaster } from "react-hot-toast";
 
 const notify = () =>
@@ -76,9 +77,8 @@ const convertDate1 = (date: any) => {
 };
 
 const Animals = (): React.JSX.Element => {
-  const { owners } = useOwners();
-  const { clases } = useClases();
-  const { vacas } = useVacas();
+  const animalspage = useAnimals(5);
+  console.log("ANIMALS", animalspage);
 
   const { data, isLoading, refetch } = useQuery(["Animalss"], async () => {
     const res = await axios.get(`${DATABASEURL}animals`);
@@ -230,39 +230,6 @@ const Animals = (): React.JSX.Element => {
                   {convertDate(animal.birthdate)}. &nbsp; <br />
                   Info= {animal.info} &nbsp;
                 </div>
-
-                <div className="inline-block text-gray-700 text-left px-1 py-0 m-0">
-                  <IconButton
-                    onClick={() => seleccionarAnimal1(animal, "Mostrar")}
-                  >
-                    <StreetviewRoundedIcon fontSize="small" />
-                  </IconButton>{" "}
-                  <a
-                    href={"/static/images/" + `${animal.id}` + ".jpg"}
-                    target={"_blank"}
-                    rel="noreferrer"
-                  ></a>
-                </div>
-                <td className="border px-2 py-2">
-                  <Link
-                    href={`/animals/animalId/${encodeURIComponent(animal.id)}`}
-                    passHref
-                    legacyBehavior
-                  >
-                    <button className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold mr-1 py-1 px-1 rounded-full inline-flex items-center">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        height="24px"
-                        viewBox="0 0 24 24"
-                        width="24px"
-                        fill="#000000"
-                      >
-                        <title>View</title>
-                        <path d="M11 17h2v-6h-2v6zm1-15C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zM11 9h2V7h-2v2z"></path>
-                      </svg>
-                    </button>
-                  </Link>
-                </td>
               </div>
             ))
           : null}

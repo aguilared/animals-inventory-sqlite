@@ -1,7 +1,6 @@
-module.exports = {
+/** @type {import('next').NextConfig} */
+const nextConfig = {
   reactStrictMode: true,
-
-  //avoiding CORS error, more here: https://vercel.com/support/articles/how-to-enable-cors
   async headers() {
     return [
       {
@@ -24,3 +23,5 @@ module.exports = {
     ];
   },
 };
+
+module.exports = nextConfig;
