@@ -1,5 +1,5 @@
 import React from "react";
-import { useForm, Controller, SubmitHandler } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import Select from "react-select";
 
 type Inputs = {
@@ -9,6 +9,7 @@ type Inputs = {
   hierro: string;
   id: number;
   info: string;
+  mother_id: number;
   mother: string;
   name: string;
   owner_id: number;
@@ -16,36 +17,27 @@ type Inputs = {
   updated_at: string;
 };
 
-const AnimalEdit = (props: any): JSX.Element => {
+const AnimalEdit = (props: any): React.JSX.Element => {
   const {
     animalSeleccionada2,
     onSubmitE,
     handleOnChangeE,
     clases,
     owners,
-    eventsId,
+    onClose,
   } = props;
-  console.log("animalSeleccionada2", animalSeleccionada2);
-  console.log("Clases", clases);
-  console.log("EventsId", eventsId);
-  //console.log("Owners", owners);
 
   const {
     register,
-    handleSubmit,
     control,
     formState: { errors },
   } = useForm<Inputs>();
 
-  const validate = (selected: any) => {
-    selected === "" || "You must be at least 18 years old";
-    console.log("eleccionado", selected);
-  };
-
   return (
     <form
+      name="edit"
+      onSubmit={onSubmitE}
       className="w-full max-w-lg  bg-gray-400 shadow-md rounded"
-      onSubmit={handleSubmit(onSubmitE)}
     >
       <div className="md:w-11/12 px-3 mb-6 md:mb-0">
         <label
@@ -57,7 +49,7 @@ const AnimalEdit = (props: any): JSX.Element => {
         <input
           className="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4"
           placeholder="Name"
-          defaultValue={animalSeleccionada2 && animalSeleccionada2.name}
+          defaultValue={animalSeleccionada2.name}
           {...register("name", {
             required: "Required",
           })}
@@ -75,7 +67,7 @@ const AnimalEdit = (props: any): JSX.Element => {
         <input
           className="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4"
           placeholder="birthdate"
-          defaultValue={animalSeleccionada2 && animalSeleccionada2.birthdate}
+          defaultValue={animalSeleccionada2.birthdate}
           {...register("birthdate", {
             required: "Required",
           })}
@@ -98,7 +90,7 @@ const AnimalEdit = (props: any): JSX.Element => {
             const currentSelection = clases.find(
               (c: any) => c.value === animalSeleccionada2.clase_id
             );
-            console.log("CurrentSelection", currentSelection);
+            //console.log("CurrentSelection", currentSelection);
 
             return (
               <Select
@@ -114,9 +106,9 @@ const AnimalEdit = (props: any): JSX.Element => {
           }}
         />
         {errors.clase_id && (
-          <p className="text-red-600 text-1xl font-bold">
-            This field is required
-          </p>
+          <span className="text-xs text-red-700">
+            {errors.clase_id.message}
+          </span>
         )}
       </div>
 
@@ -135,7 +127,7 @@ const AnimalEdit = (props: any): JSX.Element => {
             const currentSelection = owners.find(
               (c: any) => c.value === animalSeleccionada2.owner_id
             );
-            console.log("CurrentSelection", currentSelection);
+            //console.log("CurrentSelection", currentSelection);
 
             return (
               <Select
@@ -151,9 +143,9 @@ const AnimalEdit = (props: any): JSX.Element => {
           }}
         />
         {errors.owner_id && (
-          <p className="text-red-600 text-1xl font-bold">
-            This field is required
-          </p>
+          <span className="text-xs text-red-700">
+            {errors.owner_id.message}
+          </span>
         )}
       </div>
 
@@ -167,16 +159,15 @@ const AnimalEdit = (props: any): JSX.Element => {
         <input
           className="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4"
           placeholder="mother"
-          defaultValue={animalSeleccionada2 && animalSeleccionada2.mother}
+          defaultValue={animalSeleccionada2.mother}
           {...register("mother", {
             required: "Required",
           })}
           onChange={(e) => handleOnChangeE("mother", e.target.value)}
         />
+
         {errors.mother && (
-          <p className="text-red-600 text-1xl font-bold">
-            This field is required
-          </p>
+          <span className="text-xs text-red-700">{errors.mother.message}</span>
         )}
       </div>
 
@@ -190,16 +181,15 @@ const AnimalEdit = (props: any): JSX.Element => {
         <input
           className="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4"
           placeholder="hierro"
-          defaultValue={animalSeleccionada2 && animalSeleccionada2.hierro}
+          defaultValue={animalSeleccionada2.hierro}
           {...register("hierro", {
             required: "Required",
           })}
           onChange={(e) => handleOnChangeE("hierro", e.target.value)}
         />
+
         {errors.hierro && (
-          <p className="text-red-600 text-1xl font-bold">
-            This field is required
-          </p>
+          <span className="text-xs text-red-700">{errors.hierro.message}</span>
         )}
       </div>
 
@@ -213,16 +203,16 @@ const AnimalEdit = (props: any): JSX.Element => {
         <input
           className="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4"
           placeholder="tipopart"
-          defaultValue={animalSeleccionada2 && animalSeleccionada2.tipopart}
+          defaultValue={animalSeleccionada2.tipopart}
           {...register("tipopart", {
             required: "Required",
           })}
           onChange={(e) => handleOnChangeE("tipopart", e.target.value)}
         />
         {errors.tipopart && (
-          <p className="text-red-600 text-1xl font-bold">
-            This field is required
-          </p>
+          <span className="text-xs text-red-700">
+            {errors.tipopart.message}
+          </span>
         )}
       </div>
 
@@ -238,7 +228,7 @@ const AnimalEdit = (props: any): JSX.Element => {
           rows={6}
           className="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4"
           placeholder="info"
-          defaultValue={animalSeleccionada2 && animalSeleccionada2.info}
+          defaultValue={animalSeleccionada2.info}
           {...register("info", {
             required: "Required",
           })}
@@ -246,13 +236,26 @@ const AnimalEdit = (props: any): JSX.Element => {
         />
         <input
           type="hidden"
-          defaultValue={animalSeleccionada2 && animalSeleccionada2.animal_id}
+          defaultValue={animalSeleccionada2.animal_id}
           {...register("id", {
             required: "Required",
             minLength: 3,
             maxLength: 41,
           })}
         ></input>
+      </div>
+
+      <br></br>
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+        <button
+          className="bg-gray-500 hover:bg-gray-400 text-white font-bold py-2 px-4 border-b-4 border-gray-700 hover:border-gray-500 rounded"
+          onClick={() => onClose()}
+        >
+          Cancel
+        </button>
+        <button className="bg-green-500 hover:bg-green-400 text-white font-bold py-2 px-4 border-b-4 border-green-700 hover:border-green-500 rounded">
+          Guardar
+        </button>
       </div>
     </form>
   );

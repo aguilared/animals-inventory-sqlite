@@ -41,6 +41,6 @@ yarn-error.log*
 .next/cache/webpack/client-development/0.pack
 
 # images
-/public/static/images/
+
 
 

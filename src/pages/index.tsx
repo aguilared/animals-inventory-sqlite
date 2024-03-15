@@ -5,7 +5,13 @@ import Container from "../components/Container";
 const Home: NextPage = () => {
   return (
     <Container>
-      <div className="container lg:text-center max-w-4xl m-auto px-4 mt-2">
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+        <Image
+          src="/static/images/gonzaleraRanch1.jpg"
+          alt="my desk"
+          width={1920 / 4}
+          height={1280 / 4}
+        />
         <Image
           src="/static/images/gonzaleraRanch.jpg"
           alt="my desk"
@@ -20,36 +26,6 @@ const Home: NextPage = () => {
         <p className="mt-2 text-blue-600 text-3xl leading-8 font-extrabold tracking-tight sm:text-4xl">
           Gonzalera Ranch
         </p>
-        <div className=":text-center py-2 bg-white mt-2">
-          <Image
-            src="/static/images/logo.jpg"
-            alt="my desk"
-            width={1920 / 8}
-            height={1280 / 8}
-          />
-        </div>
-
-        <div className="mt-10 space-y-10 md:space-y-0 md:grid md:grid-cols-2 md:gap-x-8 md:gap-y-10">
-          <div className="bg-amber-500 cursor-pointer text-white p-4 rounded-md text-center shadow-xl">
-            <div className="mt-2 font-bold">Ganados</div>
-            <div className="font-light">Some Ganados</div>
-          </div>
-
-          <div className="bg-red-500 cursor-pointer text-white p-4 rounded-md text-center shadow-xl">
-            <div className="mt-2 font-bold">Caballos</div>
-            <div className="font-light">Some Caballos</div>
-          </div>
-
-          <div className="bg-green-500 cursor-pointer text-white p-4 rounded-md text-center shadow-xl">
-            <div className="mt-2 font-bold">Chivos</div>
-            <div className="font-light">Some Chivos</div>
-          </div>
-
-          <div className="bg-purple-500 cursor-pointer text-white p-4 rounded-md text-center shadow-xl">
-            <div className="mt-2 font-bold">Conucos</div>
-            <div className="font-light">Some conucos</div>
-          </div>
-        </div>
       </div>
     </Container>
   );

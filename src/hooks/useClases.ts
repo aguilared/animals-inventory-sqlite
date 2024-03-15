@@ -8,7 +8,7 @@ export interface IClase {
 
 export function useClases() {
   const [clases, setClases] = useState<IClase[] | []>([]);
-  console.log("getClases", getClases());
+  //console.log("getClases", getClases());
   useEffect(
     function () {
       let options = [{ value: 0, label: "Seleccione.." }];
