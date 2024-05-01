@@ -1,6 +1,6 @@
 import React, { useState, BaseSyntheticEvent } from "react";
 import Link from "next/link";
-import { IconButton } from "@mui/material";
+import { Button, IconButton } from "@mui/material";
 import StreetviewRoundedIcon from "@mui/icons-material/ThreeDRotation";
 import Container from "../../components/Container";
 
@@ -199,6 +199,17 @@ const Animals = (): React.JSX.Element => {
             <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-gray-900" />
           </div>
         ) : null}
+
+        <div className="flex rounded items-center justify-between flex-wrap bg-gray-500">
+          <div className="flex-grow text-left text-gray-100 px-3 py-1 m-2 ">
+            {" Admin Bitacoras"}
+          </div>
+          <div className="flex-grow text-right px-3 py-1 m-2 text-gray-100">
+            <Button color="success" variant="contained">
+              Add
+            </Button>
+          </div>
+        </div>
         {data && data.length > 0
           ? data.map((animal: any) => (
               <div
