@@ -291,7 +291,7 @@ const Animals = (): React.JSX.Element => {
       <QueryClientProvider client={queryClient}>
         <div className="flex rounded items-center justify-between flex-wrap bg-gray-500">
           <div className="flex-grow text-left text-gray-100 px-3 py-1 m-2 ">
-            {" Admin Bitacoras"}
+            {" Admin Animals"}
           </div>
           <div className="flex-grow text-right px-3 py-1 m-2 text-gray-100">
             <Button
