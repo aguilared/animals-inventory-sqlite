@@ -5,6 +5,8 @@ export default async function handle(req, res) {
     orderBy: {
       bitacora_id: "desc",
     },
+    take: 49,
+
     include: {
       event: {
         select: { id: true, description: true },
