@@ -14,10 +14,11 @@ model User {
   createdAt DateTime   @default(now()) @map("created_at")
   updatedAt DateTime   @updatedAt @map("updated_at")
   password  String?
-  nivel     Int
+  nivel     Int?
   Post      Post[]
-  bitacora  Bitacora[]
   animal    Animal[]
+  bitacora  Bitacora[]
+
   @@map("users")
 }
 
@@ -36,12 +37,10 @@ model Bitacora {
 model Animal {
   id         Int      @id @default(autoincrement())
   birthdate  String?
-  owner          User?     @relation(fields: [owner_id], references: [id]) //fk
-  owner_id       Int? 
-  clase          Clase?    @relation(fields: [clase_id], references: [id]) //fk
-  clase_id       Int?
+  owner_id   Int?
   created_at DateTime @default(now()) @map("created_at")
   updated_at DateTime @updatedAt @map("updated_at")
+  clase_id   Int?
   name       String?
   info       String?
   mother     String?
@@ -49,6 +48,8 @@ model Animal {
   tipopart   String?
   alive      String?
   mother_id  Int?
+  clase      Clase?   @relation(fields: [clase_id], references: [id])
+  owner      User?    @relation(fields: [owner_id], references: [id])
 
   @@map("animals")
 }
@@ -58,7 +59,8 @@ model Clase {
   description String?
   created_at  DateTime @default(now()) @map("created_at")
   updated_at  DateTime @updatedAt @map("updated_at")
-  animals      Animal[]  // A clases can have many animals
+  animals     Animal[]
+
   @@map("clases")
 }
 
