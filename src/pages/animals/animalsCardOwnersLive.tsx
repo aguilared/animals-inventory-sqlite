@@ -66,7 +66,10 @@ const AnimalsCardQuery: NextPage = () => {
   const [ownerId, setOwnerId] = useState(0);
   const [bitacoraSearch, setBitacoraSearch] = useState();
   const [datafilter, setDatafilter] = useState([]);
-
+  const [isImage, setIsImage] = useState(false);
+  const handleOnChange1 = () => {
+    setIsImage(!isImage);
+  };
   const {
     register,
     handleSubmit,
@@ -76,9 +79,11 @@ const AnimalsCardQuery: NextPage = () => {
   } = useForm<Inputs>();
 
   const { status, data, error, isLoading, refetch } = useQuery(
-    ["animals"],
+    ["animalsLive"],
     async (filter: any = ownerId) => {
-      const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}animals/`);
+      const res = await axios.get(
+        `${process.env.NEXT_PUBLIC_API_URL}animals/lives`
+      );
       console.log("DATA1", res);
       return res.data;
     }
@@ -130,7 +135,7 @@ const AnimalsCardQuery: NextPage = () => {
     <Container>
       <QueryClientProvider client={queryClient}>
         <div className="container mx-auto px-20 text-gray-600 text-2xl font-bold">
-          Query List Animals, Historia{" "}
+          Query List Animals Live, Vivos{" "}
         </div>
 
         <div className="flex mb-4">
@@ -225,16 +230,43 @@ const AnimalsCardQuery: NextPage = () => {
                     </Typography>
 
                     <Typography gutterBottom align="left">
-                      Nombre: {animal.name}, Dueno: {animal.owner.name}
+                      Nombre: {animal.name}
                     </Typography>
 
                     <Typography gutterBottom align="left">
-                      Nacimiento: {convertDate(animal.birthdate)}, Tipo animal:{" "}
-                      {animal.clase.description}
+                      Dueno: {animal.owner.name}
+                    </Typography>
+
+                    <Typography gutterBottom align="left">
+                      Nacimiento: {convertDate(animal.birthdate)}
+                    </Typography>
+
+                    <Typography gutterBottom align="left">
+                      Tipo animal: {animal.clase.description}
                     </Typography>
 
                     <Typography align="left">
                       Madre: {animal.mother}, Hierro: {animal.hierro}
+                    </Typography>
+
+                    <Typography align="left">
+                      Live: {animal.Live}
+                      {animal.live! ? (
+                        <>
+                          <input
+                            type="checkbox"
+                            checked
+                            placeholder="Image"
+                            className="mx-3"
+                          />
+                        </>
+                      ) : (
+                        <input
+                          type="checkbox"
+                          placeholder="Image"
+                          className="mx-3"
+                        />
+                      )}
                     </Typography>
 
                     <Typography align="left">

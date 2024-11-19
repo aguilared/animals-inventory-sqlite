@@ -23,6 +23,7 @@ export default async function handle1(req, res) {
       clase: {
         select: { id: true, description: true },
       },
+     
     },
   });
   res.json(result);

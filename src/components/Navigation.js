@@ -8,8 +8,9 @@ import toast, { Toaster } from "react-hot-toast";
 
 const links = [
   { href: "/animals/", label: "List" },
-  { href: "/animals/animalsCardOwners", label: "Select" },
   { href: "/animals/admin", label: "Admin" },
+  { href: "/animals/animalsCardOwners", label: "Historico" },
+  { href: "/animals/animalsCardOwnersLive", label: "Live" },
 ].map((link) => {
   link.key = `nav-link-${link.href}-${link.label}`;
   return link;

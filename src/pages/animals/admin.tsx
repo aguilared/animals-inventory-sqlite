@@ -42,6 +42,7 @@ type Inputs = {
   hierro: string;
   id: number;
   info: string;
+  live: boolean;
   mother: string;
   mother_id: number;
   name: string;
