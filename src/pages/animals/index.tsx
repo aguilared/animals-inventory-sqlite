@@ -78,12 +78,13 @@ const convertDate1 = (date: any) => {
 
 const Animals = (): React.JSX.Element => {
   const animalspage = useAnimals(5);
-  console.log("ANIMALS", animalspage);
+  //console.log("ANIMALS", animalspage);
 
   const { data, isLoading, refetch } = useQuery(["Animalss"], async () => {
     const res = await axios.get(`${DATABASEURL}animals`);
     return res.data;
   });
+  console.log("DATAnimals", data);
 
   const [animalAdd, setAnimalAdd] = useState({
     alive: "Si",
@@ -238,8 +239,11 @@ const Animals = (): React.JSX.Element => {
                   <b> {animal.name}</b>, &nbsp; Dueno=
                   {animal.owner.name}. &nbsp; <br />
                   Nacimiento=
-                  {convertDate(animal.birthdate)}. &nbsp; <br />
-                  Info= {animal.info} &nbsp;
+                  {convertDate(animal.birthdate)}. &nbsp;Madre=
+                  {animal.mother_id} &nbsp;
+                  {animal.mother} <br />
+                  Info= {animal.info} <br />
+                  Live= {animal.live} &nbsp; <br />
                 </div>
               </div>
             ))
