@@ -186,64 +186,83 @@ const AnimalsCardQuery: NextPage = () => {
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
           {datafilter ? (
             datafilter.map((animal: any, key: any) => (
-              <>
-                <Card
-                  sx={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                  }}
-                >
-                  <CardMedia>
-                    <div
-                      style={{
-                        position: "relative",
-                        width: "100%",
-                        height: "100%",
-                      }}
+              <Card
+                sx={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                }}
+                key={animal.id}
+              >
+                <CardMedia>
+                  <div
+                    style={{
+                      position: "relative",
+                      width: "100%",
+                      height: "100%",
+                    }}
+                  >
+                    <Image
+                      src={"/static/images/" + `${animal.id}` + ".jpg"}
+                      width={520}
+                      height={400}
+                      alt=""
+                      style={{ objectFit: "cover" }}
+                    />
+                  </div>
+                </CardMedia>
+                <CardContent>
+                  <Typography align="left" component="div">
+                    <a
+                      href={`/animals/animalId/${encodeURIComponent(
+                        animal.id
+                      )}`}
+                      target={"_blank"}
+                      rel="noreferrer"
                     >
-                      <Image
-                        src={"/static/images/" + `${animal.id}` + ".jpg"}
-                        width={520}
-                        height={400}
-                        alt=""
-                        style={{ objectFit: "cover" }}
+                      {" "}
+                      Animal ID: {animal.id},{" "}
+                    </a>
+                  </Typography>
+
+                  <Typography gutterBottom align="left">
+                    Nombre: {animal.name}, Dueno: {animal.owner.name}
+                  </Typography>
+
+                  <Typography gutterBottom align="left">
+                    Nacimiento: {convertDate(animal.birthdate)}, Tipo animal:{" "}
+                    <b>{animal.clase.description}</b>
+                  </Typography>
+
+                  <Typography align="left">
+                    Madre: {animal.mother}, Hierro: {animal.hierro}
+                  </Typography>
+
+                  <Typography align="left">
+                    Date update: {convertDate(animal.updated_at)}
+                  </Typography>
+
+                  <Typography paragraph>Info: {animal.info}</Typography>
+
+                  <Typography align="left">
+                    Live:{" "}
+                    {animal.live! ? (
+                      <input
+                        type="checkbox"
+                        checked
+                        placeholder="Live"
+                        className="mx-3"
+                        onChange={() => console.log("checked")}
                       />
-                    </div>
-                  </CardMedia>
-                  <CardContent>
-                    <Typography align="left" component="div">
-                      <a
-                        href={`/animals/animalId/${encodeURIComponent(
-                          animal.id
-                        )}`}
-                        target={"_blank"}
-                        rel="noreferrer"
-                      >
-                        {" "}
-                        Animal ID: {animal.id},{" "}
-                      </a>
-                    </Typography>
-
-                    <Typography gutterBottom align="left">
-                      Nombre: {animal.name}, Dueno: {animal.owner.name}
-                    </Typography>
-
-                    <Typography gutterBottom align="left">
-                      Nacimiento: {convertDate(animal.birthdate)}, Tipo animal:{" "}
-                      {animal.clase.description}
-                    </Typography>
-
-                    <Typography align="left">
-                      Madre: {animal.mother}, Hierro: {animal.hierro}
-                    </Typography>
-
-                    <Typography align="left">
-                      Date update: {convertDate(animal.updated_at)}
-                    </Typography>
-                    <Typography paragraph>Info: {animal.info}</Typography>
-                  </CardContent>
-                </Card>
-              </>
+                    ) : (
+                      <input
+                        type="checkbox"
+                        placeholder="Live"
+                        className="mx-3"
+                      />
+                    )}{" "}
+                  </Typography>
+                </CardContent>
+              </Card>
             ))
           ) : (
             <div className="fixed top-0 right-0 h-screen w-screen z-50 flex justify-center items-center">

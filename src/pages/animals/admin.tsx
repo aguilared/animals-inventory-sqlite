@@ -336,8 +336,28 @@ const Animals = (): React.JSX.Element => {
                   <b> {animal.name}</b>, &nbsp; Dueno=
                   {animal.owner.name}. &nbsp; <br />
                   Nacimiento=
-                  {convertDate(animal.birthdate)}. &nbsp; <br />
+                  {convertDate(animal.birthdate)}. &nbsp; Tipo animal:{" "}
+                  <b>{animal.clase.description}</b> <br />
+                  Madre: {animal.mother} <br />
                   Info= {animal.info} &nbsp;
+                  <br />
+                  Live:
+                  {animal.live! ? (
+                    <input
+                      type="checkbox"
+                      checked
+                      placeholder="Live"
+                      onChange={() => console.log("change")}
+                      className="mx-3"
+                    />
+                  ) : (
+                    <input
+                      type="checkbox"
+                      placeholder="Live"
+                      className="mx-3"
+                    />
+                  )}{" "}
+                  <br />
                 </div>
                 <div className="inline-block text-gray-700 text-right px-1 py-1 m-0">
                   <button
