@@ -203,12 +203,7 @@ const Animals = (): React.JSX.Element => {
 
         <div className="flex rounded items-center justify-between flex-wrap bg-gray-500">
           <div className="flex-grow text-left text-gray-100 px-3 py-1 m-2 ">
-            {" Admin Bitacoras"}
-          </div>
-          <div className="flex-grow text-right px-3 py-1 m-2 text-gray-100">
-            <Button color="success" variant="contained">
-              Add
-            </Button>
+            {" List Animals "}
           </div>
         </div>
         {data && data.length > 0
