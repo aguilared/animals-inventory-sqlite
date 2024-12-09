@@ -19,7 +19,7 @@ import { useClases } from "../../hooks/useClases";
 import { useVacas } from "../../hooks/useVacas";
 import AnimalEdit from "../../components/Animals/AnimalEdit";
 import toast, { Toaster } from "react-hot-toast";
-import { useRouter } from "next/navigation";
+import { useRouter } from "next/router";
 import { IoMdClose } from "react-icons/io";
 import Link from "next/link";
 
@@ -255,37 +255,6 @@ const Animals = (): React.JSX.Element => {
   const seleccionarAnimalD = (elemento: any, caso: any) => {
     setAnimalSeleccionada(elemento);
     caso === "Delete" ? modalDeleteOpen() : setModalDelete(false);
-  };
-
-  const eliminar = async () => {
-    try {
-      const result = await fetch(
-        "/api/animals/delete/" + animalSeleccionada.id
-      );
-      refetch();
-      toast.custom((t) => (
-        <div
-          className={`bg-white px-6 py-4 shadow-md rounded-full ${
-            t.visible ? "animate-enter" : "animate-leave"
-          }`}
-        >
-          Deleted successfully 👋
-        </div>
-      ));
-
-      setModalDelete(false);
-    } catch (error) {
-      toast.custom((t) => (
-        <div
-          className={`bg-white px-6 py-4 shadow-md rounded-full ${
-            t.visible ? "animate-enter" : "animate-leave"
-          }`}
-        >
-          Not Deleted successfully 👋
-        </div>
-      ));
-      console.log(error);
-    }
   };
 
   return (
