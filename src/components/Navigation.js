@@ -43,7 +43,7 @@ const Navigation = () => {
         />
 
         <span className="sm:inline-block font-semibold text-xl tracking-tight">
-          Gonzalera Ranch - Inventory
+          Gonzalera Ranch - Inventorys
         </span>
       </div>
 
