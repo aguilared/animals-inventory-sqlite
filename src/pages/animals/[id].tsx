@@ -62,11 +62,7 @@ const BitaEventCard = (props: any): JSX.Element => {
 
   return (
     <div className="flex justify-center">
-      <Card
-        sx={{ maxWidth: 745, bgcolor: "neutral.900" }}
-        color="neutral"
-        invertedColors
-      >
+      <Card sx={{ maxWidth: 745, bgcolor: "neutral.900" }} color="neutral">
         <CardContent sx={{ flex: "1 0 auto" }}>
           <div>
             <h3 className="text-2xl tahoma font-extrabold tracking-widest text-gray-500">
