@@ -236,16 +236,11 @@ const Animals = (): React.JSX.Element => {
                     {" "}
                     Animal ID: {animal.id},{" "}
                   </a>
-                  {animal.clase.description}:<b> {animal.name}</b>, &nbsp;
+                  {animal.clase.description}:<b> {animal.name}</b>,<br />
                   Dueno=
                   {animal.owner.name}. &nbsp; <br />
                   Nacimiento=
-                  {convertDate(animal.birthdate)}. &nbsp; Tipo animal:{" "}
-                  <b>{animal.clase.description}</b> <br />
-                  Madre: {animal.mother} <br />
-                  Info= {animal.info} &nbsp;
-                  <br />
-                  Live:
+                  {convertDate(animal.birthdate)}, Live:
                   {animal.live! ? (
                     <input
                       type="checkbox"
@@ -261,6 +256,9 @@ const Animals = (): React.JSX.Element => {
                       className="mx-3"
                     />
                   )}{" "}
+                  <br />
+                  Madre: {animal.mother} <br />
+                  Info= {animal.info} &nbsp;
                   <br />
                 </div>
               </div>
