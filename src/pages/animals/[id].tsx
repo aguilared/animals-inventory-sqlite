@@ -26,6 +26,7 @@ const BitaEventCard = (props: any): JSX.Element => {
   const [birthdate, setBirthdate] = useState("");
   const [owner, setOwner] = useState("");
   const [mother, setMother] = useState("");
+  const [motherid, setMotherid] = useState("");
   const [clase, setClase] = useState("");
   const [hierro, setHierro] = useState("");
   const [live, setLive] = useState("");
@@ -47,6 +48,7 @@ const BitaEventCard = (props: any): JSX.Element => {
       setBirthdate(resp.birthdate);
       setOwner(resp.owner.name);
       setMother(resp.mother);
+      setMotherid(resp.mother_id);
       setClase(resp.clase.description);
       setHierro(resp.hierro);
       setLive(resp.live);
@@ -66,11 +68,21 @@ const BitaEventCard = (props: any): JSX.Element => {
         <CardContent sx={{ flex: "1 0 auto" }}>
           <div>
             <h3 className="text-2xl tahoma font-extrabold tracking-widest text-gray-500">
-              Detalle Animal: {name}
+              Animal {clase}: {name}
             </h3>
           </div>
           <Typography variant="h6" component="h2">
-            Id: {query.id}, Nombre: {name}, Live?
+            Id: {query.id}, Nombre: {name}
+          </Typography>{" "}
+          <Typography variant="h6" component="h2">
+            Owner: {owner}
+            {}
+          </Typography>{" "}
+          <Typography variant="h6" component="h2">
+            Nacimiento: {birthdate}
+          </Typography>
+          <Typography variant="h6" component="h2">
+            Live?:
             {live! ? (
               <input
                 type="checkbox"
@@ -84,11 +96,15 @@ const BitaEventCard = (props: any): JSX.Element => {
             )}{" "}
           </Typography>{" "}
           <Typography variant="h6" component="h2">
-            Clase: {clase}, Owner: {owner}
-            {}
-          </Typography>{" "}
-          <Typography variant="h6" component="h2">
-            Nacimiento: {birthdate}, Madre: {mother}
+            Madre: {mother},{" "}
+            <a
+              href={`/animals/${encodeURIComponent(motherid)}`}
+              target={"_blank"}
+              rel="noreferrer"
+            >
+              {" "}
+              motherID:&nbsp; {motherid},{" "}
+            </a>{" "}
           </Typography>
           <Typography gutterBottom variant="h6" component="h2">
             Info: {info}

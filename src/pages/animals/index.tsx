@@ -234,13 +234,16 @@ const Animals = (): React.JSX.Element => {
                     rel="noreferrer"
                   >
                     {" "}
-                    Animal ID: {animal.id},{" "}
-                  </a>
-                  {animal.clase.description}:<b> {animal.name}</b>,<br />
-                  Dueno=
+                    Animal ID:&nbsp; {animal.id},{" "}
+                  </a>{" "}
+                  <br />
+                  {animal.clase.description}:<b> {animal.name}</b>
+                  <br />
+                  Dueno:&nbsp;
                   {animal.owner.name}. &nbsp; <br />
-                  Nacimiento=
-                  {convertDate(animal.birthdate)}, Live:
+                  Nacimiento:&nbsp;
+                  {convertDate(animal.birthdate)} &nbsp; <br />
+                  Live:&nbsp;
                   {animal.live! ? (
                     <input
                       type="checkbox"
@@ -257,8 +260,8 @@ const Animals = (): React.JSX.Element => {
                     />
                   )}{" "}
                   <br />
-                  Madre: {animal.mother} <br />
-                  Info= {animal.info} &nbsp;
+                  Madre:&nbsp; {animal.mother} <br />
+                  Info:&nbsp; {animal.info} &nbsp;
                   <br />
                 </div>
               </div>
