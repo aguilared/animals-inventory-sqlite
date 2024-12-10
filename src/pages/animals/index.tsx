@@ -228,9 +228,16 @@ const Animals = (): React.JSX.Element => {
                   </a>
                 </div>
                 <div className="w-4/5 inline-block text-gray-700 text-left text-base px-1 py-0 m-0">
-                  ID= {animal.id} &nbsp;
-                  {animal.clase.id}&nbsp; {animal.clase.description}:&nbsp;
-                  <b> {animal.name}</b>, &nbsp; Dueno=
+                  <a
+                    href={`/animals/${encodeURIComponent(animal.id)}`}
+                    target={"_blank"}
+                    rel="noreferrer"
+                  >
+                    {" "}
+                    Animal ID: {animal.id},{" "}
+                  </a>
+                  {animal.clase.description}:<b> {animal.name}</b>, &nbsp;
+                  Dueno=
                   {animal.owner.name}. &nbsp; <br />
                   Nacimiento=
                   {convertDate(animal.birthdate)}. &nbsp; Tipo animal:{" "}

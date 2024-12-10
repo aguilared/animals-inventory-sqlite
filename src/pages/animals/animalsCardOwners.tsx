@@ -213,9 +213,7 @@ const AnimalsCardQuery: NextPage = () => {
                 <CardContent>
                   <Typography align="left" component="div">
                     <a
-                      href={`/animals/animalId/${encodeURIComponent(
-                        animal.id
-                      )}`}
+                      href={`/animals/${encodeURIComponent(animal.id)}`}
                       target={"_blank"}
                       rel="noreferrer"
                     >
