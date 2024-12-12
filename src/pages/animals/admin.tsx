@@ -239,6 +239,7 @@ const Animals = (): React.JSX.Element => {
       owner_id: Number(animalE.owner_id),
       tipopart: animalE.tipopart,
     };
+    console.log("data a Edit", parsedataE);
     updatePostMutation.mutate(parsedataE);
   };
 
@@ -339,7 +340,7 @@ const Animals = (): React.JSX.Element => {
                   Nacimiento=
                   {convertDate(animal.birthdate)}. &nbsp; Tipo animal:{" "}
                   <b>{animal.clase.description}</b> <br />
-                  Madre: {animal.mother} <br />
+                  Madre: {animal.mother}, Id: {animal.mother_id} <br />
                   Info= {animal.info} &nbsp;
                   <br />
                   Live:
@@ -758,6 +759,7 @@ const Animals = (): React.JSX.Element => {
               handleSubmit={handleSubmit}
               handleOnChangeE={handleOnChangeE}
               owners={owners}
+              vacas={vacas}
               clases={clases}
               onClose={modalEditClose}
             />

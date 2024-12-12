@@ -22,6 +22,7 @@ const AnimalEdit = (props: any): React.JSX.Element => {
     animalSeleccionada2,
     onSubmitE,
     handleOnChangeE,
+    vacas,
     clases,
     owners,
     onClose,
@@ -145,6 +146,42 @@ const AnimalEdit = (props: any): React.JSX.Element => {
         {errors.owner_id && (
           <span className="text-xs text-red-700">
             {errors.owner_id.message}
+          </span>
+        )}
+      </div>
+
+      <div className="md:w-11/12 px-3 mb-6 md:mb-0">
+        <label
+          className="block uppercase tracking-wide text-xs font-bold mb-2"
+          htmlFor="mother_id"
+        >
+          Madre.{animalSeleccionada2.mother_id}
+        </label>
+        <Controller
+          name="mother_id"
+          control={control}
+          rules={{ required: true }}
+          render={({ field: { onChange, value, name, ref } }) => {
+            const currentSelection = vacas.find(
+              (c: any) => c.value === animalSeleccionada2.mother_id
+            );
+            return (
+              <Select
+                defaultValue={currentSelection}
+                options={vacas}
+                value={vacas.find((c) => c.value === value)}
+                name={name}
+                onChange={(val) => {
+                  onChange(val!.value);
+                  handleOnChangeE("mother_id", val!.value);
+                }}
+              />
+            );
+          }}
+        />
+        {errors.mother_id && (
+          <span className="text-xs text-red-700">
+            {errors.mother_id.message}
           </span>
         )}
       </div>
