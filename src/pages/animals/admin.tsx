@@ -340,7 +340,16 @@ const Animals = (): React.JSX.Element => {
                   Nacimiento=
                   {convertDate(animal.birthdate)}. &nbsp; Tipo animal:{" "}
                   <b>{animal.clase.description}</b> <br />
-                  Madre: {animal.mother}, Id: {animal.mother_id} <br />
+                  Madre: {animal.mother},{" "}
+                  <a
+                    href={`/animals/${encodeURIComponent(animal.mother_id)}`}
+                    target={"_blank"}
+                    rel="noreferrer"
+                  >
+                    {" "}
+                    motherID:&nbsp; {animal.mother_id},{" "}
+                  </a>{" "}
+                  <br />
                   Info= {animal.info} &nbsp;
                   <br />
                   Live:

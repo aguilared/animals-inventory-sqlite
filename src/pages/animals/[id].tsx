@@ -79,10 +79,7 @@ const BitaEventCard = (props: any): JSX.Element => {
             {}
           </Typography>{" "}
           <Typography variant="h6" component="h2">
-            Nacimiento: {birthdate}
-          </Typography>
-          <Typography variant="h6" component="h2">
-            Live?:
+            Nacimiento: {birthdate}, Live?:
             {live! ? (
               <input
                 type="checkbox"
@@ -94,7 +91,10 @@ const BitaEventCard = (props: any): JSX.Element => {
             ) : (
               <input type="checkbox" placeholder="Live" className="mx-3" />
             )}{" "}
-          </Typography>{" "}
+          </Typography>
+          <Typography variant="h6" component="h2">
+            Tipo animal: <b>{clase}</b>
+          </Typography>
           <Typography variant="h6" component="h2">
             Madre: {mother},{" "}
             <a

@@ -130,7 +130,7 @@ const AnimalsCardQuery: NextPage = () => {
     <Container>
       <QueryClientProvider client={queryClient}>
         <div className="container mx-auto px-20 text-gray-600 text-2xl font-bold">
-          Query List Animals, Historia{" "}
+          Animals, Historia, Vivos Fallecidos{" "}
         </div>
 
         <div className="flex mb-4">
@@ -227,22 +227,7 @@ const AnimalsCardQuery: NextPage = () => {
                   </Typography>
 
                   <Typography gutterBottom align="left">
-                    Nacimiento: {convertDate(animal.birthdate)}, Tipo animal:{" "}
-                    <b>{animal.clase.description}</b>
-                  </Typography>
-
-                  <Typography align="left">
-                    Madre: {animal.mother}, Hierro: {animal.hierro}
-                  </Typography>
-
-                  <Typography align="left">
-                    Date update: {convertDate(animal.updated_at)}
-                  </Typography>
-
-                  <Typography paragraph>Info: {animal.info}</Typography>
-
-                  <Typography align="left">
-                    Live:{" "}
+                    Nacimiento: {convertDate(animal.birthdate)}, Live:{" "}
                     {animal.live! ? (
                       <input
                         type="checkbox"
@@ -259,6 +244,28 @@ const AnimalsCardQuery: NextPage = () => {
                       />
                     )}{" "}
                   </Typography>
+
+                  <Typography gutterBottom align="left">
+                    Tipo animal: <b>{animal.clase.description}</b>
+                  </Typography>
+
+                  <Typography align="left">
+                    Madre: {animal.mother},{" "}
+                    <a
+                      href={`/animals/${encodeURIComponent(animal.mother_id)}`}
+                      target={"_blank"}
+                      rel="noreferrer"
+                    >
+                      {" "}
+                      motherID:&nbsp; {animal.mother_id},{" "}
+                    </a>{" "}
+                  </Typography>
+
+                  <Typography align="left">
+                    Date update: {convertDate(animal.updated_at)}
+                  </Typography>
+
+                  <Typography paragraph>Info: {animal.info}</Typography>
                 </CardContent>
               </Card>
             ))

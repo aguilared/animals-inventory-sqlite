@@ -262,7 +262,16 @@ const Animals = (): React.JSX.Element => {
                     />
                   )}{" "}
                   <br />
-                  Madre:&nbsp; {animal.mother} <br />
+                  Madre: {animal.mother},{" "}
+                  <a
+                    href={`/animals/${encodeURIComponent(animal.mother_id)}`}
+                    target={"_blank"}
+                    rel="noreferrer"
+                  >
+                    {" "}
+                    motherID:&nbsp; {animal.mother_id},{" "}
+                  </a>{" "}
+                  <br />
                   Info:&nbsp; {animal.info} &nbsp;
                   <br />
                 </div>
