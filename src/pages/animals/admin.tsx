@@ -18,8 +18,7 @@ import { useOwners } from "../../hooks/useOwners";
 import { useClases } from "../../hooks/useClases";
 import { useVacas } from "../../hooks/useVacas";
 import AnimalEdit from "../../components/Animals/AnimalEdit";
-import toast, { Toaster } from "react-hot-toast";
-import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 import { IoMdClose } from "react-icons/io";
 import Link from "next/link";
 
@@ -85,8 +84,6 @@ const style = {
 };
 
 const Animals = (): React.JSX.Element => {
-  const router = useRouter();
-
   const { isUser } = useUser();
 
   useEffect(() => {
@@ -264,7 +261,7 @@ const Animals = (): React.JSX.Element => {
         "/api/animals/delete/" + animalSeleccionada.id
       );
       refetch();
-      toast.custom((t) => (
+      toast.custom((t: any) => (
         <div
           className={`bg-white px-6 py-4 shadow-md rounded-full ${
             t.visible ? "animate-enter" : "animate-leave"
@@ -276,7 +273,7 @@ const Animals = (): React.JSX.Element => {
 
       setModalDelete(false);
     } catch (error) {
-      toast.custom((t) => (
+      toast.custom((t: { visible: boolean }) => (
         <div
           className={`bg-white px-6 py-4 shadow-md rounded-full ${
             t.visible ? "animate-enter" : "animate-leave"
@@ -541,7 +538,7 @@ const Animals = (): React.JSX.Element => {
                           options={owners}
                           value={owners.find((c) => c.value === value)}
                           name={name}
-                          onChange={(val) => {
+                          onChange={(val: any) => {
                             onChange(val!.value);
                             handleOnChange("owner_id", val!.value);
                           }}
@@ -574,7 +571,7 @@ const Animals = (): React.JSX.Element => {
                           options={clases}
                           value={clases.find((c) => c.value === value)}
                           name={name}
-                          onChange={(val) => {
+                          onChange={(val: any) => {
                             onChange(val!.value);
                             handleOnChange("clase_id", val!.value);
                           }}
@@ -605,9 +602,11 @@ const Animals = (): React.JSX.Element => {
                         <Select
                           defaultValue={{ label: "Seleccione..", value: 0 }}
                           options={vacas}
-                          value={vacas.find((c) => c.value === value)}
+                          value={vacas.find(
+                            (c: { value: number }) => c.value === value
+                          )}
                           name={name}
-                          onChange={(val) => {
+                          onChange={(val: { value: number } | null) => {
                             onChange(val!.value);
                             handleOnChange("mother_id", val!.value);
                           }}
