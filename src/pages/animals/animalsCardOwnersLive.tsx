@@ -1,4 +1,4 @@
-import { useState, BaseSyntheticEvent, useEffect } from "react";
+import { useState, useEffect } from "react";
 import type { NextPage } from "next";
 import Container from "@/components/Container";
 import {
@@ -11,24 +11,11 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import dayjs from "dayjs";
-import Interweave from "interweave";
 import axios from "axios";
 import Select from "react-select";
-import { useForm, Controller, SubmitHandler } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import { useOwners } from "../../hooks/useOwners";
 import Image from "next/image";
-import toast, { Toaster } from "react-hot-toast";
-
-const notify = () =>
-  toast.custom((t) => (
-    <div
-      className={`bg-white px-6 py-4 shadow-md rounded-full ${
-        t.visible ? "animate-enter" : "animate-leave"
-      }`}
-    >
-      Toast successfully 👋
-    </div>
-  ));
 
 type Inputs = {
   alive: string;
@@ -66,10 +53,7 @@ const AnimalsCardQuery: NextPage = () => {
   const [ownerId, setOwnerId] = useState(0);
   const [bitacoraSearch, setBitacoraSearch] = useState();
   const [datafilter, setDatafilter] = useState([]);
-  const [isImage, setIsImage] = useState(false);
-  const handleOnChange1 = () => {
-    setIsImage(!isImage);
-  };
+
   const {
     register,
     handleSubmit,
@@ -151,12 +135,16 @@ const AnimalsCardQuery: NextPage = () => {
                     defaultValue={{ label: "Seleccione..", value: 0 }}
                     options={owners}
                     name={name}
-                    onChange={(val?) => {
+                    onChange={(
+                      val: { label: string; value: number } | null
+                    ) => {
                       console.log("Valuee Selected", val);
-                      onChange(val!.value);
-                      setOwnerId(val!.value);
-                      handleOnChange("owner_id", val!.value);
-                      handleSearchOnChange("owner_id", val!.value);
+                      if (val) {
+                        onChange(val.value);
+                        setOwnerId(val.value);
+                        handleOnChange("owner_id", val.value);
+                        handleSearchOnChange("owner_id", val.value);
+                      }
                     }}
                     onBlur={() => searchs()}
                   />
