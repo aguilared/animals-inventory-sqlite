@@ -98,7 +98,7 @@ const AnimalEdit = (props: any): React.JSX.Element => {
                 options={clases}
                 defaultValue={currentSelection}
                 name={name}
-                onChange={(val) => {
+                onChange={(val: any) => {
                   onChange(val.value);
                   handleOnChangeE("clase_id", val.value);
                 }}
@@ -135,7 +135,7 @@ const AnimalEdit = (props: any): React.JSX.Element => {
                 options={owners}
                 defaultValue={currentSelection}
                 name={name}
-                onChange={(val) => {
+                onChange={(val: { value: number }) => {
                   onChange(val.value);
                   handleOnChangeE("owner_id", val.value);
                 }}
@@ -169,9 +169,9 @@ const AnimalEdit = (props: any): React.JSX.Element => {
               <Select
                 defaultValue={currentSelection}
                 options={vacas}
-                value={vacas.find((c) => c.value === value)}
+                value={vacas.find((c: { value: number }) => c.value === value)}
                 name={name}
-                onChange={(val) => {
+                onChange={(val: { value: number } | null) => {
                   onChange(val!.value);
                   handleOnChangeE("mother_id", val!.value);
                 }}
