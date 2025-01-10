@@ -338,21 +338,7 @@ const Animals = (): React.JSX.Element => {
                   <b> {animal.name}</b>, &nbsp; Dueno=
                   {animal.owner.name}. &nbsp; <br />
                   Nacimiento=
-                  {convertDate(animal.birthdate)}. &nbsp; Tipo animal:{" "}
-                  <b>{animal.clase.description}</b> <br />
-                  Madre: {animal.mother},{" "}
-                  <a
-                    href={`/animals/${encodeURIComponent(animal.mother_id)}`}
-                    target={"_blank"}
-                    rel="noreferrer"
-                  >
-                    {" "}
-                    motherID:&nbsp; {animal.mother_id},{" "}
-                  </a>{" "}
-                  <br />
-                  Info= {animal.info} &nbsp;
-                  <br />
-                  Live:
+                  {convertDate(animal.birthdate)}, Live:
                   {animal.live! ? (
                     <input
                       type="checkbox"
@@ -368,6 +354,19 @@ const Animals = (): React.JSX.Element => {
                       className="mx-3"
                     />
                   )}{" "}
+                  <br />
+                  Tipo animal: <b>{animal.clase.description}</b> <br />
+                  Madre: {animal.mother},{" "}
+                  <a
+                    href={`/animals/${encodeURIComponent(animal.mother_id)}`}
+                    target={"_blank"}
+                    rel="noreferrer"
+                  >
+                    {" "}
+                    motherID:&nbsp; {animal.mother_id},{" "}
+                  </a>{" "}
+                  <br />
+                  Info= {animal.info} &nbsp;
                   <br />
                 </div>
                 <td className="border px-2 py-2  text-gray-500 dark:text-white">
