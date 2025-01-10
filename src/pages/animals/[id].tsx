@@ -13,7 +13,7 @@ import Image from "next/image";
 import getAnimalId from "../../services/getAnimalId";
 
 const convertDate1 = (date: any) => {
-  var d = dayjs(date).format("D-M-YY h:mm");
+  const d = dayjs(date).format("D-M-YY h:mm");
   return d;
 };
 
