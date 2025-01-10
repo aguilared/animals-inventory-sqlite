@@ -109,9 +109,7 @@ const Animals = (): React.JSX.Element => {
                   {animal.owner.name}
                   <br />
                   Nacimiento:&nbsp;
-                  {convertDate(animal.birthdate)}
-                  <br />
-                  Live:
+                  {convertDate(animal.birthdate)}, Live:
                   {animal.live! ? (
                     <input
                       type="checkbox"
