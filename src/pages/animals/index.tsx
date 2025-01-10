@@ -27,7 +27,7 @@ const queryClient = new QueryClient({
 const dateAnimal = new Date();
 
 const convertDate = (dateTo: any) => {
-  const d = dayjs(dateTo).format("DD-MM-YYYY");
+  const d = dayjs(dateTo).format("DD/MM/YYYY");
   return d;
 };
 const convertDate1 = (date: any) => {
