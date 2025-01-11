@@ -34,19 +34,33 @@ const convertDate1 = (date: any) => {
   return dayjs(date).format("YYYY/MM/DD hh:mm");
 };
 
-type Animal = {
+interface Clase {
+  description: string;
+  id: number;
+  updated_at: string;
+}
+interface Owner {
+  name: string;
+  id: number;
+  updated_at: string;
+}
+interface Animal {
   alive: string;
   birthdate: string;
   clase_id: number;
+  clase: [Clase];
   hierro: string;
   id: number;
   info: string;
+  live: boolean;
+  mother_id: number;
   mother: string;
   name: string;
   owner_id: number;
+  owner: [Owner];
   tipopart: string;
   updated_at: string;
-};
+}
 
 const Animals = (): React.JSX.Element => {
   const { data, isLoading, refetch } = useQuery(["Animalss"], async () => {
@@ -117,10 +131,10 @@ const Animals = (): React.JSX.Element => {
                     Id:&nbsp; {animal.id},{" "}
                   </a>{" "}
                   <br />
-                  {animal.clase.description}:<b> {animal.name}</b>
+                  {animal.clase[0].description}:<b> {animal.name}</b>
                   <br />
                   Dueno:&nbsp;
-                  {animal.owner.name}
+                  {animal.owner[0].name}
                   <br />
                   Nacimiento:&nbsp;
                   {convertDate(animal.birthdate)}, Live:
