@@ -34,6 +34,20 @@ const convertDate1 = (date: any) => {
   return dayjs(date).format("YYYY/MM/DD hh:mm");
 };
 
+type Animal = {
+  alive: string;
+  birthdate: string;
+  clase_id: number;
+  hierro: string;
+  id: number;
+  info: string;
+  mother: string;
+  name: string;
+  owner_id: number;
+  tipopart: string;
+  updated_at: string;
+};
+
 const Animals = (): React.JSX.Element => {
   const { data, isLoading, refetch } = useQuery(["Animalss"], async () => {
     const res = await axios.get(`${DATABASEURL}animals`);
@@ -73,7 +87,7 @@ const Animals = (): React.JSX.Element => {
           </div>
         </div>
         {data && data.length > 0
-          ? data.map((animal: any) => (
+          ? data.map((animal: Animal) => (
               <div
                 className="flex rounded items-left bg-gray-100 mb-1 shadow"
                 key={animal.id}
