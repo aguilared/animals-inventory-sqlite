@@ -34,11 +34,15 @@ const convertDate1 = (date: any) => {
   return dayjs(date).format("YYYY/MM/DD hh:mm");
 };
 
-interface Clase {
+interface Clasei {
   description: string;
   id: number;
   updated_at: string;
 }
+export type Clase = {
+  id: number;
+  description: string;
+};
 interface Owner {
   name: string;
   id: number;
