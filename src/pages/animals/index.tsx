@@ -135,10 +135,10 @@ const Animals = (): React.JSX.Element => {
                     Id:&nbsp; {animal.id},{" "}
                   </a>{" "}
                   <br />
-                  {animal.clase[0].description}:<b> {animal.name}</b>
+                  {animal.clase.description}:<b> {animal.name}</b>
                   <br />
                   Dueno:&nbsp;
-                  {animal.owner[0].name}
+                  {animal.owner.name}
                   <br />
                   Nacimiento:&nbsp;
                   {convertDate(animal.birthdate)}, Live:
