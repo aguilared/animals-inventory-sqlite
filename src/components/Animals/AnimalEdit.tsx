@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm, Controller } from "react-hook-form";
 import Select from "react-select";
 
@@ -9,6 +9,7 @@ type Inputs = {
   hierro: string;
   id: number;
   info: string;
+  live: boolean;
   mother_id: number;
   mother: string;
   name: string;
@@ -28,11 +29,18 @@ const AnimalEdit = (props: any): React.JSX.Element => {
     onClose,
   } = props;
 
+  const [isLive, setIsLive] = useState(animalSeleccionada2.live);
+
   const {
-    register,
+    register: registerEditField,
     control,
     formState: { errors },
   } = useForm<Inputs>();
+
+  const handleOnChange1 = () => {
+    setIsLive(!isLive);
+    handleOnChangeE("live", !isLive);
+  };
 
   return (
     <form
@@ -51,7 +59,7 @@ const AnimalEdit = (props: any): React.JSX.Element => {
           className="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4"
           placeholder="Name"
           defaultValue={animalSeleccionada2.name}
-          {...register("name", {
+          {...registerEditField("name", {
             required: "Required",
           })}
           onChange={(e) => handleOnChangeE("name", e.target.value)}
@@ -69,7 +77,7 @@ const AnimalEdit = (props: any): React.JSX.Element => {
           className="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4"
           placeholder="birthdate"
           defaultValue={animalSeleccionada2.birthdate}
-          {...register("birthdate", {
+          {...registerEditField("birthdate", {
             required: "Required",
           })}
           onChange={(e) => handleOnChangeE("birthdate", e.target.value)}
@@ -197,7 +205,7 @@ const AnimalEdit = (props: any): React.JSX.Element => {
           className="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4"
           placeholder="mother"
           defaultValue={animalSeleccionada2.mother}
-          {...register("mother", {
+          {...registerEditField("mother", {
             required: "Required",
           })}
           onChange={(e) => handleOnChangeE("mother", e.target.value)}
@@ -219,7 +227,7 @@ const AnimalEdit = (props: any): React.JSX.Element => {
           className="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4"
           placeholder="hierro"
           defaultValue={animalSeleccionada2.hierro}
-          {...register("hierro", {
+          {...registerEditField("hierro", {
             required: "Required",
           })}
           onChange={(e) => handleOnChangeE("hierro", e.target.value)}
@@ -241,7 +249,7 @@ const AnimalEdit = (props: any): React.JSX.Element => {
           className="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4"
           placeholder="tipopart"
           defaultValue={animalSeleccionada2.tipopart}
-          {...register("tipopart", {
+          {...registerEditField("tipopart", {
             required: "Required",
           })}
           onChange={(e) => handleOnChangeE("tipopart", e.target.value)}
@@ -251,6 +259,23 @@ const AnimalEdit = (props: any): React.JSX.Element => {
             {errors.tipopart.message}
           </span>
         )}
+      </div>
+
+      <div className="md:w-11/12 px-3 mb-6 md:mb-0">
+        <input
+          type="checkbox"
+          id="live"
+          name="live"
+          defaultValue={isLive}
+          checked={isLive}
+          {...registerEditField("live", {
+            required: "Required",
+          })}
+          onChange={(val) => {
+            handleOnChange1();
+          }}
+        />
+        Live
       </div>
 
       <div className="md:w-11/12 px-3 mb-6 md:mb-0">
@@ -266,7 +291,7 @@ const AnimalEdit = (props: any): React.JSX.Element => {
           className="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4"
           placeholder="info"
           defaultValue={animalSeleccionada2.info}
-          {...register("info", {
+          {...registerEditField("info", {
             required: "Required",
           })}
           onChange={(e) => handleOnChangeE("info", e.target.value)}
@@ -274,7 +299,7 @@ const AnimalEdit = (props: any): React.JSX.Element => {
         <input
           type="hidden"
           defaultValue={animalSeleccionada2.animal_id}
-          {...register("id", {
+          {...registerEditField("id", {
             required: "Required",
             minLength: 3,
             maxLength: 41,
