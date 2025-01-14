@@ -265,7 +265,6 @@ const AnimalEdit = (props: any): React.JSX.Element => {
         <input
           type="checkbox"
           id="live"
-          name="live"
           defaultValue={isLive}
           checked={isLive}
           {...registerEditField("live", {
