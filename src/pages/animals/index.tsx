@@ -37,10 +37,7 @@ interface Clase {
   id: number;
   updated_at: string;
 }
-export type Clasei = {
-  id: number;
-  description: string;
-};
+
 interface Owner {
   name: string;
   id: number;
@@ -50,7 +47,7 @@ interface Animal {
   alive: string;
   birthdate: string;
   clase_id: number;
-  clase: [Clase];
+  clase: Clase;
   hierro: string;
   id: number;
   info: string;
@@ -59,7 +56,7 @@ interface Animal {
   mother: string;
   name: string;
   owner_id: number;
-  owner: [Owner];
+  owner: Owner;
   tipopart: string;
   updated_at: string;
 }
@@ -103,7 +100,7 @@ const Animals = (): React.JSX.Element => {
           </div>
         </div>
         {data && data.length > 0
-          ? data.map((animal: any) => (
+          ? data.map((animal: Animal) => (
               <div
                 className="flex rounded items-left bg-gray-100 mb-1 shadow"
                 key={animal.id}
