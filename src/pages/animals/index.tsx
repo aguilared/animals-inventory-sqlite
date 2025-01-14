@@ -24,8 +24,6 @@ const queryClient = new QueryClient({
   },
 });
 
-const dateAnimal = new Date();
-
 const convertDate = (dateTo: any) => {
   const d = dayjs(dateTo).format("DD/MM/YYYY");
   return d;
@@ -34,12 +32,12 @@ const convertDate1 = (date: any) => {
   return dayjs(date).format("YYYY/MM/DD hh:mm");
 };
 
-interface Clasei {
+interface Clase {
   description: string;
   id: number;
   updated_at: string;
 }
-export type Clase = {
+export type Clasei = {
   id: number;
   description: string;
 };
@@ -105,7 +103,7 @@ const Animals = (): React.JSX.Element => {
           </div>
         </div>
         {data && data.length > 0
-          ? data.map((animal: Animal) => (
+          ? data.map((animal: any) => (
               <div
                 className="flex rounded items-left bg-gray-100 mb-1 shadow"
                 key={animal.id}
