@@ -24,8 +24,6 @@ const queryClient = new QueryClient({
   },
 });
 
-const dateAnimal = new Date();
-
 const convertDate = (dateTo: any) => {
   const d = dayjs(dateTo).format("DD/MM/YYYY");
   return d;
@@ -34,15 +32,12 @@ const convertDate1 = (date: any) => {
   return dayjs(date).format("YYYY/MM/DD hh:mm");
 };
 
-interface Clasei {
+interface Clase {
   description: string;
   id: number;
   updated_at: string;
 }
-export type Clase = {
-  id: number;
-  description: string;
-};
+
 interface Owner {
   name: string;
   id: number;
@@ -52,7 +47,7 @@ interface Animal {
   alive: string;
   birthdate: string;
   clase_id: number;
-  clase: [Clase];
+  clase: Clase;
   hierro: string;
   id: number;
   info: string;
@@ -61,7 +56,7 @@ interface Animal {
   mother: string;
   name: string;
   owner_id: number;
-  owner: [Owner];
+  owner: Owner;
   tipopart: string;
   updated_at: string;
 }
@@ -135,10 +130,10 @@ const Animals = (): React.JSX.Element => {
                     Id:&nbsp; {animal.id},{" "}
                   </a>{" "}
                   <br />
-                  {animal.clase[0].description}:<b> {animal.name}</b>
+                  {animal.clase.description}:<b> {animal.name}</b>
                   <br />
                   Dueno:&nbsp;
-                  {animal.owner[0].name}
+                  {animal.owner.name}
                   <br />
                   Nacimiento:&nbsp;
                   {convertDate(animal.birthdate)}, Live:
