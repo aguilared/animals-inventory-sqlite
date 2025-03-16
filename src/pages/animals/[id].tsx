@@ -130,7 +130,7 @@ const BitaEventCard = (props: any): JSX.Element => {
         </div>
         <div className="container max-w-4xl m-auto px-4 mt-20">
           <a
-            href={"/static/images/" + `${query.id}` + ".jpg"}
+            href={"/static/images/" + `${query.id}` + "_1.jpg"}
             target={"_blank"}
             rel="noreferrer"
           >
@@ -143,12 +143,18 @@ const BitaEventCard = (props: any): JSX.Element => {
           </a>
         </div>
         <div className="container max-w-4xl m-auto px-4 mt-20">
-          <Image
-            src={"/static/images/" + `${query.id}` + "_2.jpg"}
-            alt="Image"
-            width={1920 / 2}
-            height={1280 / 2}
-          />
+          <a
+            href={"/static/images/" + `${query.id}` + "_2.jpg"}
+            target={"_blank"}
+            rel="noreferrer"
+          >
+            <Image
+              src={"/static/images/" + `${query.id}` + "_2.jpg"}
+              alt="Image"
+              width={1920 / 2}
+              height={1280 / 2}
+            />
+          </a>
         </div>
       </Card>
     </div>
