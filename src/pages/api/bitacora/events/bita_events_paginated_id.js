@@ -144,6 +144,6 @@ export default async function handle1(req, res) {
     }
   } catch (err) {
     console.error("ERROR", err);
-    return res.status(500).json({ error: "Resource not found" });
+      return res.status(200).json(result);
   }
 }
