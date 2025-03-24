@@ -143,6 +143,6 @@ export default async function handle1(req, res) {
     }
   } catch (err) {
     console.error("error", err);
-    return res.status(500).json(err);
+    return res.status(500).json({ error: "ERROR INTERNO DE SQL" });
   }
 }
