@@ -5,7 +5,8 @@ export default async function handle1(req, res) {
   console.log("QUERY", query);
   const page = parseInt(query.offset) || 1;
   const limit = parseInt(query.limit) || 15;
-  const bitacora_id = parseInt(query.bitacora_id) || 15;
+  //const bitacora_id = parseInt(query.bitacora_id) || 15;
+  const bitacora_id = 'sd'
   const last_page = query.last_page;
   const startIndex = (page - 1) * limit;
   const endIndex = page * limit;
@@ -142,7 +143,7 @@ export default async function handle1(req, res) {
       return res.status(404).json({ error: "Resource not found" });
     }
   } catch (err) {
-    console.error("error", err);
-    return res.status(500).json(err);
+    console.error("ERROR", err);
+    return res.status(500).json({ error: "Resource not found" });
   }
 }
