@@ -6,7 +6,7 @@ export default async function handle1(req, res) {
   const page = parseInt(query.offset) || 1;
   const limit = parseInt(query.limit) || 15;
   const bitacora_id = parseInt(query.bitacora_id) || 15;
-  const last_page = req.query.last_page;
+  const last_page = query.last_page;
   const startIndex = (page - 1) * limit;
   const endIndex = page * limit;
   const result = {};
