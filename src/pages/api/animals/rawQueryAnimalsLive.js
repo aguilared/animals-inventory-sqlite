@@ -2,7 +2,7 @@ import prisma from "../../../lib/prisma";
 
 export default async function handle(req, res) {
   const [
-    vacas,
+    animals,
     totalAnimals,
     totalAnimalsArqui,
     totalAnimalsJose,
@@ -32,6 +32,6 @@ export default async function handle(req, res) {
     totalAnimalsCruz,
     totalAnimalsPetra,
     totalAnimalsMilagro,
-    vacas,
+    animals,
   });
 }
