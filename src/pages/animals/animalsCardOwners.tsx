@@ -133,7 +133,9 @@ const AnimalsCardQuery: NextPage = () => {
                     defaultValue={{ label: "Seleccione..", value: 0 }}
                     options={owners}
                     name={name}
-                    onChange={(val?: { label: string; value: number }) => {
+                    onChange={(
+                      val: { label: string; value: number } | null
+                    ) => {
                       console.log("Valuee Selected", val);
                       onChange(val!.value);
                       setOwnerId(val!.value);
