@@ -63,10 +63,14 @@ interface Animal {
 }
 
 const Animals = (): React.JSX.Element => {
-  const { data, isLoading, refetch } = useQuery(["Animalss"], async () => {
-    const res = await axios.get(`${DATABASEURL}animals`);
-    return res.data;
+  const { data, isLoading, refetch } = useQuery({
+    queryKey: ["AnimalsAdmin"],
+    queryFn: async () => {
+      const data = await axios.get(`${DATABASEURL}animals`);
+      return data.data;
+    },
   });
+
   console.log("DATAnimals", data);
 
   const [modalViewHist, setModalViewHist] = useState(false);
@@ -133,7 +137,6 @@ const Animals = (): React.JSX.Element => {
                   <Link
                     href={`/animals/${encodeURIComponent(animal.id)}`}
                     passHref
-                    legacyBehavior
                   >
                     <a
                       href={`/animals/${encodeURIComponent(animal.id)}`}

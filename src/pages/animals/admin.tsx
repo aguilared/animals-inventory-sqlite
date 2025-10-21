@@ -96,7 +96,7 @@ const Animals = (): React.JSX.Element => {
   }, [isUser]);
 
   const { data, isLoading, refetch } = useQuery({
-    queryKey: ["Animalss"],
+    queryKey: ["AnimalsAdmin"],
     queryFn: async () => {
       const data = await axios.get(`${DATABASEURL}animals`);
       return data.data;
@@ -341,7 +341,7 @@ const Animals = (): React.JSX.Element => {
               <div className="w-4/5 inline-block text-gray-700 text-left text-base px-1 py-0 m-0">
                 <a
                   className="bg-blue-200 rounded underline hover:underline hover:underline-offset-4"
-                  href={`/animals/animal/4?id=${encodeURIComponent(animal.id)}`}
+                  href={`/animals/${encodeURIComponent(animal.id)}`}
                   target={"_blank"}
                   rel="noreferrer"
                 >
