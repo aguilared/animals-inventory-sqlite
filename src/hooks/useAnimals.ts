@@ -28,17 +28,17 @@ async function fetchAnimals({
 }
 
 export default function useAnimals(page: number) {
-  return useInfiniteQuery(
-    ["animalspage"],
-    async ({ pageParam }) => {
+  return useInfiniteQuery({
+    queryKey: ["todosanimals"],
+
+    queryFn: async ({ pageParam }) => {
       const animalspage = await fetchAnimals({ pageParam });
       console.log("AnimalsPage", animalspage);
 
       return animalspage;
     },
-    {
-      getNextPageParam: (lastPage) => lastPage?.next,
-      getPreviousPageParam: (firstPage) => firstPage?.previous,
-    }
-  );
+    initialPageParam: 1,
+    getNextPageParam: (lastPage, allPages) => lastPage?.next,
+    getPreviousPageParam: (firstPage, allPages) => firstPage?.previous,
+  });
 }
