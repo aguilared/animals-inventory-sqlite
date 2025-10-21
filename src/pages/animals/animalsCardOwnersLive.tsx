@@ -62,25 +62,29 @@ const AnimalsCardQuery: NextPage = () => {
     formState: { errors },
   } = useForm<Inputs>();
 
-  const { status, data, error, isLoading, refetch } = useQuery(
-    ["animalsLive"],
-    async (filter: any = ownerId) => {
-      const res = await axios.get(
+  const { data } = useQuery({
+    queryKey: ["AnimalssLive"],
+    queryFn: async () => {
+      // Aquí pones la lógica de tu función de consulta (por ejemplo, fetch o axios)
+      // Ejemplo:
+      const response = await axios.get(
         `${process.env.NEXT_PUBLIC_API_URL}animals/lives`
       );
-      console.log("DATA1", res);
-      return res.data;
-    }
-  );
+      if (!response) {
+        throw new Error("Error al obtener los animales");
+      }
+      return response.data;
+    },
+  });
 
   useEffect(() => {
-    if (status === "success") {
+    if (data) {
       console.log("====================================");
       console.log("renders");
       console.log("====================================");
       setDatafilter(data);
     }
-  }, [data, status]);
+  }, [data]);
 
   const handleOnChange = (ownerKey: any, value: any) => {
     console.log("valueOnChangeAdd", value);

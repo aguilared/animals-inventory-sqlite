@@ -51,8 +51,8 @@ const convertDate1 = (date: any) => {
 const AnimalsCardQuery: NextPage = () => {
   const { owners } = useOwners();
   const [ownerId, setOwnerId] = useState(0);
-  const [bitacoraSearch, setBitacoraSearch] = useState();
-  const [datafilter, setDatafilter] = useState([]);
+  const [bitacoraSearch, setBitacoraSearch] = useState<any>();
+  const [datafilter, setDatafilter] = useState<any[]>([]);
 
   const {
     register,
@@ -62,23 +62,29 @@ const AnimalsCardQuery: NextPage = () => {
     formState: { errors },
   } = useForm<Inputs>();
 
-  const { status, data, error, isLoading, refetch } = useQuery(
-    ["animals"],
-    async (filter: any = ownerId) => {
-      const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}animals/`);
-      console.log("DATA1", res);
-      return res.data;
-    }
-  );
+  const { data } = useQuery({
+    queryKey: ["AnimalsOwner"],
+    queryFn: async () => {
+      // Aquí pones la lógica de tu función de consulta (por ejemplo, fetch o axios)
+      // Ejemplo:
+      const response = await axios.get(
+        `${process.env.NEXT_PUBLIC_API_URL}animals/`
+      );
+      if (!response) {
+        throw new Error("Error al obtener los animales");
+      }
+      return response.data;
+    },
+  });
 
   useEffect(() => {
-    if (status === "success") {
+    if (data) {
       console.log("====================================");
       console.log("renders");
       console.log("====================================");
       setDatafilter(data);
     }
-  }, [data, status]);
+  }, [data]);
 
   const handleOnChange = (ownerKey: any, value: any) => {
     console.log("valueOnChangeAdd", value);
