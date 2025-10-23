@@ -269,9 +269,7 @@ const Animals = (): React.JSX.Element => {
 
   const eliminar = async () => {
     try {
-      const result = await fetch(
-        "/api/animals/delete/" + animalSeleccionada.id
-      );
+      await fetch("/api/animals/delete/" + animalSeleccionada.id);
       refetch();
       toast.custom((t) => (
         <div

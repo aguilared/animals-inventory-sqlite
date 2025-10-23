@@ -14,12 +14,12 @@ export function useVacas() {
       let options = [{ value: 0, label: "Seleccione.." }];
       getVacas().then((vaca) => {
         //console.log("VACA", vaca);
-        vaca.forEach((option: any) => {
-          let row = <IVaca>{};
+        for (const option of vaca as any[]) {
+          const row: IVaca = { label: "", value: 0 };
           row.value = option.id;
           row.label = " " + option.id + " " + option.name;
           options.push(row);
-        });
+        }
         //console.log("Options", options);
         setVacas(options);
       });
