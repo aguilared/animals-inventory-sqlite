@@ -51,6 +51,10 @@ type Inputs = {
   tipopart: string;
   updated_at: string;
 };
+interface OptionType {
+  value: number;
+  label: string; // ¡Esto le dice a TypeScript que label existe!
+}
 
 const dateAnimal: Date = new Date();
 
@@ -595,7 +599,7 @@ const Animals = (): React.JSX.Element => {
                   rules={{ required: true }}
                   render={({ field: { onChange, value, name, ref } }) => {
                     return (
-                      <Select
+                      <Select<OptionType>
                         defaultValue={{ label: "Seleccione..", value: 0 }}
                         options={vacas}
                         value={vacas.find((c) => c.value === value)}
