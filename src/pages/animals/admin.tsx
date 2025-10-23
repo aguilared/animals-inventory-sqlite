@@ -533,8 +533,8 @@ const Animals = (): React.JSX.Element => {
                   rules={{ required: true }}
                   render={({ field: { onChange, value, name, ref } }) => {
                     return (
-                      <Select
-                        defaultValue={{ label: "Seleccione..", value: 0 }}
+                      <Select<OptionType>
+                        defaultValue={{ label: "Seleccione....", value: 0 }}
                         options={owners}
                         value={owners.find((c) => c.value === value)}
                         name={name}
@@ -566,7 +566,7 @@ const Animals = (): React.JSX.Element => {
                   rules={{ required: true }}
                   render={({ field: { onChange, value, name, ref } }) => {
                     return (
-                      <Select
+                      <Select<OptionType>
                         defaultValue={{ label: "Seleccione..", value: 0 }}
                         options={clases}
                         value={clases.find((c) => c.value === value)}
