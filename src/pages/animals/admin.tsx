@@ -591,7 +591,7 @@ const Animals = (): React.JSX.Element => {
                   className="block uppercase tracking-wide text-xs font-bold mb-2"
                   htmlFor="mother_id"
                 >
-                  Madre
+                  Madress
                 </label>
                 <Controller
                   name="mother_id"
@@ -600,7 +600,7 @@ const Animals = (): React.JSX.Element => {
                   render={({ field: { onChange, value, name, ref } }) => {
                     return (
                       <Select<OptionType>
-                        defaultValue={{ label: "Seleccione..", value: 0 }}
+                        defaultValue={{ label: "Seleccioneee", value: 0 }}
                         options={vacas}
                         value={vacas.find((c) => c.value === value)}
                         name={name}
