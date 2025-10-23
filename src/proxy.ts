@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { jwtVerify } from "jose";
 
-export async function middleware(request: NextRequest) {
+export async function proxy(request: NextRequest) {
   //console.log("REQEST", request);
   //console.log("REQESTCookie", request.cookies);
   console.log("REQESTPATH", request.nextUrl.pathname);
