@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 export const fetcher = async (url: any, data = undefined) => {
   const res = await fetch(globalThis.location.origin + url, {
     method: data ? "POST" : "GET",
