@@ -532,7 +532,7 @@ const Animals = (): React.JSX.Element => {
                   render={({ field: { onChange, value, name, ref } }) => {
                     return (
                       <Select
-                        defaultValue={{ label: "Seleccione..", value: 0 }}
+                        defaultValue={{ label: "SeleccioneOwner", value: 0 }}
                         options={owners}
                         value={owners.find((c) => c.value === value)}
                         name={name}
@@ -565,7 +565,7 @@ const Animals = (): React.JSX.Element => {
                   render={({ field: { onChange, value, name, ref } }) => {
                     return (
                       <Select
-                        defaultValue={{ label: "Seleccione..", value: 0 }}
+                        defaultValue={{ label: "SeleccioneClases", value: 0 }}
                         options={clases}
                         value={clases.find((c) => c.value === value)}
                         name={name}
@@ -598,7 +598,7 @@ const Animals = (): React.JSX.Element => {
                   render={({ field: { onChange, value, name, ref } }) => {
                     return (
                       <Select
-                        defaultValue={{ label: "Seleccione..", value: 0 }}
+                        defaultValue={{ label: "SeleccioneVacas", value: 0 }}
                         options={vacas}
                         value={vacas.find((c) => c.value === value)}
                         name={name}
