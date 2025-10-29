@@ -29,15 +29,12 @@ const BitaEventCard = (props: any): JSX.Element => {
   const [info, setInfo] = useState("");
   const [image, setImage] = useState("");
   const [image1, setImage1] = useState("");
-  const FALLBACK_IMAGE = "/static/images/noimage.jpg";
-  const [image2, setImage2] = useState(FALLBACK_IMAGE);
+  const [image2, setImage2] = useState("");
   const { query } = useRouter();
   const router = useRouter();
   const [imageError, setImageError] = useState(false);
-  const [hasError, setHasError] = useState(false);
-  const [hasError1, setHasError1] = useState(false);
-  const [isOptimized, setIsOptimized] = useState(true);
-  const [isLoading, setIsLoading] = useState(true);
+  const [image1Error, setImage1Error] = useState(false);
+  const [image2Error, setImage2Error] = useState(false);
   const getBitacoraNew = useCallback(async () => {
     await getAnimalId(router.query.id).then((resp) => {
       //console.log("AnimalID", resp);
@@ -119,32 +116,9 @@ const BitaEventCard = (props: any): JSX.Element => {
               width={1920 / 2}
               height={1280 / 2}
               placeholder="empty"
-              style={{
-                objectFit: "cover", // cover, contain, none
-              }}
-            />
-          </a>
-        </div>
-        <div className="container max-w-4xl m-auto px-4 mt-20">
-          <a href={image1} target={"_blank"} rel="noreferrer">
-            <Image
-              src={image1}
-              alt="Image1"
-              width={1920 / 2}
-              height={1280 / 2}
-              placeholder="empty"
               onError={() => {
-                // Solo cambia el estado si no ha ocurrido un error antes
-                if (!hasError1) {
-                  console.log(
-                    `Error al cargar ${image1}. Cambiando a fallback.`
-                  );
-                  // 3. Al dispararse el error, actualiza el estado 'imgSrc' a la imagen de fallback.
-                  setImage1(FALLBACK_IMAGE);
-                  setHasError1(true); // Marca que ya se hizo el cambio por error
-                }
-                // Si ya ocurrió un error (y imgSrc ya es la imagen de fallback), no hacemos nada más.
-                // next/image intentará cargar la nueva fuente después del setImgSrc.
+                console.log("errorImage1");
+                setImage2Error(true);
               }}
               style={{
                 objectFit: "cover", // cover, contain, none
@@ -153,19 +127,46 @@ const BitaEventCard = (props: any): JSX.Element => {
           </a>
         </div>
         <div className="container max-w-4xl m-auto px-4 mt-20">
-          <a href={image2} target={"_blank"} rel="noreferrer">
+          <a
+            href={image1Error ? "/static/images/noimage.jpg" : image1}
+            target={"_blank"}
+            rel="noreferrer"
+          >
             <Image
-              src={isOptimized ? image2 : FALLBACK_IMAGE}
-              alt="Image2"
+              src={image1Error ? "/static/images/noimage.jpg" : image1}
+              alt="Image"
               width={1920 / 2}
               height={1280 / 2}
-              unoptimized={!isOptimized}
               placeholder="empty"
               onError={() => {
-                setIsOptimized(false);
+                console.log("errorImage1");
+                setImage1Error(true);
               }}
-              onLoad={() => {
-                setIsLoading(false);
+              style={{
+                objectFit: "cover", // cover, contain, none
+              }}
+            />
+          </a>
+        </div>
+        <div className="container max-w-4xl m-auto px-4 mt-20">
+          <a
+            href={image2Error ? "/static/images/noimage.jpg" : image2}
+            target={"_blank"}
+            rel="noreferrer"
+          >
+            <Image
+              src={image2Error ? "/static/images/noimage.jpg" : image2}
+              alt="Image"
+              width={1920 / 2}
+              height={1280 / 2}
+              placeholder="empty"
+              priority
+              onError={() => {
+                console.log("errorImage2");
+                setImage2Error(true);
+              }}
+              style={{
+                objectFit: "cover", // cover, contain, none
               }}
             />
           </a>
