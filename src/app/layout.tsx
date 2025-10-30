@@ -13,8 +13,8 @@ const font = Nunito({
 });
 
 export const metadata: Metadata = {
-  title: "Bitacora Personal",
-  description: "Bitacora Personal",
+  title: "Gonzalera Ranch Inventory",
+  description: "Inventory",
 };
 
 export default function RootLayout({
