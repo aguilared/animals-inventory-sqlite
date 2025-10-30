@@ -2,7 +2,6 @@
 import { useState, BaseSyntheticEvent, useEffect } from "react";
 import type { NextPage } from "next";
 import Container from "@/components/Container";
-import { colourOptions } from "@/components/data";
 
 import {
   useQuery,

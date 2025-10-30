@@ -10,15 +10,15 @@ export default function UseUser() {
     console.log("User to load", usertoLoad);
     setState({ loadingUser: true, error: false });
     //guarda en sessionStorage
-    await window.sessionStorage.setItem("User", usertoLoad);
+    await globalThis.sessionStorage.setItem("User", usertoLoad);
     setState({ loadingUser: false, error: false });
     //invoca al contexto
     setUser(usertoLoad);
-  });
+  }, [setState, setUser]);
 
   const clearUser = useCallback(() => {
     //console.log("Limpiando User");
-    window.sessionStorage.removeItem("User");
+    globalThis.sessionStorage.removeItem("User");
     setUser(null);
   }, [setUser]);
 
