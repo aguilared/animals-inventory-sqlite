@@ -15,7 +15,7 @@ export default async function handle(req, res) {
       },
       _count: {
         select: {
-          animal: { where: { live: true, clase_id: { in: [1, 2, 3, 8, 10] } } },
+          animal: { where: { live: true } },
         },
       },
     },

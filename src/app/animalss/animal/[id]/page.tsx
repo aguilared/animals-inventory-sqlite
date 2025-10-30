@@ -6,18 +6,26 @@ import Card from "@mui/material/Card";
 
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
-import { useRouter } from "next/router";
 
 import Image from "next/image";
 
-import getAnimalId from "../../services/getAnimalId";
+import getAnimalId from "@/services/getAnimalId";
+
+import { useSearchParams } from "next/navigation";
+
+const convertDate1 = (date: any) => {
+  const d = dayjs(date).format("D-M-YY h:mm");
+  return d;
+};
 
 export default function App() {
   return <BitaEventCard />;
 }
 
 const BitaEventCard = (props: any): JSX.Element => {
-  const [id, setId] = useState("");
+  const params = useSearchParams();
+
+  const [id, setId] = useState<number | null>(Number(params?.get("id")));
   const [name, setName] = useState("");
   const [birthdate, setBirthdate] = useState("");
   const [owner, setOwner] = useState("");
@@ -27,21 +35,11 @@ const BitaEventCard = (props: any): JSX.Element => {
   const [hierro, setHierro] = useState("");
   const [live, setLive] = useState("");
   const [info, setInfo] = useState("");
-  const FALLBACK_IMAGE = "/static/images/noimage.jpg"; //noimage.jpg
-  const [image, setImage] = useState(FALLBACK_IMAGE); //initial image
-  const [image1, setImage1] = useState(FALLBACK_IMAGE);
-  const [image2, setImage2] = useState(FALLBACK_IMAGE);
-  const [isOptimized, setIsOptimized] = useState(true);
-  const [isOptimized1, setIsOptimized1] = useState(true);
-  const [isLoading, setIsLoading] = useState(true);
-  const [isLoading1, setIsLoading1] = useState(true);
-  const { query } = useRouter();
-  const router = useRouter();
 
   const getBitacoraNew = useCallback(async () => {
-    await getAnimalId(router.query.id).then((resp) => {
-      //console.log("AnimalID", resp);
-      setId(resp.id);
+    await getAnimalId(id).then((resp) => {
+      console.log("AnimalID", resp);
+      //setId(resp.id);
       setName(resp.name);
       setBirthdate(resp.birthdate);
       setOwner(resp.owner.name);
@@ -51,17 +49,14 @@ const BitaEventCard = (props: any): JSX.Element => {
       setHierro(resp.hierro);
       setLive(resp.live);
       setInfo(resp.info);
-      setImage(`/static/images/${resp.id}.jpg`); //carga el src source de la imagen principal
-      setImage1(`/static/images/${resp.id}_1.jpg`);
-      setImage2(`/static/images/${resp.id}_2.jpg`);
     });
-  }, [router]);
+  }, [id]);
 
   useEffect(() => {
-    if (router.isReady) {
+    if (params) {
       getBitacoraNew();
     }
-  }, [router, getBitacoraNew]);
+  }, [params, getBitacoraNew]);
 
   return (
     <div className="flex justify-center">
@@ -73,7 +68,7 @@ const BitaEventCard = (props: any): JSX.Element => {
             </h3>
           </div>
           <Typography variant="h6" component="h2">
-            Id: {query.id}, Nombre: {name}
+            Id: {id}, Nombre: {name}
           </Typography>{" "}
           <Typography variant="h6" component="h2">
             Owner: {owner}
@@ -112,13 +107,16 @@ const BitaEventCard = (props: any): JSX.Element => {
           </Typography>
         </CardContent>
         <div className="container max-w-4xl m-auto px-4 mt-0">
-          <a href={image} target={"_blank"} rel="noreferrer">
+          <a
+            href={"/static/images/" + `${id}` + ".jpg"}
+            target={"_blank"}
+            rel="noreferrer"
+          >
             <Image
-              src={image}
-              alt={`${query.id}` + ".jpg"}
+              src={"/static/images/" + `${id}` + ".jpg"}
+              alt={`${id}` + ".jpg"}
               width={1920 / 2}
               height={1280 / 2}
-              placeholder="empty"
               style={{
                 objectFit: "cover", // cover, contain, none
               }}
@@ -126,43 +124,26 @@ const BitaEventCard = (props: any): JSX.Element => {
           </a>
         </div>
         <div className="container max-w-4xl m-auto px-4 mt-20">
-          <a href={image1} target={"_blank"} rel="noreferrer">
+          <a
+            href={"/static/images/" + `${id}` + ".jpg"}
+            target={"_blank"}
+            rel="noreferrer"
+          >
             <Image
-              src={isOptimized1 ? image1 : FALLBACK_IMAGE}
-              alt="Image1"
+              src={"/static/images/" + `${id}` + "_1.jpg"}
+              alt="Image"
               width={1920 / 2}
               height={1280 / 2}
-              unoptimized={!isOptimized1}
-              placeholder="empty"
-              onError={() => {
-                setIsOptimized1(false);
-              }}
-              onLoad={() => {
-                setIsLoading1(false);
-              }}
-              style={{
-                objectFit: "cover", // cover, contain, none
-              }}
             />
           </a>
         </div>
         <div className="container max-w-4xl m-auto px-4 mt-20">
-          <a href={image2} target={"_blank"} rel="noreferrer">
-            <Image
-              src={isOptimized ? image2 : FALLBACK_IMAGE}
-              alt="Image2"
-              width={1920 / 2}
-              height={1280 / 2}
-              unoptimized={!isOptimized}
-              placeholder="empty"
-              onError={() => {
-                setIsOptimized(false);
-              }}
-              onLoad={() => {
-                setIsLoading(false);
-              }}
-            />
-          </a>
+          <Image
+            src={"/static/images/" + `${id}` + "_2.jpg"}
+            alt="Image"
+            width={1920 / 2}
+            height={1280 / 2}
+          />
         </div>
       </Card>
     </div>

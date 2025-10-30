@@ -1,7 +1,8 @@
 "use client"
 import Link from "next/link";
 import Image from "next/image";
-import { useRouter } from "next/router";
+//import { useRouter } from "next/router";
+import { useRouter } from "next/compat/router";
 import useUser from "../hooks/useUser";
 import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
@@ -10,6 +11,7 @@ const links = [
   { href: "/animals/", label: "List" },
   { href: "/animals/animalsCardOwners", label: "Historico" },
   { href: "/animals/animalsCardOwnersLive", label: "Live" },
+  { href: "/animalss/animalsOwners", label: "Live1" },
 ].map((link) => {
   link.key = `nav-link-${link.href}-${link.label}`;
   return link;
