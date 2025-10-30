@@ -2,7 +2,6 @@
 import React, { useState, BaseSyntheticEvent } from "react";
 import Link from "next/link";
 import { IconButton } from "@mui/material";
-import StreetviewRoundedIcon from "@mui/icons-material/ThreeDRotation";
 import Container from "@/components/Container";
 
 import {
