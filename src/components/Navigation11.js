@@ -10,7 +10,10 @@ import toast, { Toaster } from "react-hot-toast";
 const links = [
   { href: "/animalss/ganados/live", label: "Ganados Vivos" },
   { href: "/animalss/ganados/histo", label: "Ganados Historia" },
-  { href: "/animals/", label: "AnimalsHistorico" },
+  { href: "/animalss/animalsOwners", label: "Todos" },
+  { href: "/animals/", label: "ListTodos" },
+  { href: "/animals/animalsCardOwners", label: "TodosHistorico" },
+  { href: "/animals/animalsCardOwnersLive", label: "Live" },
 ].map((link) => {
   link.key = `nav-link-${link.href}-${link.label}`;
   return link;

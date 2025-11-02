@@ -1,10 +1,13 @@
-import { useState, useEffect } from "react";
+"use client";
+import { useState, BaseSyntheticEvent, useEffect } from "react";
 import type { NextPage } from "next";
 import Container from "@/components/Container";
+
 import {
   useQuery,
   QueryClient,
   QueryClientProvider,
+  useMutation,
 } from "@tanstack/react-query";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
@@ -12,10 +15,12 @@ import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import dayjs from "dayjs";
 import axios from "axios";
-import Select from "react-select";
-import { useForm, Controller } from "react-hook-form";
-import { useOwners } from "../../hooks/useOwners";
+import { useForm, Controller, SubmitHandler } from "react-hook-form";
+import { useGanados } from "@/hooks/useGanados"; //select owners
 import Image from "next/image";
+import Select, { StylesConfig } from "react-select";
+
+const DATABASEURL = process.env.NEXT_PUBLIC_API_URL;
 
 type Inputs = {
   alive: string;
@@ -41,6 +46,19 @@ const queryClient = new QueryClient({
     },
   },
 });
+
+const customStyles: StylesConfig<{ label: string; value: number }, false> = {
+  option: (base, state) => ({
+    ...base,
+    fontSize: 16,
+    color: "blue",
+    backgroundColor: state.isSelected ? "lightblue" : "white", // Change background color for selected options
+    "&:hover": {
+      backgroundColor: "lightgray",
+    },
+  }),
+};
+
 const convertDate = (date: any) => {
   return dayjs(date).format("DD/MM/YYYY");
 };
@@ -49,10 +67,10 @@ const convertDate1 = (date: any) => {
 };
 
 const AnimalsCardQuery: NextPage = () => {
-  const { owners } = useOwners();
+  const { ganados } = useGanados();
   const [ownerId, setOwnerId] = useState(0);
-  const [bitacoraSearch, setBitacoraSearch] = useState<any>();
-  const [datafilter, setDatafilter] = useState<any[]>([]);
+  const [bitacoraSearch, setBitacoraSearch] = useState();
+  const [datafilter, setDatafilter] = useState([]);
 
   const {
     register,
@@ -62,29 +80,23 @@ const AnimalsCardQuery: NextPage = () => {
     formState: { errors },
   } = useForm<Inputs>();
 
-  const { data } = useQuery({
-    queryKey: ["AnimalsOwner"],
+  const { status, data, error, isLoading, refetch } = useQuery({
+    queryKey: ["Animalssaa"],
     queryFn: async () => {
-      // Aquí pones la lógica de tu función de consulta (por ejemplo, fetch o axios)
-      // Ejemplo:
-      const response = await axios.get(
-        `${process.env.NEXT_PUBLIC_API_URL}animals/`
-      );
-      if (!response) {
-        throw new Error("Error al obtener los animales");
-      }
-      return response.data;
+      const data = await axios.get(`${DATABASEURL}animals/lives`);
+      return data.data;
     },
   });
 
   useEffect(() => {
-    if (data) {
+    if (status === "success") {
       console.log("====================================");
       console.log("renders");
+      console.log("Data", data);
       console.log("====================================");
       setDatafilter(data);
     }
-  }, [data]);
+  }, [data, status]);
 
   const handleOnChange = (ownerKey: any, value: any) => {
     console.log("valueOnChangeAdd", value);
@@ -123,7 +135,7 @@ const AnimalsCardQuery: NextPage = () => {
     <Container>
       <QueryClientProvider client={queryClient}>
         <div className="container mx-auto px-20 text-gray-600 text-2xl font-bold">
-          Historico, Animales todos Vivos Fallecidos{" "}
+          Ganados Vivos{" "}
         </div>
 
         <div className="flex mb-4">
@@ -137,11 +149,11 @@ const AnimalsCardQuery: NextPage = () => {
                 return (
                   <Select
                     defaultValue={{ label: "Seleccione..", value: 0 }}
-                    options={owners}
+                    options={ganados}
                     name={name}
-                    onChange={(
-                      val: { label: string; value: number } | null
-                    ) => {
+                    styles={customStyles}
+                    placeholder="Select a owner"
+                    onChange={(val?) => {
                       console.log("Valuee Selected", val);
                       onChange(val!.value);
                       setOwnerId(val!.value);
@@ -179,8 +191,8 @@ const AnimalsCardQuery: NextPage = () => {
         </div>
 
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-          {datafilter ? (
-            datafilter.map((animal: any, key: any) => (
+          {data && data?.length > 0 ? (
+            datafilter?.map((animal: any) => (
               <Card
                 sx={{
                   display: "flex",
@@ -208,7 +220,10 @@ const AnimalsCardQuery: NextPage = () => {
                 <CardContent>
                   <Typography align="left" component="div">
                     <a
-                      href={`/animals/${encodeURIComponent(animal.id)}`}
+                      className="bg-blue-200 rounded underline hover:underline hover:underline-offset-4"
+                      href={`/animals/animal/4?id=${encodeURIComponent(
+                        animal.id
+                      )}`}
                       target={"_blank"}
                       rel="noreferrer"
                     >
@@ -218,7 +233,8 @@ const AnimalsCardQuery: NextPage = () => {
                   </Typography>
 
                   <Typography gutterBottom align="left">
-                    Nombre: {animal.name}, Dueno: {animal.owner.name}
+                    {animal.clase.description}: {animal.name}, Dueno:{" "}
+                    {animal.owner.name}
                   </Typography>
 
                   <Typography gutterBottom align="left">
@@ -239,15 +255,17 @@ const AnimalsCardQuery: NextPage = () => {
                       />
                     )}{" "}
                   </Typography>
-
                   <Typography gutterBottom align="left">
-                    Tipo animal: <b>{animal.clase.description}</b>
+                    Tipo animal: <b> {animal.clase.description}</b>
                   </Typography>
 
                   <Typography align="left">
                     Madre: {animal.mother},{" "}
                     <a
-                      href={`/animals/${encodeURIComponent(animal.mother_id)}`}
+                      className="bg-blue-200 rounded underline hover:underline hover:underline-offset-4"
+                      href={`/animals/animal/4?id=${encodeURIComponent(
+                        animal.mother_id
+                      )}`}
                       target={"_blank"}
                       rel="noreferrer"
                     >
@@ -256,11 +274,10 @@ const AnimalsCardQuery: NextPage = () => {
                     </a>{" "}
                   </Typography>
 
+                  <Typography paragraph>Info: {animal.info}</Typography>
                   <Typography align="left">
                     Date update: {convertDate(animal.updated_at)}
                   </Typography>
-
-                  <Typography paragraph>Info: {animal.info}</Typography>
                 </CardContent>
               </Card>
             ))
@@ -275,4 +292,10 @@ const AnimalsCardQuery: NextPage = () => {
   );
 };
 
-export default AnimalsCardQuery;
+export default function App() {
+  return (
+    <QueryClientProvider client={queryClient}>
+      <AnimalsCardQuery />
+    </QueryClientProvider>
+  );
+}

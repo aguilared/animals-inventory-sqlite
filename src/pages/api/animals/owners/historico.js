@@ -1,0 +1,28 @@
+import prisma from "../../../../lib/prisma";
+
+export default async function handle1(req, res) {
+  const result = await prisma.user.findMany({
+   
+    include: {
+      animal: {
+        select: {
+          id: true,
+          name: true,
+          mother: true,
+          clase_id: true,
+          clase: {
+            select: { id: true, description: true },
+          },
+          owner: {
+            select: { id: true, name: true },
+          },
+          info: true,
+        },
+      },
+      _count: {
+        select: { animal: true },
+      },
+    },
+  });
+  res.json(result);
+}
