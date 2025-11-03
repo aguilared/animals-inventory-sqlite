@@ -8,9 +8,9 @@ import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
 
 const links = [
-  { href: "/animalss/ganados/live", label: "Ganados Vivos" },
-  { href: "/animalss/ganados/histo", label: "Ganados Historia" },
-  { href: "/animals/", label: "AnimalsHistorico" },
+  { href: "/animalss/ganados/live", label: "Ganado Vivos" },
+  { href: "/animalss/ganados/histo", label: "Ganado Historia" },
+  { href: "/animals/", label: "AnimalsHistoria" },
 ].map((link) => {
   link.key = `nav-link-${link.href}-${link.label}`;
   return link;

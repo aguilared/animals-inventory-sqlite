@@ -135,7 +135,7 @@ const AnimalsCardQuery: NextPage = () => {
     <Container>
       <QueryClientProvider client={queryClient}>
         <div className="container mx-auto px-20 text-gray-600 text-2xl font-bold">
-          Ganados, Toda la Historia
+          Ganado, Historia
         </div>
 
         <div className="flex mb-4">
@@ -194,36 +194,40 @@ const AnimalsCardQuery: NextPage = () => {
           {data && data?.length > 0 ? (
             datafilter?.map((animal: any) => (
               <Card
-                sx={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                }}
                 key={animal.id}
+                component="div"
+                sx={{ maxWidth: 545, bgcolor: "neutral.900" }}
+                color="neutral"
               >
-                <CardMedia>
-                  <div
-                    style={{
-                      position: "relative",
-                      width: "100%",
-                      height: "100%",
-                    }}
-                  >
-                    <Image
-                      src={"/static/images/" + `${animal.id}` + ".jpg"}
-                      width={520}
-                      height={400}
-                      alt=""
-                      style={{ objectFit: "cover" }}
-                    />
-                  </div>
-                </CardMedia>
+                <a
+                  href={"/static/images/" + `${animal.id}` + ".jpg"}
+                  target={"_blank"}
+                  rel="noreferrer"
+                >
+                  <CardMedia>
+                    <div
+                      style={{
+                        position: "relative",
+                        width: "100%",
+                        height: "100%",
+                      }}
+                    >
+                      <Image
+                        src={"/static/images/" + `${animal.id}` + ".jpg"}
+                        width={520}
+                        height={400}
+                        alt=""
+                        style={{ objectFit: "cover" }}
+                      />
+                    </div>
+                  </CardMedia>
+                </a>
+
                 <CardContent>
                   <Typography align="left" component="div">
                     <a
                       className="bg-blue-200 rounded underline hover:underline hover:underline-offset-4"
-                      href={`/animals/animal/4?id=${encodeURIComponent(
-                        animal.id
-                      )}`}
+                      href={`/animals/${encodeURIComponent(animal.id)}`}
                       target={"_blank"}
                       rel="noreferrer"
                     >
@@ -263,9 +267,7 @@ const AnimalsCardQuery: NextPage = () => {
                     Madre: {animal.mother},{" "}
                     <a
                       className="bg-blue-200 rounded underline hover:underline hover:underline-offset-4"
-                      href={`/animals/animal/4?id=${encodeURIComponent(
-                        animal.mother_id
-                      )}`}
+                      href={`/animals/${encodeURIComponent(animal.mother_id)}`}
                       target={"_blank"}
                       rel="noreferrer"
                     >
@@ -274,7 +276,7 @@ const AnimalsCardQuery: NextPage = () => {
                     </a>{" "}
                   </Typography>
 
-                  <Typography paragraph>Info: {animal.info}</Typography>
+                  <Typography component="p">Info: {animal.info}</Typography>
                   <Typography align="left">
                     Date update: {convertDate(animal.updated_at)}
                   </Typography>

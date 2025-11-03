@@ -135,7 +135,7 @@ const AnimalsCardQuery: NextPage = () => {
     <Container>
       <QueryClientProvider client={queryClient}>
         <div className="container mx-auto px-20 text-gray-600 text-2xl font-bold">
-          Ganados Vivos{" "}
+          Ganado Vivos{" "}
         </div>
 
         <div className="flex mb-4">
@@ -276,7 +276,7 @@ const AnimalsCardQuery: NextPage = () => {
                     </a>{" "}
                   </Typography>
 
-                  <Typography paragraph>Info: {animal.info}</Typography>
+                  <Typography component="p">Info: {animal.info}</Typography>
                   <Typography align="left">
                     Date update: {convertDate(animal.updated_at)}
                   </Typography>
