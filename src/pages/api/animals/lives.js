@@ -1,11 +1,8 @@
 import prisma from "../../../lib/prisma";
 export default async function handle(req, res) {
   const result = await prisma.animal.findMany({
-    where: { live: true, clase_id: { in: [1, 2, 3, 8, 10] } ,
-    },
-    orderBy: {
-      name: "asc",
-    },
+    where: { live: true },
+    orderBy: { name: "asc" },
     include: {
       owner: {
         select: { id: true, name: true },
