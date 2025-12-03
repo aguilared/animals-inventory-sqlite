@@ -67,14 +67,18 @@ const BitaEventCard = (props: any): JSX.Element => {
     <div className="flex justify-center">
       <Card sx={{ maxWidth: 745, bgcolor: "neutral.900" }} color="neutral">
         <CardContent sx={{ flex: "1 0 auto" }}>
-          <div>
+          <div className="flex items-center mb-4 space-x-4">
+            <Image
+              src={"/static/images/logo200.jpg"}
+              width={70}
+              height={50}
+              alt=""
+              style={{ objectFit: "cover" }}
+            />
             <h3 className="text-2xl tahoma font-extrabold tracking-widest text-gray-500">
-              Animal {clase}: {name}
+              Animal {clase}: {name}, Id: {query.id}
             </h3>
           </div>
-          <Typography variant="h6" component="h2">
-            Id: {query.id}, Nombre: {name}
-          </Typography>{" "}
           <Typography variant="h6" component="h2">
             Owner: {owner}
             {}
