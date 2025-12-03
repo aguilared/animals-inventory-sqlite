@@ -37,7 +37,7 @@ const Navigation = () => {
     <nav className="flex rounded items-center justify-between flex-wrap bg-gray-700 p-2 py-1">
       <div className="flex items-center flex-shrink-0 text-white mr-6">
         <Image
-          src={"/static/images/logo.jpg"}
+          src={"/static/images/logo200.jpg"}
           width={70}
           height={50}
           alt=""
