@@ -5,7 +5,7 @@ console.log("APIURLGGanados", apiUrl);
 export default async function getGanados() {
   try {
     const resp = await axios.get(apiUrl);
-    //console.log("RESPP", resp);
+    console.log("RESPP", resp);
     return resp.data;
   } catch (error) {
     console.log("ERRORP", error);

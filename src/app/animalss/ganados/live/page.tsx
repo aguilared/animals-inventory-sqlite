@@ -83,7 +83,7 @@ const AnimalsCardQuery: NextPage = () => {
   const { status, data, error, isLoading, refetch } = useQuery({
     queryKey: ["Animalssaa"],
     queryFn: async () => {
-      const data = await axios.get(`${DATABASEURL}animals/lives`);
+      const data = await axios.get(`${DATABASEURL}ganados/lives`);
       return data.data;
     },
   });
