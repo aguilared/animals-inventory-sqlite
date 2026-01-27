@@ -41,6 +41,7 @@ type ResultData = {
 export type Inputs = {
   name: string;
   url: string;
+  tipo_event_id: number;
 };
 
 export default function App() {
