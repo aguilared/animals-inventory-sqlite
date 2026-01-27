@@ -136,7 +136,7 @@ const AnimalsCardQuery: NextPage = () => {
     <Container>
       <QueryClientProvider client={queryClient}>
         <div className="container mx-auto px-20 text-gray-600 text-2xl font-bold">
-          Ganado Vivosss{" "}
+          Ganado Vivos{" "}
         </div>
 
         <div className="flex mb-4">
