@@ -65,9 +65,9 @@ function Example() {
   const [tipo_event_id, setTipo_event_id] = useState(1);
   const [bitacoraSearch, setBitacoraSearch] = useState(0);
 
-  const handleOnChange = (ownerKey, value) => {
+  const handleOnChange = (_ownerKey: string, value: number | undefined) => {
     console.log("valueOnChangeAdd", value);
-    setBitacoraSearch(value);
+    setBitacoraSearch(value ?? 0);
     console.log("BitacoraSearch", bitacoraSearch);
     //return setDatafilter(newData);
   };
@@ -80,7 +80,9 @@ function Example() {
   const nbPerPage = 9;
   const lastIndex = currentPage * nbPerPage;
   const startIndex = lastIndex - nbPerPage;
-  const [datafilter, setDatafilter] = useState([]);
+  const [datafilter, setDatafilter] = useState<ResultData | undefined>(
+    undefined
+  );
 
   //const records = data.slice(startIndex, lastIndex);
   async function fetchBitacoras({
@@ -109,7 +111,7 @@ function Example() {
       refetchInterval: intervalMs,
     });
 
-  const numberOfPages = Math.ceil(data?.count / nbPerPage);
+  const numberOfPages = Math.ceil((data?.count ?? 0) / nbPerPage);
 
   // Prefetch the next page!
   React.useEffect(() => {
@@ -136,7 +138,7 @@ function Example() {
 
     const value = bitacoraSearch;
     console.log("ValueSearchvvvvv", value);
-    if (!value || value === "") {
+    if (!value) {
       return setDatafilter(data); //retorna a la data original
     }
 

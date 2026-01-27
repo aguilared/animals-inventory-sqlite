@@ -8,7 +8,7 @@ import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
 
 const links = [
-  { href: "/animalss/ganados/live", label: "Ganado Vivoss" },
+  { href: "/animalss/ganados/live", label: "Ganado Vivos" },
   { href: "/animalss/ganados/histo", label: "Ganado Historia" },
   { href: "/animalss/animals/live", label: "AnimalsVivos" },
   { href: "/animalss/animals/histo", label: "AnimalsHistoria" },
