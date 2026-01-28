@@ -12,7 +12,6 @@ import BitaEventList from "@/components/bitacora/BitaEventList";
 import Select, { StylesConfig } from "react-select";
 import { useForm, Controller } from "react-hook-form";
 import { useTypeEvents1 } from "@/hooks/bitacora/useTypeEvents1";
-import axios from "axios";
 
 const queryClient = new QueryClient();
 const customStyles: StylesConfig<{ label: string; value: number }, false> = {
@@ -37,7 +36,9 @@ type ResultData = {
     bitacora_id: number;
     bitacora: { id: number; name: string; bitacora_date: string | Date }; // Assuming a basic structure for bitacora
     tipoEvent: { id: number; name: string; description: string }; // Include description to match Bitaevent shape
-    event: string;
+    event: {
+      description: string;
+    };
     description: string;
     // Add other properties of Bitaevent here
   }[];
@@ -58,8 +59,6 @@ export default function App() {
     </QueryClientProvider>
   );
 }
-
-const ENDPOINT = process.env.NEXT_PUBLIC_API_URL + "bitacora/tipo_event/";
 
 function Example() {
   const {
@@ -217,7 +216,13 @@ function Example() {
         return (
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
             {data?.results.map((event) => (
-              <BitaEventList bitaevents={event} key={event.id} />
+              <BitaEventList
+                bitaevents={event}
+                key={event.id}
+                changeSorting={() => {}} // Placeholder for a sorting function
+                deleteUser={() => {}} // Placeholder for a user deletion function
+                showColors={false} // Placeholder for a boolean value
+              />
             ))}
           </div>
         );
