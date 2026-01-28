@@ -38,11 +38,7 @@ const convertDate = (date: any) => {
 
 const BitaEventList: React.FC<Props> = ({ bitaevents }) => {
   return (
-    <Card
-      sx={{ maxWidth: 545, bgcolor: "neutral.900" }}
-      color="neutral"
-      invertedColors
-    >
+    <Card sx={{ maxWidth: 545, bgcolor: "neutral.900" }} color="neutral">
       {bitaevents.image! ? (
         <a
           href={"/static/images/" + `${bitaevents.id}` + ".jpg"}
