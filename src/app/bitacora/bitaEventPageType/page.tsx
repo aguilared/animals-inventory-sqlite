@@ -171,13 +171,19 @@ function Example() {
                 ) => {
                   onChange(selectedOption?.value);
                 };
+                console.log("Tipoevent1", typeEvents1);
                 return (
                   <Select<EventTypeOption, false>
-                    inputRef={ref}
-                    defaultValue={{
-                      label: "Selecc. Tipo Event. Search",
-                      value: 0,
-                    }}
+                    ref={ref as any}
+                    value={
+                      // Verificamos si realmente es un array antes de operar
+                      Array.isArray(typeEvents1)
+                        ? typeEvents1.find((opt) => opt.value === value) || {
+                            label: "Selecc...",
+                            value: 0,
+                          }
+                        : { label: "Selecc. Tipo Event. Search", value: 0 }
+                    }
                     options={(typeEvents1 ?? []) as EventTypeOption[]}
                     name={name}
                     styles={customStyles}
