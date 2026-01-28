@@ -34,9 +34,16 @@ type ResultData = {
   results: {
     id: number;
     name: string;
-    // Add other properties of Bitacora here
+    bitacora_id: number;
+    bitacora: { id: number; name: string; bitacora_date: string | Date }; // Assuming a basic structure for bitacora
+    tipoEvent: { id: number; name: string }; // Assuming a basic structure for tipoEvent
+    event: string;
+    description: string;
+    // Add other properties of Bitaevent here
   }[];
 };
+
+type EventTypeOption = { label: string; value: number };
 
 export type Inputs = {
   name: string;
@@ -142,15 +149,6 @@ function Example() {
     if (!value) {
       return setDatafilter(data); //retorna a la data original
     }
-
-    const getData = async () => {
-      const result = await axios.get(`${ENDPOINT}${value}`);
-      const resp = result.data;
-      console.log("DATA44", resp);
-      setDatafilter(resp);
-      //setLoading(false);
-    };
-    //getData();
   };
 
   return (
@@ -169,7 +167,7 @@ function Example() {
               render={({ field: { onChange, value, name, ref } }) => {
                 //console.log("CurrentSelection", currentSelection);
                 const handleSelectChange = (
-                  selectedOption: tipo_event_id | null
+                  selectedOption: EventTypeOption | null
                 ) => {
                   onChange(selectedOption?.value);
                 };
@@ -202,18 +200,22 @@ function Example() {
           <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-gray-900" />
         </div>
       ) : null}
-      {status === "pending" ? (
-        <div>Loading...</div>
-      ) : status === "error" ? (
-        <div>Error: {error.message}</div>
-      ) : (
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {data &&
-            data.results.map((event, i) => (
-              <BitaEventList bitaevents={event} key={i} />
+      {(() => {
+        if (status === "pending") {
+          return <div>Loading...</div>;
+        }
+        if (status === "error") {
+          return <div>Error: {error.message}</div>;
+        }
+        // Assuming status is 'success' or similar when not pending/error
+        return (
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+            {data?.results.map((event) => (
+              <BitaEventList bitaevents={event} key={event.id} />
             ))}
-        </div>
-      )}
+          </div>
+        );
+      })()}
       <div>
         Current Page: {page}, tipe_event: {tipo_event_id}
       </div>
@@ -257,7 +259,7 @@ function Example() {
               <svg
                 stroke="currentColor"
                 fill="currentColor"
-                stroke-width="0"
+                strokeWidth="0"
                 viewBox="0 0 20 20"
                 className="w-5 h-5"
                 aria-hidden="true"
@@ -266,9 +268,9 @@ function Example() {
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path
-                  fill-rule="evenodd"
+                  fillRule="evenodd"
                   d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
-                  clip-rule="evenodd"
+                  clipRule="evenodd"
                 ></path>
               </svg>
             </button>
@@ -280,7 +282,7 @@ function Example() {
               <svg
                 stroke="currentColor"
                 fill="currentColor"
-                stroke-width="0"
+                strokeWidth="0"
                 viewBox="0 0 576 512"
                 height="1em"
                 width="1em"
@@ -303,7 +305,7 @@ function Example() {
               <svg
                 stroke="currentColor"
                 fill="currentColor"
-                stroke-width="0"
+                strokeWidth="0"
                 viewBox="0 0 20 20"
                 className="w-5 h-5"
                 aria-hidden="true"
@@ -312,9 +314,9 @@ function Example() {
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path
-                  fill-rule="evenodd"
+                  fillRule="evenodd"
                   d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                  clip-rule="evenodd"
+                  clipRule="evenodd"
                 ></path>
               </svg>
             </button>
@@ -331,7 +333,7 @@ function Example() {
               <svg
                 stroke="currentColor"
                 fill="currentColor"
-                stroke-width="0"
+                strokeWidth="0"
                 viewBox="0 0 20 20"
                 className="w-5 h-5"
                 aria-hidden="true"
@@ -340,9 +342,9 @@ function Example() {
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path
-                  fill-rule="evenodd"
+                  fillRule="evenodd"
                   d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                  clip-rule="evenodd"
+                  clipRule="evenodd"
                 ></path>
               </svg>
             </button>
