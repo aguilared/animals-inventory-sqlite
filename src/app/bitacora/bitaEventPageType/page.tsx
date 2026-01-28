@@ -36,7 +36,7 @@ type ResultData = {
     name: string;
     bitacora_id: number;
     bitacora: { id: number; name: string; bitacora_date: string | Date }; // Assuming a basic structure for bitacora
-    tipoEvent: { id: number; name: string }; // Assuming a basic structure for tipoEvent
+    tipoEvent: { id: number; name: string; description: string }; // Include description to match Bitaevent shape
     event: string;
     description: string;
     // Add other properties of Bitaevent here
@@ -172,13 +172,13 @@ function Example() {
                   onChange(selectedOption?.value);
                 };
                 return (
-                  <Select
+                  <Select<EventTypeOption, false>
                     inputRef={ref}
                     defaultValue={{
                       label: "Selecc. Tipo Event. Search",
                       value: 0,
                     }}
-                    options={typeEvents1}
+                    options={(typeEvents1 ?? []) as EventTypeOption[]}
                     name={name}
                     styles={customStyles}
                     classNamePrefix="select"
