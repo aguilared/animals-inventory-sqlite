@@ -83,7 +83,7 @@ const BitaEventsList = () => {
       getBitacoraEvents(
         pageParam as number,
         debouncedSearch,
-        tipoSeleccionado === "Todos" ? "" : tipoSeleccionado,
+        tipoSeleccionado === "Todos" ? "" : tipoSeleccionado
       ),
     initialPageParam: 0,
     getNextPageParam: (lastPage) => lastPage?.next,
@@ -134,6 +134,9 @@ const BitaEventsList = () => {
       </CardContent>
     </Card>
   );
+
+  // Debug log for data
+  console.log("Data", data);
 
   return (
     <div className="py-3">
@@ -203,7 +206,6 @@ const BitaEventsList = () => {
       >
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 min-h-screen">
           {/* Si está cargando por primera vez o refrescando, mostramos 6 esqueletos */}
-          {console.log("Data", data)}
           {(isLoading || isRefetching) && !isFetchingNextPage
             ? Array.from(new Array(6)).map((_, index) => (
                 <EventSkeleton key={index} />
@@ -246,7 +248,7 @@ const BitaEventsList = () => {
                         >
                           IDevent: {event.id} •{" "}
                           {dayjs(event.bitacora.bitacora_date).format(
-                            "DD/MM/YYYY",
+                            "DD/MM/YYYY"
                           )}
                         </Typography>
                         <Typography
