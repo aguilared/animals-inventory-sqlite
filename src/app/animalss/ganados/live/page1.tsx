@@ -203,7 +203,6 @@ const AnimalsCardQuery: NextPage = () => {
                   href={"/static/images/" + `${animal.id}` + ".jpg"}
                   target={"_blank"}
                   rel="noreferrer"
-                  className="relative h-96 w-full overflow-hidden"
                 >
                   <CardMedia>
                     <div
