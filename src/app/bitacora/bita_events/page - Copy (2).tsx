@@ -65,7 +65,6 @@ const BitaEventsList = () => {
     "Gonzalera Ranch 2",
     "Familiar",
     "Mascotas",
-    "Mata de Coco2",
   ]; // Ajusta según tus datos reales
 
   const {
@@ -135,6 +134,9 @@ const BitaEventsList = () => {
       </CardContent>
     </Card>
   );
+
+  // Debug log for data
+  console.log("Data", data);
 
   return (
     <div className="py-3">
