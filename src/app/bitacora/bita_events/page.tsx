@@ -257,7 +257,7 @@ const BitaEventsList = () => {
                           {event.tipoEvent.description} /{" "}
                           {event.event.description}
                         </Typography>
-                        <Box className="text-sm text-gray-600 mt-2">
+                        <Box className="text-base text-gray-600 mt-2">
                           <Interweave content={event.description} />
                         </Box>
                       </CardContent>
