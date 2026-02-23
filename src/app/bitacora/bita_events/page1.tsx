@@ -240,20 +240,14 @@ const BitaEventsList = () => {
                         </a>
                       )}
                       <CardContent>
-                        <Typography variant="body1">
-                          <a
-                            className="flex items-center gap-2 no-underline hover:underline text-blue-600"
-                            href={`bita_event/4?id=${encodeURIComponent(
-                              event.id
-                            )}`}
-                            target={"_blank"}
-                            rel="noreferrer"
-                          >
-                            IDevent: {event.id} •{" "}
-                            {dayjs(event.bitacora.bitacora_date).format(
-                              "DD/MM/YYYY"
-                            )}
-                          </a>
+                        <Typography
+                          variant="caption"
+                          className="block text-blue-600 font-bold"
+                        >
+                          IDevent: {event.id} •{" "}
+                          {dayjs(event.bitacora.bitacora_date).format(
+                            "DD/MM/YYYY"
+                          )}
                         </Typography>
                         <Typography
                           variant="subtitle1"
