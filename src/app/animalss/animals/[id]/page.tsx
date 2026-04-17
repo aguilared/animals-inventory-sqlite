@@ -64,14 +64,14 @@ const BitaEventCard = (props: any): JSX.Element => {
         <CardContent sx={{ flex: "1 0 auto" }}>
           <div>
             <h3 className="text-2xl tahoma font-extrabold tracking-widest text-gray-500">
-              Animal {clase}: {name}
+              {clase}: {name}
             </h3>
           </div>
           <Typography variant="h6" component="h2">
             Id: {id}, Nombre: {name}
           </Typography>{" "}
           <Typography variant="h6" component="h2">
-            Owner: {owner}
+            Owners: {owner}
             {}
           </Typography>{" "}
           <Typography variant="h6" component="h2">

@@ -76,12 +76,12 @@ const BitaEventCard = (props: any): JSX.Element => {
               style={{ objectFit: "cover" }}
             />
             <h3 className="text-2xl tahoma font-extrabold tracking-widest text-gray-500">
-              Animal {clase}: {name}, Id: {query.id}
+              {clase}: {name}, Id: {query.id}
             </h3>
           </div>
           <Typography variant="h6" component="h2">
             Owner: {owner}
-            { }
+            {}
           </Typography>{" "}
           <Typography variant="h6" component="h2">
             Nacimiento: {birthdate}, Live?:
@@ -96,9 +96,6 @@ const BitaEventCard = (props: any): JSX.Element => {
             ) : (
               <input type="checkbox" placeholder="Live" className="mx-3" />
             )}{" "}
-          </Typography>
-          <Typography variant="h6" component="h2">
-            Tipo animal: <b>{clase}</b>
           </Typography>
           <Typography variant="h6" component="h2">
             Madre: {mother},{" "}

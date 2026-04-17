@@ -232,12 +232,14 @@ const AnimalsCardQuery: NextPage = () => {
                       target={"_blank"}
                       rel="noreferrer"
                     >
-                      {animal.clase.description}: {animal.name}, Id: {animal.id}
+                      {" "}
+                      Animal ID: {animal.id},{" "}
                     </a>
                   </Typography>
 
                   <Typography gutterBottom align="left">
-                    Dueno: {animal.owner.name}
+                    {animal.clase.description}: {animal.name}, Dueno:{" "}
+                    {animal.owner.name}
                   </Typography>
 
                   <Typography gutterBottom align="left">
@@ -257,6 +259,9 @@ const AnimalsCardQuery: NextPage = () => {
                         className="mx-3"
                       />
                     )}{" "}
+                  </Typography>
+                  <Typography gutterBottom align="left">
+                    Tipo animal: <b> {animal.clase.description}</b>
                   </Typography>
 
                   <Typography align="left">
