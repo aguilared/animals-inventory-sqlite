@@ -76,7 +76,7 @@ const BitaEventCard = (props: any): JSX.Element => {
               style={{ objectFit: "cover" }}
             />
             <h3 className="text-2xl tahoma font-extrabold tracking-widest text-gray-500">
-              {clase}: {name}, Id: {query.id}
+              .{clase}: {name}, Id: {query.id}
             </h3>
           </div>
           <Typography variant="h6" component="h2">
