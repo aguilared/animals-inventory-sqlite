@@ -258,6 +258,9 @@ const AnimalsCardQuery: NextPage = () => {
                       />
                     )}{" "}
                   </Typography>
+                  <Typography gutterBottom align="left">
+                    Tipo animal: <b> {animal.clase.description}</b>
+                  </Typography>
 
                   <Typography align="left">
                     Madre: {animal.mother},{" "}
