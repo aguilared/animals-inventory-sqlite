@@ -9,10 +9,12 @@ import toast, { Toaster } from "react-hot-toast";
 
 const links = [
   { href: "/animalss/ganados/live", label: "Ganado Vivos" },
+  { href: "/animalss/animalsOwnersVacas", label: "Vacas" },
+  { href: "/animalss/animalsMautesLives", label: "Mautes" },
   { href: "/animalss/ganados/histo", label: "Ganado Historia" },
   { href: "/animalss/animals/live", label: "AnimalsVivos" },
   { href: "/animalss/animals/histo", label: "AnimalsHistoria" },
-  { href: "/animalss/animalsOwnersVacas", label: "Vacas" },
+  
 ].map((link) => {
   link.key = `nav-link-${link.href}-${link.label}`;
   return link;
