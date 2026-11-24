@@ -12,6 +12,7 @@ const links = [
   { href: "/animalss/ganados/histo", label: "Ganado Historia" },
   { href: "/animalss/animals/live", label: "AnimalsVivos" },
   { href: "/animalss/animals/histo", label: "AnimalsHistoria" },
+  { href: "/animalss/animalsOwnersVacas", label: "Vacas" },
 ].map((link) => {
   link.key = `nav-link-${link.href}-${link.label}`;
   return link;
