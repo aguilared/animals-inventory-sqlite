@@ -2,7 +2,6 @@
 import { useState, BaseSyntheticEvent, useEffect } from "react";
 import type { NextPage } from "next";
 import Container from "@/components/Container";
-import { colourOptions } from "@/components/data";
 
 import {
   useQuery,
@@ -104,7 +103,7 @@ const AnimalsCardQuery: NextPage = () => {
     setBitacoraSearch(value);
 
     const newData = data.filter(
-      (bitacora: any) => bitacora.owner_id === Number(value),
+      (bitacora: any) => bitacora.owner_id === Number(value)
     );
     return setDatafilter(newData);
   };
@@ -127,7 +126,7 @@ const AnimalsCardQuery: NextPage = () => {
     }
     //filtrando la data al hacer un search
     const newData = data.filter(
-      (bitacora: any) => bitacora.owner_id === Number(value),
+      (bitacora: any) => bitacora.owner_id === Number(value)
     );
     return setDatafilter(newData);
   };
@@ -222,7 +221,7 @@ const AnimalsCardQuery: NextPage = () => {
                     <a
                       className="bg-blue-200 rounded underline hover:underline hover:underline-offset-4"
                       href={`/animals/animal/4?id=${encodeURIComponent(
-                        animal.id,
+                        animal.id
                       )}`}
                       target={"_blank"}
                       rel="noreferrer"
@@ -264,7 +263,7 @@ const AnimalsCardQuery: NextPage = () => {
                     <a
                       className="bg-blue-200 rounded underline hover:underline hover:underline-offset-4"
                       href={`/animals/animal/4?id=${encodeURIComponent(
-                        animal.mother_id,
+                        animal.mother_id
                       )}`}
                       target={"_blank"}
                       rel="noreferrer"
