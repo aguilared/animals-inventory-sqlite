@@ -133,13 +133,14 @@ const AnimalsCardQuery: NextPage = () => {
   return (
     <Container>
       <QueryClientProvider client={queryClient}>
-        <div className="container mx-auto px-20 text-gray-600 text-2xl font-bold">
-          Bestias{" Vivos"} by Propietario.
+        <div className="max-w-2xl mx-auto px-2 mb-2">
+          <h1 className="text-gray-700 text-xl sm:text-2xl font-bold text-center">
+            Bestias Vivos by Propietario.
+          </h1>
         </div>
 
-        <div className="flex mb-4">
-          <div className="w-1/2 p-2 text-center bg-green-400">
-            {" "}
+        <div className="flex items-center gap-2 mb-4 max-w-2xl mx-auto px-2">
+          <div className="flex-1 min-w-0 bg-white border border-slate-400 rounded-lg p-0.5 shadow-sm">
             <Controller
               name="owner_id"
               control={control}
@@ -155,7 +156,7 @@ const AnimalsCardQuery: NextPage = () => {
                     onChange={(val?) => {
                       console.log("Valuee Selected", val);
                       onChange(val!.value);
-                      setOwnerId(val!.value);
+                      setOwnerId(val?.value ?? 0); // Actualiza el estado ownerId con el valor seleccionado
                       handleOnChange("owner_id", val!.value);
                       handleSearchOnChange("owner_id", val!.value);
                     }}
@@ -169,7 +170,7 @@ const AnimalsCardQuery: NextPage = () => {
             <button
               type="submit"
               onClick={() => searchs()}
-              className="absolute w-10 h-10 rounded-full inline p-2 shadow"
+              className="w-10 h-10 shrink-0 rounded-lg bg-slate-700 hover:bg-slate-600 active:bg-slate-800 flex items-center justify-center shadow-sm transition-colors cursor-pointer"
             >
               {" "}
               <svg
