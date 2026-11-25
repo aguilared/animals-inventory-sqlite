@@ -1,7 +1,7 @@
 import prisma from "../../../lib/prisma";
 
 export default async function handle1(req, res) {
-  const ID = req.query.id;
+  const ID = 35;
   const result = await prisma.animal.findUnique({
     where: {
       id: Number(ID),

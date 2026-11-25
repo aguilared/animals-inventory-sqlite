@@ -11,6 +11,8 @@ const links = [
   { href: "/animalss/ganados/live", label: "Ganado Vivos" },
   { href: "/animalss/animalsOwnersVacas", label: "Vacas" },
   { href: "/animalss/animalsMautesLives", label: "Mautes" },
+  { href: "/animalss/animalsBestiasLives", label: "Bestias" },
+  { href: "/animalss/animalsCarnerosLives", label: "Carneros" },
   { href: "/animalss/ganados/histo", label: "Ganado Historia" },
   { href: "/animalss/animals/live", label: "AnimalsVivos" },
   { href: "/animalss/animals/histo", label: "AnimalsHistoria" },
