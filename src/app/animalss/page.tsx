@@ -361,7 +361,7 @@ const Animals = (): React.JSX.Element => {
                 Madre: {animal.mother},{" "}
                 <a
                   className="bg-blue-200 rounded underline hover:underline hover:underline-offset-4"
-                  href={`/animals/animal/4?id=${encodeURIComponent(
+                  href={`/animalss/animals/4?id=${encodeURIComponent(
                     animal.mother_id
                   )}`}
                   target={"_blank"}

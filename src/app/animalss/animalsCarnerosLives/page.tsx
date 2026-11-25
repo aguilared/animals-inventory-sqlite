@@ -104,7 +104,7 @@ const AnimalsCardQuery: NextPage = () => {
     setBitacoraSearch(value);
 
     const newData = data.filter(
-      (bitacora: any) => bitacora.owner_id === Number(value),
+      (bitacora: any) => bitacora.owner_id === Number(value)
     );
     return setDatafilter(newData);
   };
@@ -127,7 +127,7 @@ const AnimalsCardQuery: NextPage = () => {
     }
     //filtrando la data al hacer un search
     const newData = data.filter(
-      (bitacora: any) => bitacora.owner_id === Number(value),
+      (bitacora: any) => bitacora.owner_id === Number(value)
     );
     return setDatafilter(newData);
   };
@@ -225,8 +225,8 @@ const AnimalsCardQuery: NextPage = () => {
                       <span>#{nroEnConsulta} — </span>
                       <a
                         className="bg-blue-200 rounded underline hover:underline hover:underline-offset-4"
-                        href={`/animals/animal/4?id=${encodeURIComponent(
-                          animal.id,
+                        href={`/animalss/animals/4?id=${encodeURIComponent(
+                          animal.id
                         )}`}
                         target={"_blank"}
                         rel="noreferrer"
@@ -267,8 +267,8 @@ const AnimalsCardQuery: NextPage = () => {
                       Madre: {animal.mother},{" "}
                       <a
                         className="bg-blue-200 rounded underline hover:underline hover:underline-offset-4"
-                        href={`/animals/animal/4?id=${encodeURIComponent(
-                          animal.mother_id,
+                        href={`/animalss/animals/4?id=${encodeURIComponent(
+                          animal.mother_id
                         )}`}
                         target={"_blank"}
                         rel="noreferrer"
