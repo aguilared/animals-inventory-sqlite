@@ -189,7 +189,8 @@ const AnimalsCardQuery: NextPage = () => {
           </button>
         </div>
 
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+          {" "}
           {data && data?.length > 0 ? (
             datafilter?.map((animal: any) => (
               <Card
@@ -208,15 +209,15 @@ const AnimalsCardQuery: NextPage = () => {
                       style={{
                         position: "relative",
                         width: "100%",
-                        height: "100%",
+                        height: "240px",
                       }}
                     >
                       <Image
                         src={"/static/images/" + `${animal.id}` + ".jpg"}
-                        width={520}
-                        height={400}
-                        alt=""
+                        fill
+                        alt={`Animal ${animal.id}`}
                         style={{ objectFit: "cover" }}
+                        sizes="(max-width: 768px) 100vw, 33vw"
                       />
                     </div>
                   </CardMedia>
