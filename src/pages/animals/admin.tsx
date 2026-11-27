@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import { Box, Button, Modal, Typography } from "@mui/material";
 import Container from "@/components/Container";
 import { Controller, useForm } from "react-hook-form";
-import Select from "react-select";
 import useUser from "@/hooks/useUser";
 import {
   useQuery,
@@ -22,6 +21,8 @@ import toast, { Toaster } from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { IoMdClose } from "react-icons/io";
 import Link from "next/link";
+import { useOwnerAnimalsHisto } from "@/hooks/useOwnerAnimalsHisto"; //select owners
+import Select, { StylesConfig } from "react-select";
 
 const DATABASEURL = process.env.NEXT_PUBLIC_API_URL;
 
@@ -61,6 +62,18 @@ const convertDate1 = (date: string | number | Date) => {
   return dayjs(date).format("YYYY/MM/DD hh:mm");
 };
 
+const customStyles: StylesConfig<{ label: string; value: number }, false> = {
+  option: (base, state) => ({
+    ...base,
+    fontSize: 16,
+    color: "blue",
+    backgroundColor: state.isSelected ? "lightblue" : "white", // Change background color for selected options
+    "&:hover": {
+      backgroundColor: "lightgray",
+    },
+  }),
+};
+
 const style = {
   position: "absolute",
   top: "50%",
@@ -95,14 +108,29 @@ const Animals = (): React.JSX.Element => {
     }
   }, [isUser]);
 
-  const { data, isLoading, refetch } = useQuery({
+  const { status, data, error, isLoading, refetch } = useQuery({
     queryKey: ["AnimalsAdmin"],
     queryFn: async () => {
       const data = await axios.get(`${DATABASEURL}animals`);
       return data.data;
     },
   });
+
+  useEffect(() => {
+    if (status === "success") {
+      console.log("====================================");
+      console.log("renders");
+      console.log("Data", data);
+      console.log("====================================");
+      setDatafilter(data);
+    }
+  }, [data, status]);
+
   //console.log("DATA", data);
+  const { duenos } = useOwnerAnimalsHisto();
+  const [ownerId, setOwnerId] = useState(0);
+  const [bitacoraSearch, setBitacoraSearch] = useState();
+  const [datafilter, setDatafilter] = useState([]);
   const { owners } = useOwners();
   const { clases } = useClases();
   const { vacas } = useVacas();
@@ -118,6 +146,39 @@ const Animals = (): React.JSX.Element => {
   const [modalDelete, setModalDelete] = React.useState(false);
   const modalDeleteOpen = () => setModalDelete(true);
   const modalDeleteClose = () => setModalDelete(false);
+
+  const handleOnChangeSearch = (ownerKey: any, value: any) => {
+    console.log("valueOnChangeAdd", value);
+    setBitacoraSearch(value);
+
+    const newData = data.filter(
+      (bitacora: any) => bitacora.owner_id === Number(value)
+    );
+    return setDatafilter(newData);
+  };
+
+  const handleSearchOnChange = (ownerKey: any, value: any) => {
+    console.log("Value", value);
+    console.log("OwnerKey", ownerKey);
+    console.log("BitacoraSearch", bitacoraSearch);
+    setBitacoraSearch(value);
+    console.log("BitacoraSearchLuego", bitacoraSearch);
+  };
+
+  const searchs = () => {
+    console.log("BitacoraSearchhhhhh", bitacoraSearch);
+
+    const value = bitacoraSearch;
+    console.log("ValueSearchvvvvv", value);
+    if (!value || value === "") {
+      return setDatafilter(data); //retorna a la data original
+    }
+    //filtrando la data al hacer un search
+    const newData = data.filter(
+      (bitacora: any) => bitacora.owner_id === Number(value)
+    );
+    return setDatafilter(newData);
+  };
 
   const {
     control,
@@ -297,9 +358,7 @@ const Animals = (): React.JSX.Element => {
       console.log(error);
     }
   };
-  const handleOnChange1 = () => {
-    console.log("Key1");
-  };
+
   return (
     <Container>
       <div className="flex rounded items-center justify-between flex-wrap bg-gray-500">
@@ -312,133 +371,191 @@ const Animals = (): React.JSX.Element => {
           </Button>
         </div>
       </div>
-      {isLoading ? (
-        <div className="fixed top-0 right-0 h-screen w-screen z-50 flex justify-center items-center">
-          <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-gray-900" />
-        </div>
-      ) : null}
-      {data && data?.length > 0
-        ? data?.map((animal: any) => (
-            <div
-              className="flex rounded items-left bg-gray-100 mb-1 shadow"
-              key={animal.id}
-            >
-              <div className="inline-block text-gray-700 text-left px-1 py-0 m-0">
-                <a
-                  href={"/static/images/" + `${animal.id}` + ".jpg"}
-                  target={"_blank"}
-                  rel="noreferrer"
-                >
-                  <Image
-                    src={"/static/images/" + `${animal.id}` + ".jpg"}
-                    alt="my Image"
-                    width="212"
-                    height="188"
-                  />
-                </a>
-              </div>
 
-              <div className="w-4/5 inline-block text-gray-700 text-left text-base px-1 py-0 m-0">
-                <a
-                  className="bg-blue-200 rounded underline hover:underline hover:underline-offset-4"
-                  href={`/animals/${encodeURIComponent(animal.id)}`}
-                  target={"_blank"}
-                  rel="noreferrer"
-                >
-                  {" "}
-                  ID:&nbsp; {animal.id},{" "}
-                </a>{" "}
-                {animal.clase.id}&nbsp; {animal.clase.description}:&nbsp;
-                <b> {animal.name}</b>, &nbsp; Dueno=
-                {animal.owner.name}. &nbsp; <br />
-                Nacimiento=
-                {convertDate(animal.birthdate)}, Live:
-                {animal.live! ? (
-                  <input
-                    type="checkbox"
-                    checked
-                    placeholder="Live"
-                    onChange={() => console.log("change")}
-                    className="mx-3"
-                  />
-                ) : (
-                  <input type="checkbox" placeholder="Live" className="mx-3" />
-                )}{" "}
-                <br />
-                Tipo animal: <b>{animal.clase.description}</b> <br />
-                Madre: {animal.mother},{" "}
-                <a
-                  className="bg-blue-200 rounded underline hover:underline hover:underline-offset-4"
-                  href={`/animalss/animals/4?id=${encodeURIComponent(
-                    animal.mother_id
-                  )}`}
-                  target={"_blank"}
-                  rel="noreferrer"
-                >
-                  {" "}
-                  motherID:&nbsp; {animal.mother_id},{" "}
-                </a>{" "}
-                <br />
-                Info= {animal.info} &nbsp;
-                <br />
-              </div>
-              <td className="border px-2 py-2  text-gray-500 dark:text-white">
-                <Link
-                  href={`/animalss/animals/1?id=${encodeURIComponent(
-                    animal.id
-                  )}`}
-                  passHref
-                ></Link>
-              </td>
-              <div className="inline-block text-gray-700 text-right px-1 py-1 m-0">
-                <button
-                  onClick={() => seleccionarAnimalE(animal, "Edit")}
-                  className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-1 px-0 mr-1 rounded-full inline-flex items-center"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    className="feather feather-edit"
+      <div className="flex items-center gap-2 mb-4 max-w-2xl mx-auto px-2">
+        <div className="flex-1 min-w-0 bg-white border border-slate-400 rounded-lg p-0.5 shadow-sm">
+          {" "}
+          <Controller
+            name="owner_id"
+            control={control}
+            rules={{ required: true }}
+            render={({ field: { onChange, value, name, ref } }) => {
+              return (
+                <Select
+                  defaultValue={{ label: "Dueno", value: 0 }}
+                  options={duenos}
+                  name={name}
+                  styles={customStyles}
+                  placeholder="Select a owner"
+                  onChange={(val?) => {
+                    console.log("Valuee Selected", val);
+                    onChange(val!.value);
+                    setOwnerId(val!.value);
+                    handleOnChangeSearch("owner_id", val!.value);
+                    handleSearchOnChange("owner_id", val!.value);
+                  }}
+                  onBlur={() => searchs()}
+                />
+              );
+            }}
+          />
+        </div>
+        <button
+          type="submit"
+          onClick={() => searchs()}
+          className="w-10 h-10 shrink-0 rounded-lg bg-slate-700 hover:bg-slate-600 active:bg-slate-800 flex items-center justify-center shadow-sm transition-colors cursor-pointer"
+        >
+          <svg
+            className="text-gray-100 w-6 h-6 fill-current"
+            viewBox="0 0 56.966 56.966"
+            xmlns="http://www.w3.org/2000/svg"
+            version="1.1"
+            id="Capa_1"
+            x="0px"
+            y="0px"
+            width="512px"
+            height="512px"
+          >
+            <path d="M55.146,51.887L41.588,37.786c3.486-4.144,5.396-9.358,5.396-14.786c0-12.682-10.318-23-23-23s-23,10.318-23,23  s10.318,23,23,23c4.761,0,9.298-1.436,13.177-4.162l13.661,14.208c0.571,0.593,1.339,0.92,2.162,0.92  c0.779,0,1.518-0.297,2.079-0.837C56.255,54.982,56.293,53.08,55.146,51.887z M23.984,6c9.374,0,17,7.626,17,17s-7.626,17-17,17  s-17-7.626-17-17S14.61,6,23.984,6z" />
+          </svg>
+        </button>
+      </div>
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-1 lg:grid-cols-1">
+        {data && data?.length > 0 ? (
+          datafilter?.map((animal: any, index: number) => {
+            const nroEnConsulta = index + 1;
+            return (
+              <div
+                className="flex rounded items-left bg-gray-100 mb-1 shadow"
+                key={animal.id}
+              >
+                <div className="inline-block text-gray-700 text-left px-1 py-0 m-0">
+                  <a
+                    href={"/static/images/" + `${animal.id}` + ".jpg"}
+                    target={"_blank"}
+                    rel="noreferrer"
                   >
-                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
-                    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
-                  </svg>
-                </button>
-              </div>
-              <div className="inline-block text-gray-700 text-right px-1 py-1 m-0">
-                <button
-                  onClick={() => seleccionarAnimalD(animal, "Delete")}
-                  className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-1 px-0 mr-1 rounded-full inline-flex items-center"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    className="feather feather-trash-2"
+                    <Image
+                      src={"/static/images/" + `${animal.id}` + ".jpg"}
+                      alt="my Image"
+                      width="212"
+                      height="188"
+                    />
+                  </a>
+                </div>
+
+                <div className="w-4/5 inline-block text-gray-700 text-left text-base px-1 py-0 m-0">
+                  <span>#{nroEnConsulta} -</span>
+                  <a
+                    className="bg-blue-200 rounded underline hover:underline hover:underline-offset-4"
+                    href={`/animals/${encodeURIComponent(animal.id)}`}
+                    target={"_blank"}
+                    rel="noreferrer"
                   >
-                    <polyline points="3 6 5 6 21 6" />
-                    <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
-                    <line x1="10" y1="11" x2="10" y2="17" />
-                    <line x1="14" y1="11" x2="14" y2="17" />
-                  </svg>
-                </button>
+                    {" "}
+                    ID:&nbsp; {animal.id},{" "}
+                  </a>{" "}
+                  {animal.clase.id}&nbsp; {animal.clase.description}:&nbsp;
+                  <b> {animal.name}</b>, &nbsp; Dueno=
+                  {animal.owner.name}. &nbsp; <br />
+                  Nacimiento=
+                  {convertDate(animal.birthdate)}, Live:
+                  {animal.live! ? (
+                    <input
+                      type="checkbox"
+                      checked
+                      placeholder="Live"
+                      onChange={() => console.log("change")}
+                      className="mx-3"
+                    />
+                  ) : (
+                    <input
+                      type="checkbox"
+                      placeholder="Live"
+                      className="mx-3"
+                    />
+                  )}{" "}
+                  <br />
+                  Tipo animal: <b>{animal.clase.description}</b> <br />
+                  Madre: {animal.mother},{" "}
+                  <a
+                    className="bg-blue-200 rounded underline hover:underline hover:underline-offset-4"
+                    href={`/animalss/animals/4?id=${encodeURIComponent(
+                      animal.mother_id
+                    )}`}
+                    target={"_blank"}
+                    rel="noreferrer"
+                  >
+                    {" "}
+                    motherID:&nbsp; {animal.mother_id},{" "}
+                  </a>{" "}
+                  <br />
+                  Info= {animal.info} &nbsp;
+                  <br />
+                </div>
+                <td className="border px-2 py-2  text-gray-500 dark:text-white">
+                  <Link
+                    href={`/animalss/animals/1?id=${encodeURIComponent(
+                      animal.id
+                    )}`}
+                    passHref
+                  ></Link>
+                </td>
+                <div className="inline-block text-gray-700 text-right px-1 py-1 m-0">
+                  <button
+                    onClick={() => seleccionarAnimalE(animal, "Edit")}
+                    className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-1 px-0 mr-1 rounded-full inline-flex items-center"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      className="feather feather-edit"
+                    >
+                      <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
+                      <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
+                    </svg>
+                  </button>
+                </div>
+                <div className="inline-block text-gray-700 text-right px-1 py-1 m-0">
+                  <button
+                    onClick={() => seleccionarAnimalD(animal, "Delete")}
+                    className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-1 px-0 mr-1 rounded-full inline-flex items-center"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      className="feather feather-trash-2"
+                    >
+                      <polyline points="3 6 5 6 21 6" />
+                      <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+                      <line x1="10" y1="11" x2="10" y2="17" />
+                      <line x1="14" y1="11" x2="14" y2="17" />
+                    </svg>
+                  </button>
+                </div>
               </div>
-            </div>
-          ))
-        : null}
+            );
+          })
+        ) : (
+          <div className="fixed top-0 right-0 h-screen w-screen z-50 flex justify-center items-center">
+            <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-gray-900" />
+          </div>
+        )}
+      </div>
 
       <Modal
         sx={{ overflowY: "scroll" }}
